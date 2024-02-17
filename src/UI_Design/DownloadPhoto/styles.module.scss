@@ -1,0 +1,61 @@
+.fileinput {  
+  
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            @media (max-width: '510px') {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            input {
+                border-radius: 5px;
+                padding-left: 30px;
+                width: 60%;
+                border: none;
+                color: #fff;
+
+                @media (max-width: '510px') {
+                    width: 100%;
+                    padding: 5px;
+                    margin-top: 15px;
+
+                }
+            }
+             .choose_file {
+            width: 180px;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            color: #fff;
+            margin: 0;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: transparent;
+
+            span {
+                font-size: 17px;
+
+            }
+
+             
+
+            &:hover {
+                transition: all .4s;
+                transform: scale(1.1);
+
+                .camera {
+                    transition: all .4s;
+
+                    transform: scale3d(1.1);
+
+                }
+            }
+        }
+
+        }
+
+       

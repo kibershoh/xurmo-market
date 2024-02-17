@@ -1,0 +1,65 @@
+.dashboard {
+    width: 100%;
+    min-height: 100vh;
+    margin-top: 70px    ;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 15px;
+    padding: 0 30px;
+   place-items: center;
+    @media (max-width: '1024px') {
+        grid-template-columns: auto auto auto;
+        padding: 20px;
+    }
+
+    @media (max-width: '700px') {
+        grid-template-columns: auto auto;
+
+    }
+
+    @media (max-width: '400px') {
+        grid-template-columns: auto;
+
+    }
+
+    .service {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        padding-top: 15px;
+        width: 100%;
+        padding: 25px;
+        border-radius: 5px;
+        box-shadow: -1px 0px 14px 2px rgba(0, 0, 0, 0.2);
+
+        &:hover {
+            transition: all .3s;
+            transform: scale(1.05);
+        }
+        h2{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin-top: 30px;
+
+        }
+
+         
+         
+    }
+
+}
+.red{
+    background-color: rgba(247, 101, 101, 0.7);
+    
+}
+.yellow{
+    background-color: rgba(240, 240, 58, 0.3);
+
+}
+.green{
+    background-color: rgba(140, 240, 140, 0.5);
+
+}
+.blue{
+    background-color: rgba(132, 101, 243, 0.3);
+
+}

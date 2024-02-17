@@ -1,0 +1,79 @@
+.app {
+    padding: 0 30px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 15px;
+  @media (max-width: '1200px') {
+        grid-template-columns: auto auto auto;
+
+    }
+    @media (max-width: '700px') {
+        grid-template-columns: auto auto;
+
+    }
+    
+    @media (max-width: '500px') {
+        grid-template-columns: auto;
+
+    }
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.card__image{
+    margin: 15px;
+}
+.card__image,
+h4,
+p,h5 {
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: 5px;
+  background-size: 200% 100%;
+  animation: 1s shine linear infinite;
+}
+p{
+    height: 30px;
+    margin-top: 20px;
+}
+
+.card__image {
+  height: 200px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.card__content {
+  padding: 20px;
+}
+.btns{
+    display: flex;
+    justify-content: space-between;
+}
+
+h4 {
+    width: 70%;
+  height: 20px;
+}
+h5{
+    width: 60%;
+    height: 15px;
+    margin-top: 15px;
+}
+
+p {
+    margin-right: 10px;
+  height: 30px;
+  width: 100%;
+}
+}
+
+}

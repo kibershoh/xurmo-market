@@ -1,0 +1,42 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&family=Knewave&family=Lemon&family=Montserrat&family=Nova+Slim&family=Nunito+Sans:wght@300;1000&family=Open+Sans:wght@300;400;700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,900&family=Roboto:wght@700&family=Salsa&family=Titillium+Web:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&family=Knewave&family=Lemon&family=Montserrat&family=Nova+Slim&family=Nunito+Sans:wght@300;1000&family=Open+Sans:wght@300;400;700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,900&family=Roboto:wght@700&family=Titillium+Web:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
+/* Links */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&family=Rubik:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Raleway:wght@100&family=Rubik:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans:wght@500&family=Raleway:wght@100&family=Rubik:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans:wght@500&family=Raleway:wght@100&family=Rubik:ital,wght@1,500&family=Work+Sans:wght@600&display=swap');
+
+input:user-invalid{
+  border-bottom:1px solid red;
+}
+* {
+  text-decoration: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #210da8;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: blue;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ba0e0e;
+}

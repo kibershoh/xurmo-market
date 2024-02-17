@@ -1,0 +1,246 @@
+.add_product {
+  margin-top: 65px;
+  padding: 20px;
+  form {
+    width: 70%;
+    margin: auto;
+
+    @media (max-width: '1200px') {
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .inputs {
+      margin: 17px 0;
+      position: relative;
+
+      label {
+        position: absolute;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        top: -9px;
+        left: 15px;
+        background-color: #fff;
+        padding: 0 5px;
+        padding-bottom: 0;
+        font-size: 14px;
+        color: #000;
+      }
+
+      input {
+         &:user-invalid{
+        border: 2px solid #dc1515;
+        }
+        width: 90%;
+        height: 40px;
+        margin: auto;
+        border-radius: 3px;
+        outline: none;
+        border: 2px #dedada solid;
+        padding: 5px 15px;
+        background-color: #fff;
+        font-size: 15;
+        font-weight: 500;
+
+        @media (max-width: '1200px') {
+          width: 100%;
+        }
+        &::user-invalid{
+        border: 2px #dc1515 solid;
+        }
+        &::placeholder {
+          font-size: 13px;
+          font-weight: 500;
+          letter-spacing: 1px;
+        }
+
+        &:focus {
+          border: 2px solid blueviolet;
+          color: indigo;
+        }
+      }
+
+    }
+  .select_photo{
+     width: 80%;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+           margin-top: 20px;
+
+    .categories {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      margin-right: 50px;
+      label{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        // margin-bottom: 10px;
+      }
+      select {
+        background-color: white;
+        border: thin solid blue;
+        border-radius: 4px;
+        display: inline-block;
+        font: inherit;
+        padding: 8px 45px 8px 10px;
+        margin-right: 5px;
+
+        @media (max-width: '450px') {
+          font-size: 14px;
+          padding: 6px 35px 6px 10px;
+          font: small;
+
+        }
+
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+      }
+
+      .category_select {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        option {
+          font-family: 'Montserrat';
+        }
+
+        margin-right: 20px;
+        background-image: linear-gradient(45deg, transparent 50%, #fff 50%),
+        linear-gradient(135deg, #fff 50%, transparent 50%),
+        linear-gradient(to right, indigo, indigo);
+        background-position: calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        100% 0;
+        background-size: 5px 5px,
+        5px 5px,
+        2.5em 2.5em;
+        background-repeat: no-repeat;
+
+        &:focus {
+          background-image:
+            linear-gradient(45deg, white 50%, transparent 50%),
+            linear-gradient(135deg, transparent 50%, white 50%),
+            linear-gradient(to right, indigo, indigo);
+          background-position:
+            calc(100% - 15px) 1em,
+            calc(100% - 20px) 1em,
+            100% 0;
+          background-size:
+            5px 5px,
+            5px 5px,
+            2.5em 2.5em;
+          background-repeat: no-repeat;
+          border-color: indigo;
+          outline: 0;
+
+          option {
+            color: #000;
+          }
+        }
+      }
+
+
+
+    }
+    .photoDown{
+      // margin-top: 20px;
+      .file_input {  
+  
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            @media (max-width: '510px') {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            input {
+                border-radius: 5px;
+                padding-left: 30px;
+                width: 60%;                 
+                border: none;
+                color: #000;
+
+                @media (max-width: '510px') {
+                    width: 100%;
+                    padding: 5px;
+                    margin-top: 15px;
+
+                }
+            }
+             .choose_file {
+            width: 180px;
+            height: 36px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            color: #000;
+            margin: 0;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: transparent;
+
+            span {
+                font-size: 17px;
+
+            }
+
+             
+
+            &:hover {
+                transition: all .4s;
+                transform: scale(1.1);
+
+                .camera {
+                    transition: all .4s;
+
+                    transform: scale3d(1.1);
+
+                }
+            }
+        }
+
+        }
+
+       
+    }
+  }
+    .add_product_btn{
+      width: 80%;
+      margin: auto;
+      text-align: right;
+      button{
+      margin-top: 15px;
+      padding: 5px 15px;
+      border: none;
+      font-size: 20px;
+      border-radius: 4px;
+            background-color:indigo;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      &:hover{
+        transform: scale(1.08);
+        transition: all .3s;
+      }
+    }
+    }
+
+
+
+
+
+
+
+
+
+
+  }
+}

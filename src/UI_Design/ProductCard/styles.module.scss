@@ -1,0 +1,318 @@
+.product_item {
+    position: relative;
+    border-radius: 8px;
+    padding: 10px;
+    // height: auto;
+    border: 1px solid rgb(221, 216, 216);
+    box-shadow: 0px 0px 5px 0px rgba(207, 199, 199, 1);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(207, 199, 199, 1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(207, 199, 199, 1);
+
+    &:hover {
+        .plus_icon {
+            transition: all .5s;
+            transform: rotate(-0.5turn);
+        }
+    }
+
+    .like_btn {
+        position: absolute;
+        text-align: right;
+        z-index: 10;
+        top: 0;
+        right: 5px;
+        margin-left: 15px;
+        background-color: transparent;
+        border: none;
+        padding: 4px;
+    backdrop-filter: blur(5px);
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img {
+            margin-bottom: 6px;
+        }
+
+        button {
+            margin-top: 5px;
+            background: transparent;
+            border: 0;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .comment_btn {
+            color: #03309C;
+        }
+    }
+
+    .product_img {
+        padding: 10px;
+
+        img {
+            border-radius: 5px;
+
+            width: 85%;
+            height: 150px;
+            @media (max-width: '600px') {
+                height: 100px;
+              
+            }
+        }
+    }
+
+    .name_price {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            margin: 15px 0;
+
+            @media (max-width: '600px') {
+                font-size: 15px;
+            }
+        }
+
+    }
+
+    .category {
+        color: rgb(89, 88, 88);
+    }
+
+
+
+
+    .product_add {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    // ~~~~~~~~~~~~~~~~~~~~~~
+    .product_btn {
+        --width: 100px;
+        --height: 35px;
+        --tooltip-height: 35px;
+        --tooltip-width: 90px;
+        --gap-between-tooltip-to-button: 18px;
+        --button-color: indigo;
+        --tooltip-color: #fff;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: var(--width);
+        height: var(--height);
+        background: var(--button-color);
+        border: none;
+        position: relative;
+        text-align: center;
+        border-radius: 0.45em;
+        font-family: "Arial";
+        transition: background 0.3s;
+    }
+
+    .product_btn::before {
+        position: absolute;
+        content: attr(data-tooltip);
+        width: var(--tooltip-width);
+        height: var(--tooltip-height);
+        font-size: 0.9rem;
+        color: #fff;
+        border-radius: .25em;
+        line-height: var(--tooltip-height);
+        bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
+        left: calc(50% - var(--tooltip-width) / 2);
+    }
+
+    .button::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+        border-top-color: indigo;
+        left: calc(50% - 10px);
+        bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
+    }
+
+    .product_btn::after,
+    .product_btn::before {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s;
+    }
+
+    .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .button_wrapper,
+    .text,
+    .icon {
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        color: #fff;
+    }
+
+    .text {
+        top: 0
+    }
+
+    .text,
+    .icon {
+        transition: top 0.5s;
+    }
+
+    .icon {
+        color: #fff;
+        top: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .product_btn:hover {
+        background: indigo;
+    }
+
+    .product_btn:hover .text {
+        top: -100%;
+    }
+
+    .product_btn:hover .icon {
+        top: 0;
+    }
+
+    .product_btn:hover:before,
+    .product_btn:hover:after {
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+
+
+    // ~~~~~~~~~~~~~~~~~~~~~~
+
+    span {
+        color: #696969;
+        font-weight: 600;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+
+}
+
+.close_modal {
+    width: 100%;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid indigo;
+
+    h2 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        padding-left: 10px;
+
+    }
+
+    button {
+        padding: 8px;
+        background-color: transparent;
+        border: none;
+
+        .close_icon {
+            color: rgba(9, 8, 8, 0.5);
+        }
+
+    }
+}
+
+.form_comments {
+    width: 70%;
+    padding: 0 10px;
+    padding-top: 15px;
+
+    @media (max-width: '600px') {
+       width: 100%;
+    }
+
+    .comments_box {
+        padding: 15px;
+        border-radius: 4px;
+        box-shadow: 1px 1px 7px -2px rgba(113, 100, 100, 0.72);
+        -webkit-box-shadow: 1px 1px 7px -2px rgba(113, 100, 100, 0.72);
+        -moz-box-shadow: 1px 1px 7px -2px rgba(113, 100, 100, 0.72);
+        height: 300px;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: rgb(102, 7, 169) white;
+        scrollbar-width: 2px;
+
+
+
+
+        .user_img_name {
+            display: flex;
+            align-items: start;
+
+            img {
+                margin-right: 10px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 1px solid indigo
+            }
+
+            span {
+                font-size: 17px;
+                font-weight: 600;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            }
+        }
+    }
+
+    .add_comment {
+        position: relative;
+        margin-top: 20px;
+
+        .send_btn {
+            position: absolute;
+            right: -10px;
+            top: -5px;
+        }
+
+        input {
+            width: 90%;
+            outline: none;
+            border: none;
+            border-bottom: 1px solid indigo;
+            font-size: 20px;
+            height: 30px;
+
+        }
+    }
+}

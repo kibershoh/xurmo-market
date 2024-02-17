@@ -1,0 +1,248 @@
+.login {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    padding-top: 40px;
+    z-index: -100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../../../assets//bglogin.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @media (max-width: '1200px') {
+
+        padding-top: 70px;
+    }
+
+    form {
+        background: transparent;
+        backdrop-filter: blur(10px);
+        padding: 25px;
+        border-radius: 10px;
+        border: none;
+        width: 500px;
+
+        @media (max-width: '510px') {
+            padding: 10px;
+            width: 85%;
+            margin: auto;
+        }
+
+        .title {
+            // padding-top: 20px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 25px;
+            text-align: center;
+            color: #fff;
+        }
+
+        // ~~~~~~~~~~~~~~~~~~~~
+        .input_div {
+            position: relative;
+            padding-top: 20px;
+            margin: 25px 0;
+            width: 100%;
+
+            @media (max-width: '1200px') {
+
+                margin: 10px 0;
+            }
+
+
+            input {
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                width: 100%;
+                border: none;
+                border-bottom: 2px solid #fff;
+                outline: 0;
+                font-size: 17px;
+                font-weight: 400;
+                color: #fff;
+                padding: 5px 0;
+                border-radius: 3px;
+                background: transparent;
+                transition: border-color 0.2s;
+
+                &::placeholder {
+                    color: transparent;
+                }
+
+                &:placeholder-shown~label {
+                    font-size: 17px;
+                    cursor: text;
+                    top: 20px;
+                }
+
+                &:focus {
+                    padding-bottom: 6px;
+                    font-weight: 700;
+                    border-width: 3px;
+                    color: #fff;
+                }
+
+                &:focus~label {
+                    position: absolute;
+                    top: 0;
+                    display: block;
+                    transition: 0.2s;
+                    font-size: 17px;
+                    font-weight: 700;
+                    color: #fff;
+
+                }
+
+                &:required,
+                &:invalid {
+                    box-shadow: none;
+                }
+            }
+
+            label {
+
+                position: absolute;
+                top: 0;
+                display: block;
+                transition: 0.2s;
+                font-size: 17px;
+                color: #b7b0b0;
+                pointer-events: none;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+
+
+        }
+
+        .file_input {  
+  
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            @media (max-width: '510px') {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            input {
+                border-radius: 5px;
+                padding-left: 30px;
+                width: 60%;
+                border: none;
+                color: #fff;
+
+                @media (max-width: '510px') {
+                    width: 100%;
+                    padding: 5px;
+                    margin-top: 15px;
+
+                }
+            }
+             .choose_file {
+            width: 180px;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            color: #fff;
+            margin: 0;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: transparent;
+
+            span {
+                font-size: 17px;
+
+            }
+
+             
+
+            &:hover {
+                transition: all .4s;
+                transform: scale(1.1);
+
+                .camera {
+                    transition: all .4s;
+
+                    transform: scale3d(1.1);
+
+                }
+            }
+        }
+
+        }
+
+       
+
+        .login_btn {
+            width: 100%;
+            background-color: transparent;
+            color: #fff;
+            padding: 10px;
+            font-size: 20px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+
+            &:hover {
+                transition: all .3s;
+                transform: scale(1.05);
+                background-color: indigo;
+                border: 1px solid indigo;
+
+            }
+
+
+        }
+
+        .login_register_btn {
+            margin-top: 25px;
+
+            a {
+                background-color: transparent;
+                padding: 5px 10px;
+                border-radius: 4px;
+                margin-right: 15px;
+                color: #fff;
+                border: 1px solid #fff;
+
+                &:hover {
+                    transition: all .4s;
+                    transform: scale(1.06);
+                    background-color: indigo;
+                    border: 1px solid indigo;
+
+                }
+            }
+        }
+
+        .reset_btn {
+            color: #e7e3e3;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 15px;
+
+            &:hover {
+                color: #fff;
+            }
+        }        
+
+        p {
+            color: #fff;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 25px 0;
+
+            a {
+                font-size: 16px;
+                color: #e7e3e3;
+            }
+
+        }
+
+
+    }
+}

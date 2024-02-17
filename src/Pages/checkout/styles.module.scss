@@ -1,0 +1,123 @@
+.checkout {
+  margin-top: 70px;
+  width: 100%;
+  height: 100vh;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: '1200px') {
+    flex-direction: column;
+
+  }
+
+  form {
+    width: 60%;
+
+    @media (max-width: '1200px') {
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .inputs {
+      margin: 17px 0;
+      position: relative;
+
+      label {
+        position: absolute;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        top: -9px;
+        left: 15px;
+        background-color: #fff;
+        padding: 0 5px;
+        padding-bottom: 0;
+        font-size: 14px;
+        color: #000;
+      }
+    }
+
+
+    input {
+      width: 50%;
+      height: 40px;
+      border-radius: 3px;
+      outline: none;
+      border: 2px #dedada solid;
+      padding: 5px 15px;
+      background-color: #fff;
+      font-size: 15;
+      font-weight: 500;
+
+      @media (max-width: '1200px') {
+        width: 100%;
+      }
+    }
+
+    input::placeholder {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+
+    input:focus {
+      border: 2px solid blueviolet;
+      color: indigo;
+    }
+
+
+  }
+
+  .pay_details {
+    width: 30%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    box-shadow: 1px 1px 8px -2px rgba(0, 0, 0, 0.74);
+    -webkit-box-shadow: 1px 1px 8px -2px rgba(0, 0, 0, 0.74);
+    -moz-box-shadow: 1px 1px 8px -2px rgba(0, 0, 0, 0.74);
+
+    @media (max-width: '1200px') {
+      width: 100%;
+    }
+
+    .price {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+
+      h4 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-right: 30px;
+
+      }
+
+      h1 {
+        color: indigo;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
+
+      h1+span {
+        color: indigo;
+
+      }
+
+      span {
+        font-size: 20px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+      }
+
+    }
+
+  }
+}
