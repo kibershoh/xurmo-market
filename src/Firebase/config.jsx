@@ -4,12 +4,12 @@ import {getFirestore} from "firebase/firestore"
 import {getStorage} from "firebase/storage"
 
 export const firebaseConfig = {
-apiKey: "AIzaSyCy3xaMnRkTYS0cr0CrlnbPnHqcWgtbz_c",
-  authDomain: "shopping-vite2.firebaseapp.com",
-  projectId: "shopping-vite2",
-  storageBucket: "shopping-vite2.appspot.com",
-  messagingSenderId: "856531898226",
-  appId: "1:856531898226:web:2ed5af54be9a0de7bad7eb"
+apiKey: "AIzaSyDVM84z6NZDccMpl4oZtgiBLqAw5-l_pHw",
+  authDomain: "shopping-new-494a5.firebaseapp.com",
+  projectId: "shopping-new-494a5",
+  storageBucket: "shopping-new-494a5.appspot.com",
+  messagingSenderId: "1008046141863",
+  appId: "1:1008046141863:web:465e46ba83af71c4104682"
 };
 
 const app = initializeApp(firebaseConfig);

@@ -71,78 +71,33 @@ const ProductCard = ({ item, index }) => {
   const [likesNo, setLikesNo] = useState(likeCount.length !== 0  ? likeCount.length : 0);
   const [isLikesOpen, setIsLikesOpen] = useState(false);
   const [likeCounts, setLikeCounts] = useState([]);
-  // const tempLikeCount = likeCount ? [...likeCount] : [];
+  const tempLikeCount = likeCount ? [...likeCount] : [];
   const docRef = doc(db, "products", id);
 
-  // async function likesHandler() {
-  //   if (currentUser && likeCount !== undefined) {
-  //     let ind = tempLikeCount.indexOf(currentUser?.displayName);
-  //     if (ind !== -1) {
-  //       tempLikeCount.splice(ind, 1);
-  //       setLikesNo((unLiked) => unLiked - 1);
-  //     } else {
-  //       tempLikeCount.push(currentUser?.displayName);
-  //       setLikesNo((liked) => liked + 1);
-  //     }
-
-  //     const data = {
-  //       likeCount: tempLikeCount,
-  //     };
-  //     await updateDoc(docRef, data)
-  //       .then((docRef) => {
-  //       })
-  //       .catch((error) => {
-  //         toast.error(error)
-  //       });
-  //   }
-  // }
-  // ~~~~~~~~~~~ Read Comment ~~~~~~~~~~//
-  
-  //  useEffect(() => {
-  //   const fetchLikes = async () => {
-  //     try {
-  //       const docSnap = await getDoc(docRef);
-  //       if (docSnap.exists()) {
-  //         const data = docSnap.data();
-  //         setLikeCounts(data.likeCount);
-  //       } else {
-  //         console.log("No such document!");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error getting document:", error);
-  //     }
-  //   };
-
-  //   fetchLikes();
-  // }, [docRef]);
-const tempLikeCount = useMemo(() => {
-    return likeCount;
-  }, [likeCount]);
   async function likesHandler() {
-    if (currentUser && likeCounts !== undefined) {
-      let ind =  tempLikeCount.indexOf(currentUser.displayName);
+    if (currentUser && likeCount !== undefined) {
+      let ind = tempLikeCount.indexOf(currentUser?.displayName);
       if (ind !== -1) {
         tempLikeCount.splice(ind, 1);
         setLikesNo((unLiked) => unLiked - 1);
       } else {
-        tempLikeCount.push(currentUser.displayName);
+        tempLikeCount.push(currentUser?.displayName);
         setLikesNo((liked) => liked + 1);
       }
 
       const data = {
         likeCount: tempLikeCount,
       };
-
       await updateDoc(docRef, data)
         .then((docRef) => {
-          console.log("Document updated successfully");
         })
         .catch((error) => {
-          toast.error(error);
+          toast.error(error)
         });
     }
   }
-   
+  // ~~~~~~~~~~~ Read Comment ~~~~~~~~~~//
+    
 
   const [comments, setComments] = useState([]);
 

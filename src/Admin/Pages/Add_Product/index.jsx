@@ -25,79 +25,19 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const id = uuidv4()
-  // ~~~~~~~~~~~ Functions ~~~~~~~~~~//
-  // const addProduct = async  e => {
-  //   e.preventDefault()
-  //   setLoading(true)
-
-  //   try {
-
-  //     const docRef =  await collection(db, "products")
-  //     const storageRef = ref(storage, `productImages/${Date.now() + fileUrl.name}`)
-  //     const uploadTask = uploadBytesResumable(storageRef, fileUrl)
-
-
-  //     uploadTask.on(
-  //       () => {
-  //         toast.error("Image not upload");
-
-  //       },
-  //         async () => {
-  //         try {
-
-
-
-  //           const data =   {              
-  //             name: name,
-  //             shortDesc: shortDesc,
-  //             description: description,
-  //             category: category,
-  //             price: price,
-  //           }
-
-  //           const downloadURL = await  getDownloadURL(uploadTask.snapshot.ref)
-  //          const setData =   {...data,downloadURL}
-
-  //         await  addDoc(docRef, setData)
-  //           setName('')
-  //           setCategory('')
-  //           setPrice('')
-  //           setShortDesc('')
-  //           setDescription('')
-  //           setFileUrl(null)
-
-  //         } catch (error) {
-  //         }
-
-  //       })
-
-
-
-  //     setLoading(false)
-  //     toast.success("Product successfully added!")
-  //     navigate('/dashboard/all-products')
-  //   } catch (error) {
-  //     // toast.error("Product not added")
-  //   }
-
-
-  // }
+  
 
   const addProduct = async e => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Reference to the Firestore collection
       const docRef = await collection(db, "products");
 
-      // Reference to the Cloud Storage location for uploading the image
       const storageRef = ref(storage, `productImages/${Date.now() + fileUrl.name}`);
 
-      // Upload the image file
       const uploadTask = uploadBytesResumable(storageRef, fileUrl);
 
-      // Listen for state changes, errors, and completion of the upload.
       uploadTask.on(
         "products",
 
@@ -107,7 +47,6 @@ const AddProduct = () => {
         },
         async () => {
           try {
-            // Data to be added to Firestore
             const data = {
               ID: id,
               name: name,
@@ -129,16 +68,12 @@ const AddProduct = () => {
               avgRating: 4.7,
             };
 
-            // Get the download URL for the uploaded image
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-            // Add the download URL to the data
             const setData = { ...data, downloadURL };
 
-            // Add the data to Firestore
             await addDoc(docRef, setData);
 
-            // Clear form fields after successful addition
             setName('');
             setCategory('');
             setPrice('');
@@ -146,21 +81,17 @@ const AddProduct = () => {
             setDescription('');
             setFileUrl(null);
 
-            // Notify user and navigate
             toast.success("Product successfully added!");
             navigate('/dashboard/all-products');
             setLoading(false)
           } catch (error) {
-            // Handle any errors that occurred during data addition
             toast.error("Failed to add product");
           } finally {
-            // Make sure to set loading state to false
             setLoading(false);
           }
         }
       );
     } catch (error) {
-      // Handle any errors that occurred before upload
       toast.error("Failed to add product");
       setLoading(false); // Make sure to set loading state to false
     }
