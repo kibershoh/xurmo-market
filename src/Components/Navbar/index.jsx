@@ -22,7 +22,6 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from '../../Firebase/config'
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../../Redux/slice/authSlice";
 import HideLink, { ShowOnLogout } from "../HideLink";
 import UseAuth from "../../Custom Hooks/UseAuth";
 
@@ -123,56 +122,8 @@ const {currentUser} = UseAuth()
         toast.error(error.message)
     })
    }
-   
-    // const logoutUser = (e) => {
-    //     e.preventDefault()
-
-    //     signOut(auth).then(() => {
-    //         toast.success("Logout successfuly.")
-    //         navigate('/')
-    //         setActive(false)
-
-
-    //     }).catch((error) => {
-    //         toast.error(error.message)
-
-    //     })
-    //     window.location.reload()
-    // }
-    // Monitor currently sign in user
-    // useEffect(() => {
-    //     onAuthStateChanged(auth, (user) => {
-    //         if (user) {
-
-    //             if (user.displayName === null) {
-    //                 const name1 = user.email.substring(0, user.email.indexOf('@'))
-    //                 const name2 = name1.charAt(0).toUpperCase() + name1.slice(1)
-    //                 setDisplayName(name2)
-    //             } else {
-    //                 setDisplayName(user.displayName)
-    //             }
-
-
-
-
-    //             dispatch(SET_ACTIVE_USER({
-    //                 isLoggedIn: false,
-    //                 email: user.email,
-    //                 userName: user.displayName ? user.displayName : displayName,
-    //                 userId: user.uid,
-    //                 photoURL: user.photoURL,
-
-    //             }))
-    //             setEmail(user.email)
-    //             setPhotoUrl(user.photoURL)
-    //         }
-    //         else {
-    //             setDisplayName(" ")
-
-    //             dispatch(REMOVE_ACTIVE_USER());
-    //         }
-    //     })
-    // }, [displayName])
+  
+    
 
 
     // --------------------Redux-------------------//

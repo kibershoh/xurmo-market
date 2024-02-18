@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 
 import styles from './styles.module.scss'
@@ -22,7 +22,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useGetData from '../../Custom Hooks/UseGetData';
 import CardLoader from '../../Constants/LoaderCard';
 import { auth, db } from '../../Firebase/config';
-import { Timestamp, addDoc, collection, doc, onSnapshot, arrayUnion, setDoc, updateDoc, query, getDocs, orderBy, } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, onSnapshot, arrayUnion, setDoc, updateDoc, query, getDocs, orderBy, getDoc, } from 'firebase/firestore';
 import { FaHeart } from 'react-icons/fa';
 // import    from '@mui/material/Modal';
 import { Box, Typography, Modal, TextField } from '@mui/material';
@@ -32,8 +32,9 @@ import Button from '@mui/material/Button';
 import { CgClose } from 'react-icons/cg';
 import { TextInput } from './CommentInput';
 import { IoSend } from 'react-icons/io5';
+import UseAuth from '../../Custom Hooks/UseAuth';
 const ProductCard = ({ item, index }) => {
-  let user = auth?.currentUser
+  const {currentUser} = UseAuth()
   const { idParams } = useParams()
   const { ID, id, name, price, downloadURL, category, reviews, likeCount } = item
   const productItems = useSelector(state => state.cart.cartItems)
@@ -67,35 +68,82 @@ const ProductCard = ({ item, index }) => {
   const toDetails = (id) => {
     navigate('/shop/' + id)
   }
-  const [likesNo, setLikesNo] = useState(likeCount ? likeCount.length : 0);
+  const [likesNo, setLikesNo] = useState(likeCount.length !== 0  ? likeCount.length : 0);
   const [isLikesOpen, setIsLikesOpen] = useState(false);
   const [likeCounts, setLikeCounts] = useState([]);
-  const tempLikeCount = likeCount ? [...likeCount] : [];
+  // const tempLikeCount = likeCount ? [...likeCount] : [];
   const docRef = doc(db, "products", id);
 
+  // async function likesHandler() {
+  //   if (currentUser && likeCount !== undefined) {
+  //     let ind = tempLikeCount.indexOf(currentUser?.displayName);
+  //     if (ind !== -1) {
+  //       tempLikeCount.splice(ind, 1);
+  //       setLikesNo((unLiked) => unLiked - 1);
+  //     } else {
+  //       tempLikeCount.push(currentUser?.displayName);
+  //       setLikesNo((liked) => liked + 1);
+  //     }
+
+  //     const data = {
+  //       likeCount: tempLikeCount,
+  //     };
+  //     await updateDoc(docRef, data)
+  //       .then((docRef) => {
+  //       })
+  //       .catch((error) => {
+  //         toast.error(error)
+  //       });
+  //   }
+  // }
+  // ~~~~~~~~~~~ Read Comment ~~~~~~~~~~//
+  
+  //  useEffect(() => {
+  //   const fetchLikes = async () => {
+  //     try {
+  //       const docSnap = await getDoc(docRef);
+  //       if (docSnap.exists()) {
+  //         const data = docSnap.data();
+  //         setLikeCounts(data.likeCount);
+  //       } else {
+  //         console.log("No such document!");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error getting document:", error);
+  //     }
+  //   };
+
+  //   fetchLikes();
+  // }, [docRef]);
+const tempLikeCount = useMemo(() => {
+    return likeCount;
+  }, [likeCount]);
   async function likesHandler() {
-    if (user && likeCount !== undefined) {
-      let ind = tempLikeCount.indexOf(user?.displayName);
+    if (currentUser && likeCounts !== undefined) {
+      let ind =  tempLikeCount.indexOf(currentUser.displayName);
       if (ind !== -1) {
         tempLikeCount.splice(ind, 1);
         setLikesNo((unLiked) => unLiked - 1);
       } else {
-        tempLikeCount.push(user?.displayName);
+        tempLikeCount.push(currentUser.displayName);
         setLikesNo((liked) => liked + 1);
       }
 
       const data = {
         likeCount: tempLikeCount,
       };
+
       await updateDoc(docRef, data)
         .then((docRef) => {
+          console.log("Document updated successfully");
         })
         .catch((error) => {
-          toast.error(error)
+          toast.error(error);
         });
     }
   }
-  // ~~~~~~~~~~~ Read Comment ~~~~~~~~~~//
+   
+
   const [comments, setComments] = useState([]);
 
 
@@ -128,8 +176,8 @@ const ProductCard = ({ item, index }) => {
   const postComment = async () => {
     try {
       await addDoc(collection(db, "products", id, "comments"), {
-        userName: user.displayName,
-        imgUrl: user.photoURL,
+        userName: currentUser.displayName,
+        imgUrl: currentUser.photoURL,
         text: commentText,
         timestamp: Timestamp.fromDate(new Date()),
       });
@@ -181,11 +229,11 @@ console.log(comments.timestamp);
 
                 <div>
                   {
-                    likeCount.indexOf(user?.displayName) != -1 ? (
+                    likeCount.indexOf(currentUser?.displayName) != -1 ? (
                       <motion.button onClick={() => likesHandler(id)}> <motion.img whileHover={{ scale: 1.1 }} src={fillThumb} width='25px' alt="" /> {likesNo} </motion.button>
                     )
                       :
-                      (user ? <motion.button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}><img src={thumb} width='25px' alt="" /> {likesNo}</motion.button> : <p>Likes {likesNo}</p>)
+                      (currentUser ? <motion.button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}><img src={thumb} width='25px' alt="" /> {likesNo}</motion.button> : <p>Likes {likesNo}</p>)
 
                   }
                   <motion.button whileHover={{ scale: 1.1 }} onClick={handleOpen}>

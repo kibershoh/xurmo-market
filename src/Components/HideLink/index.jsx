@@ -1,6 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectIsLoading } from '../../Redux/slice/authSlice'
 import UseAuth from '../../Custom Hooks/UseAuth'
 
 const HideLink = ({ children }) => {

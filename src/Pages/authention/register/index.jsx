@@ -28,13 +28,20 @@ const Register = () => {
   const [loading, setLoading] = useState(false)
   const [fileUrl, setFileUrl] = useState(null)
   const navigate = useNavigate()
+
+  const isStrongPassword = (password) => {
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    return passwordRegex.test(password);
+  };
+
+
   const registerUser = async (e) => {
     e.preventDefault()
     setLoading(true)
 
     // ~~~~~~~~~~with try catch ~~~~~~~~~~~~~//
 
-    if (fileUrl !== null) {
+    if (fileUrl !== null && isStrongPassword(password)) {
 
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
