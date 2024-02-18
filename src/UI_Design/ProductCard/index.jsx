@@ -191,9 +191,16 @@ console.log(comments.timestamp);
                       (currentUser ? <motion.button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}><img src={thumb} width='25px' alt="" /> {likesNo}</motion.button> : <p>Likes {likesNo}</p>)
 
                   }
-                  <motion.button whileHover={{ scale: 1.1 }} onClick={handleOpen}>
+                 {
+                  likeCount.indexOf(currentUser?.displayName) !== -1 ?(
+                     <motion.button whileHover={{ scale: 1.1 }} >
                     <TfiCommentAlt className={styles.comment_btn} size={20} />
                   </motion.button>
+                  ):
+                   <motion.button whileHover={{ scale: 1.1 }} onClick={handleOpen}>
+                    <TfiCommentAlt className={styles.comment_btn} size={20} />
+                  </motion.button>
+                 }
                   <button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}>
                     {comments.length}
                   </button>
