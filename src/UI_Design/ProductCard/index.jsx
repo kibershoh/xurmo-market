@@ -22,7 +22,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useGetData from '../../Custom Hooks/UseGetData';
 import CardLoader from '../../Constants/LoaderCard';
 import { auth, db } from '../../Firebase/config';
-import { Timestamp, addDoc, collection, doc, onSnapshot, arrayUnion, setDoc, updateDoc, query, getDocs, orderBy, getDoc, } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, onSnapshot, arrayUnion, setDoc, updateDoc, query, getDocs, orderBy, getDoc, deleteDoc} from 'firebase/firestore';
 import { FaHeart } from 'react-icons/fa';
 // import    from '@mui/material/Modal';
 import { Box, Typography, Modal, TextField } from '@mui/material';
@@ -36,7 +36,7 @@ import UseAuth from '../../Custom Hooks/UseAuth';
 const ProductCard = ({ item, index }) => {
   const {currentUser} = UseAuth()
   const { idParams } = useParams()
-  const { ID, id, name, price, downloadURL, category, reviews, likeCount } = item
+  const { ID, id, name, price, downloadURL, category, reviews, likeCount,timestamp } = item
   const productItems = useSelector(state => state.cart.cartItems)
   const { data: products, loading } = useGetData("products")
   const dispatch = useDispatch()
@@ -129,7 +129,8 @@ const ProductCard = ({ item, index }) => {
   }, [idParams,comments]);
 
   const postComment = async () => {
-    try {
+    if(commentText !== ''){
+      try {
       await addDoc(collection(db, "products", id, "comments"), {
         userName: currentUser.displayName,
         imgUrl: currentUser.photoURL,
@@ -139,14 +140,12 @@ const ProductCard = ({ item, index }) => {
     } catch (error) {
       console.log('Error adding comment:');
     }
+    }
     setCommentText("")
   }
 
 
 
-
-
-console.log(comments.timestamp);
   
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -173,6 +172,11 @@ console.log(comments.timestamp);
     justifyContent: 'center',
     alignItems: 'center'
   }
+
+console.log(comments);
+
+  // ~~~~~~~~~Delete comment ~~~~~~~~~~~~~~~//
+   
   return (
     <>
       {
@@ -246,13 +250,7 @@ console.log(comments.timestamp);
                     </span>
                   </div></motion.button>
                 <span>{formatCurrency(price)}</span>
-                {/* <div>
-              <input
-              value={commentText}
-              onChange={(e)=>setCommentText(e.target.value)}
-              type="text" />
-            </div>
-            <button onClick={()=>postComment(id)}>Add Comment</button> */}
+                 
               </div>
 
               <Modal
@@ -266,19 +264,22 @@ console.log(comments.timestamp);
                     <h2>Comments</h2>
                     <motion.button whileHover={{scale:1.1}} onClick={handleClose}><CgClose className={styles.close_icon} size={20} /></motion.button>
                   </div>
-
+<div className={styles.form_}>
+  
                   <div className={styles.form_comments}>
                     <div className={styles.comments_box}>
                        {
                     comments.map((item, inx) => (
-                      <div key={inx}>
+                      <div key={inx} className={styles.comments_}>
                         <div className={styles.user_img_name}>
                           <img src={item.imgUrl} alt="" />
-                          <span>{item.userName}</span>
-                         <p>Posted: {Math.floor((Date.now() - item.timestamp.toMillis()) / (1000 * 60))} minutes ago</p>
+                          <p>{item.userName}</p>
+                          <button onClick={()=>deleteComment(id)}>Delete</button>
+
                           
                         </div>
-                        <span>{item.text}</span>
+                             <h4>{item.text}</h4>
+                        
                       </div>
                     ))
                   }
@@ -298,6 +299,8 @@ console.log(comments.timestamp);
                     </Button>
                   </form>
                   </div>
+                  <img src={downloadURL} alt="" />
+</div>
                 </Box>
 
               </Modal>

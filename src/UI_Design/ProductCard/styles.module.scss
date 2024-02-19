@@ -251,7 +251,12 @@
 
     }
 }
-
+.form_{
+    display: flex;
+    align-items: start;
+    img{
+        width: 200px;
+    }
 .form_comments {
     width: 70%;
     padding: 0 10px;
@@ -275,7 +280,11 @@
 
 
 
-
+.comments_{
+    margin: 10px 0;
+    display: flex;
+    align-items: start;
+}
         .user_img_name {
             display: flex;
             align-items: start;
@@ -288,12 +297,18 @@
                 border: 1px solid indigo
             }
 
-            span {
-                font-size: 17px;
-                font-weight: 600;
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            p {
+                font-size: 14px;
+                font-weight: 700;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
+            
         }
+        h4{
+                margin-left: 15px;
+                font-size: 15px;
+                font-family: 'Times New Roman', Times, serif;
+            }
     }
 
     .add_comment {
@@ -316,4 +331,5 @@
 
         }
     }
+}
 }
