@@ -149,13 +149,13 @@ const NavbarAdmin = () => {
           <MotionText logo={"Xurmo"} />
         </Link>
         <HiMenuAlt1 onClick={showClick} size={25} className={styles.menu_icon} />
-      <div className={styles.search_input}>
+      {/* <div className={styles.search_input}>
         <input
         value={search}
         onChange={(e)=>setSearch(e.target.value)}
         type="search" />
         {search === ''? <button className={styles.search_icon}><BiSearchAlt2 size={22}/></button> : <button className={styles.search_text}>Search</button>}
-      </div>
+      </div> */}
         <nav>
           {/* -----------Navbar Links----------- */}
           <ul>

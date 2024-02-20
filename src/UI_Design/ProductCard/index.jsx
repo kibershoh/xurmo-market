@@ -98,51 +98,7 @@ const ProductCard = ({ item, index }) => {
   }
   // ~~~~~~~~~~~ Read Comment ~~~~~~~~~~//
     
-
-  const [comments, setComments] = useState([]);
-
-
-  // Пример использования функции для получения комментариев для определенного продукта
  
-
- useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const commentsQuery = query(
-          collection(db, 'products', id, 'comments'),
-          orderBy('timestamp')
-        );
-        const commentsSnapshot = await getDocs(commentsQuery);
-        const commentData = [];
-
-        commentsSnapshot.forEach((doc) => {
-          commentData.push({ id: doc.id, ...doc.data() });
-        });
-
-        setComments(commentData);
-      } catch (error) {
-        console.error('Error reading comments:', error);
-      }
-    };
-
-    fetchComments();
-  }, [idParams,comments]);
-
-  const postComment = async () => {
-    if(commentText !== ''){
-      try {
-      await addDoc(collection(db, "products", id, "comments"), {
-        userName: currentUser.displayName,
-        imgUrl: currentUser.photoURL,
-        text: commentText,
-        timestamp: Timestamp.fromDate(new Date()),
-      });
-    } catch (error) {
-      console.log('Error adding comment:');
-    }
-    }
-    setCommentText("")
-  }
 
 
 
@@ -173,7 +129,6 @@ const ProductCard = ({ item, index }) => {
     alignItems: 'center'
   }
 
-console.log(comments);
 
   // ~~~~~~~~~Delete comment ~~~~~~~~~~~~~~~//
    
@@ -195,19 +150,7 @@ console.log(comments);
                       (currentUser ? <motion.button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}><img src={thumb} width='25px' alt="" /> {likesNo}</motion.button> : <p>Likes {likesNo}</p>)
 
                   }
-                 {
-                  likeCount.indexOf(currentUser?.displayName) !== -1 ?(
-                     <motion.button whileHover={{ scale: 1.1 }} >
-                    <TfiCommentAlt className={styles.comment_btn} size={20} />
-                  </motion.button>
-                  ):
-                   <motion.button whileHover={{ scale: 1.1 }} onClick={handleOpen}>
-                    <TfiCommentAlt className={styles.comment_btn} size={20} />
-                  </motion.button>
-                 }
-                  <button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}>
-                    {comments.length}
-                  </button>
+                
 
                 </div>
               </button>
@@ -223,8 +166,6 @@ console.log(comments);
 
               <div className={styles.name_price}>
                 <h3>{name}</h3>
-
-                {/* <span>{likesNo} likes</span> */}
                 <TextInput />
               </div>
               <div>
@@ -253,57 +194,7 @@ console.log(comments);
                  
               </div>
 
-              <Modal
-                keepMounted
-                open={open}
-                onClose={handleClose}
-                sx={styleModal}
-              >
-                <Box sx={styleBox}>
-                  <div className={styles.close_modal}>
-                    <h2>Comments</h2>
-                    <motion.button whileHover={{scale:1.1}} onClick={handleClose}><CgClose className={styles.close_icon} size={20} /></motion.button>
-                  </div>
-<div className={styles.form_}>
-  
-                  <div className={styles.form_comments}>
-                    <div className={styles.comments_box}>
-                       {
-                    comments.map((item, inx) => (
-                      <div key={inx} className={styles.comments_}>
-                        <div className={styles.user_img_name}>
-                          <img src={item.imgUrl} alt="" />
-                          <p>{item.userName}</p>
-                          <button onClick={()=>deleteComment(id)}>Delete</button>
-
-                          
-                        </div>
-                             <h4>{item.text}</h4>
-                        
-                      </div>
-                    ))
-                  }
-                    </div>
-                  
-                  
-                  <form className={styles.add_comment}>
-                    <input
-                      value={commentText}
-                      onChange={(e) => setCommentText(e.target.value)}
-                      type="text" 
-                      placeholder='Add a comment....'
-                      />
-                      
-                    <Button className={styles.send_btn} onClick={() => postComment(id)} >
-                      <IoSend size={25}/>
-                    </Button>
-                  </form>
-                  </div>
-                  <img src={downloadURL} alt="" />
-</div>
-                </Box>
-
-              </Modal>
+              
             </div>
           )
       }

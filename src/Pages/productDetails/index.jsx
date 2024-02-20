@@ -144,7 +144,7 @@ const ProductDetails = () => {
                               <div className={styles.product_rating}>
                                   <div>
                                       <span><IoStarSharp size={22} /></span>
-                                      <span><IoStarSharp size={22} /></span>
+                                      <span><Io StarSharp size={22} /></span>
                                       <span><IoStarSharp size={22} /></span>
                                       <span><IoStarSharp size={22} /></span>
                                       <span><IoStarSharp size={22} /></span>
