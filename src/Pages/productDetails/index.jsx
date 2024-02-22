@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 
 // --------React Icons -----------//
@@ -8,7 +8,7 @@ import { LuPlus } from 'react-icons/lu';
 
 // --------Library-------//
 import { toast } from 'react-toastify';
-import { Rating } from '@mui/material';
+import { Box, Rating, Tab } from '@mui/material';
 import { motion } from 'framer-motion'
 import StarIcon from '@mui/icons-material/Star';
 
@@ -23,6 +23,8 @@ import ProductList from '../../UI_Design/ProductList';
 // -----------Redux----------//
 import { cartActions } from '../../Redux/slice/cartSlice';
 import useGetData from '../../Custom Hooks/UseGetData';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { FiPlus } from 'react-icons/fi';
 
 
 
@@ -30,32 +32,25 @@ import useGetData from '../../Custom Hooks/UseGetData';
 const ProductDetails = () => {
   const { data: products, loading } = useGetData("products")
   const { id } = useParams()
-  const [product, setproduct] = useState('')
+  const [product, setproduct] = useState({})
   useEffect(() => {
     if (!loading) {
       const foundProduct = products.find((item) => item.ID === id);
       setproduct(foundProduct);
     }
   }, [id, products]);
-  // const {ID,price,description,downloadURL,name,category,shortDesc,avgRating,reviews} = product
-  
+  const { ID, price, description, downloadURLs, name, category, shortDesc, reviews, dateExample } = product
+
   // ----------States -----------//
   const [namee, setNamee] = useState('')
   const [message, setMessage] = useState('')
   const [tab, setTab] = useState('desc')
   // console.log(product);
-  
-  
+
+
   const categoryData = products.filter((item) => {
-     return item.category === product.category && item.ID !== product.ID;
+    return item.category === product.category && item.ID !== product.ID;
   })
-
-
-
-
-
-
-
 
   const labels = {
     0.5: 'Uselkjm',
@@ -122,138 +117,254 @@ const ProductDetails = () => {
     toast.success('Reviews send!')
   }
   const addToCart = () => {
-      dispatch(cartActions.addProduct({
-          id: product.ID,
-          downloadURL: product.downloadURL,
-          name: product.name,
-          price: product.price,
-      }))
+    dispatch(cartActions.addProduct({
+      id: product.ID,
+      downloadURL: product.downloadURLs,
+      name: product.name,
+      price: product.price,
+    }))
   }
+
+  // const rewiews = product.reviews;
+
+
+  // Tab For images
+  const styleBox = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    right: 0,
+    transform: {
+      xs: 'translate(-50%, -50%)',
+      sm: 'translate(-50%, -50%)'
+    },
+    width: {
+      xs: '90%',
+      sm: '70%',
+    },
+    maxHeight: '90vh',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    borderRadius: '5px',
+    pb: 1,
+    border: '1px solid white',
+    outline: 'none',
+
+
+  };
+  const styleModal = {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    maxHeight: '100vh'
+  }
+
+  // ~~~~~~~~~~ Description Tab~~~~~~~~~~~~~//
+  // const [tab, setTab] = useState('reviews')
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <>
+
       <div id='shop_detail' className={styles.details}>
 
-                  <div className={styles.product_details}>
-                      <div className={styles.product_detail}>
-                          <div className={styles.product_img}>
-                              <motion.img whileHover={{ scale: 0.8 }} src={product.downloadURL} alt="" />
-                          </div>
-                          <div className={styles.about_product}>
-                              <h1>{product.name}</h1>
-                              <div className={styles.product_rating}>
-                                  <div>
-                                      <span><IoStarSharp size={22} /></span>
-                                      <span><Io StarSharp size={22} /></span>
-                                      <span><IoStarSharp size={22} /></span>
-                                      <span><IoStarSharp size={22} /></span>
-                                      <span><IoStarSharp size={22} /></span>
-                                  </div>
-                                  <h3>({product.avgRating})</h3>
-                                  <h4>{formatCurrency(product.price)}</h4>
-                              </div>
-                              <p>{product.shortDesc}</p>
-                              <div>
-                                  <button 
-                                  onClick={addToCart} 
-                                  className={styles.add_btn} >Add To Cart<LuPlus className={styles.plus_btn} /></button>
-                              </div>
-                          </div>
-                      </div>
-                      <div className={styles.descriptions}>
+
+
+        <div className={styles.product_details}>
+          <div className={styles.product_detail}>
+            <div className={styles.detailAdmin}>
+
+
+
+              <Box>
+                <TabContext value={value}>
+                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <TabList
+
+                      onChange={handleChange} aria-label="lab API tabs example">
+                      {
+                        downloadURLs?.map((item, inx) => (
+                          <Tab sx={{ maxWidth: '100%' }} label={item ? <img width='100%' style={{ borderRadius: '5px', marginRight: 'auto' }} height={60} src={item} /> : null} value={inx} />
+
+                        ))
+                      }
+                    </TabList>
+                  </Box>
+
+                  {downloadURLs?.map((item, inx) => (
+                    <TabPanel value={inx}>
+                      <img width='80%' src={item} height={'250px'} style={{ borderRadius: '5px', margin: 'auto', border: '1px solid indigo' }} alt="" />
+                    </TabPanel>
+
+                  ))}
+                </TabContext>
+              </Box>
+
+              <div className={styles.about_product}>
+                <h2>{name}</h2>
+                <p>{category}</p>
+                <div className={styles.add_product_btn}>
+                  <h3>{formatCurrency(price)}</h3>
+                    <button> <span>Add product</span> <FiPlus className={styles.fiPlus} size={22} /></button>
+
+                </div>
+                <div className={styles.desc}>
+                  <h4>{shortDesc}</h4>
+                </div>
+                <div className={styles.descriptions}>
+                  <div>
+                    <div className={styles.tab_btn}>
+                      <button onClick={() => setTab('reviews')} className={tab === 'reviews' ? styles.active_tab : ''}>Reviews </button>
+                      <button onClick={() => setTab('desc')} className={tab === 'desc' ? styles.active_tab : ''}>Description</button>
+
+                    </div>
+                    <div className={styles.description_rewiews}>
+                      {
+                        tab === 'desc' ?
+                          <p>{description}</p>
+                          :
                           <div>
-                              <div className={styles.tab_btn}>
-                                  <button onClick={() => setTab('desc')} className={tab === 'desc' ? styles.active_tab : ''}>Description</button>
-                                  <button onClick={() => setTab('rewiews')} className={tab === 'rewiews' ? styles.active_tab : ''}>Reviews </button>
-
-                              </div>
-                              <div className={styles.description_rewiews}>
-                                  {
-                                      tab === 'desc' ?
-                                          <p>{product.description}</p>
-                                          :
-                                          <div>
-                                              {
-                                                  product.reviews?.map((item, index) => (
-                                                      <>
-                                                          <span>{item.rating}</span>
-                                                          <p>{item.text}</p>
-                                                      </>
-                                                  ))
-                                              }
-                                          </div>
-                                  }
-                              </div>
+                            {
+                              reviews?.map((item, index) => (
+                                <>
+                                  <Rating name="half-rating-read" defaultValue={item.rating} precision={0.5} readOnly />
+                                  <p>{item.text}</p>
+                                </>
+                              ))
+                            }
                           </div>
-                          <div className={styles.send_message}>
-
-
-                              <form onSubmit={submitHandler}>
-
-                                  <div className={styles.send_msg}>
-                                      <label>Your Name</label>
-                                      <input
-                                          ref={rewiewUser}
-                                          value={namee}
-                                          onChange={(e) => setNamee(e.target.value)}
-                                          type='text' placeholder='Enter your name'
-                                          required
-                                      />
-                                  </div>
-                                  <div className={styles.send_msg}>
-                                      <label> Enter Message</label>
-                                      <textarea
-                                          ref={reviewMsg}
-                                          value={message}
-                                          onChange={(e) => setMessage(e.target.value)}
-                                          rows={5}
-                                          type='text' placeholder='Message'
-                                          required
-                                      />
-                                  </div>
-                                  <div>
-                                      <label className={styles.rate}>Rate our product</label>
-                                      <div className={styles.stars}>
-                                          <Rating
-                                              name="hover-feedback"
-                                              value={rating}
-                                              precision={0.5}
-                                              onChange={(event, newValue) => {
-                                                  setRating(newValue);
-                                              }}
-                                              onChangeActive={(event, newHover) => {
-                                                  setHover(newHover);
-                                              }}
-                                              emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-
-                                          />
-                                          {rating !== null && (
-                                              <div className={styles.star_desc}>{labels[hover !== -1 ? hover : rating]}</div>
-                                          )}
-                                      </div>
-                                  </div>
-                                  <h1>{text}</h1>
-
-                                  <button className={styles.login_btn} type="submit">
-                                      Send
-                                  </button>
-
-
-                              </form>
-
-
-                          </div>
-                      </div>
+                      }
+                    </div>
                   </div>
 
+                </div>
+
               </div>
-              <div>
-                  <h1 className={styles.category_name}>Similar products</h1>
-                  <ProductList data={categoryData} />
-              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div>
+        <h1 className={styles.category_name}>Similar products</h1>
+        <ProductList data={categoryData} />
+      </div>
 
     </>
   )
 }
 
 export default ProductDetails
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ~~~~~~~~~ Form send mesage~~~~~~~~~~~//
+
+// <div className={styles.descriptions}>
+//             <div>
+//               <div className={styles.tab_btn}>
+//                 <button onClick={() => setTab('desc')} className={tab === 'desc' ? styles.active_tab : ''}>Description</button>
+//                 <button onClick={() => setTab('rewiews')} className={tab === 'rewiews' ? styles.active_tab : ''}>Reviews </button>
+
+//               </div>
+//               <div className={styles.description_rewiews}>
+//                 {
+//                   tab === 'desc' ?
+//                     <p>{description}</p>
+//                     :
+//                     <div>
+//                       {
+//                         reviews?.map((item, index) => (
+//                           <div key={index}>
+//                             <span>{item.rating}</span>
+//                             <p>{item.text}</p>
+//                           </div>
+//                         ))
+//                       }
+//                     </div>
+//                 }
+//               </div>
+//             </div>
+//             <div className={styles.send_message}>
+
+
+//               <form onSubmit={submitHandler}>
+
+//                 <div className={styles.send_msg}>
+//                   <label>Your Name</label>
+//                   <input
+//                     ref={rewiewUser}
+//                     value={namee}
+//                     onChange={(e) => setNamee(e.target.value)}
+//                     type='text' placeholder='Enter your name'
+//                     required
+//                   />
+//                 </div>
+//                 <div className={styles.send_msg}>
+//                   <label> Enter Message</label>
+//                   <textarea
+//                     ref={reviewMsg}
+//                     value={message}
+//                     onChange={(e) => setMessage(e.target.value)}
+//                     rows={5}
+//                     type='text' placeholder='Message'
+//                     required
+//                   />
+//                 </div>
+//                 <div>
+//                   <label className={styles.rate}>Rate our product</label>
+//                   <div className={styles.stars}>
+//                     <Rating
+//                       name="hover-feedback"
+//                       value={rating}
+//                       precision={0.5}
+//                       onChange={(event, newValue) => {
+//                         setRating(newValue);
+//                       }}
+//                       onChangeActive={(event, newHover) => {
+//                         setHover(newHover);
+//                       }}
+//                       emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+
+//                     />
+//                     {rating !== null && (
+//                       <div className={styles.star_desc}>{labels[hover !== -1 ? hover : rating]}</div>
+//                     )}
+//                   </div>
+//                 </div>
+//                 <h1>{text}</h1>
+
+//                 <button className={styles.login_btn} type="submit">
+//                   Send
+//                 </button>
+
+
+//               </form>
+
+
+//             </div>
+//           </div>

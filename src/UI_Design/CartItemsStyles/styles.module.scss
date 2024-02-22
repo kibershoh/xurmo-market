@@ -140,17 +140,66 @@ tr {
 
 .close_modal {
     width: 100%;
-    text-align: right;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid indigo;
+    padding-bottom: 5px;
+
+    div {
+        display: flex;
+        align-items: center;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+        p {
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-right: 5px;
+
+            img {
+                border: 1px solid indigo;
+                width: 35px;
+                height: 35px;
+                margin-left: 10px;
+                border-radius: 50%;
+
+                @media (max-width: '400px') {
+                    display: none;
+                }
+            }
+        }
+
+        span {
+            color: indigo;
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+        }
+
+        :first-child {
+            color: #333;
+
+            @media (max-width: '600px') {
+                font-size: 10px;
+            }
+        }
+
+
+    }
 
     h2 {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 600;
         padding-left: 10px;
 
+        @media (max-width: '600px') {
+            font-size: 15px;
+            margin-right: 10px;
+        }
     }
 
     button {
@@ -175,63 +224,27 @@ tr {
         grid-template-columns: auto;
         overflow-y: scroll;
         height: 300px;
+    &::-webkit-scrollbar{
+ width: 4px;
+  height: 1px;
+    }
+ 
 
     }
 
-    .images {
-        display: grid;
-        grid-template-columns: auto;
 
-        @media (max-width: '900px') {
-            grid-template-columns: 100%;
-            margin-bottom: 15px;
-        }
-
-        .firstImg {
-            width: 80%;
-            height: 300px;
-            text-align: center;
-            display: grid;
-            grid-template-columns: auto;
-            padding-top: 0;
-            img {
-                width: 100%;
-                height: 300px;
-                padding: 15px;
-                padding-top: 0;
-                border-radius: 5px;
-
-                @media (max-width: '600px') {
-                    width: 100%;
-                    height: 80%;
-                    padding: 0 10px;
-                }
-            }
-        }
-
-        .otherImages {
-            display: grid;
-            grid-template-columns: 24% 24% 24% 24%;
-            gap: 5px;
-            img {
-                width: 100%;
-                height: 80px;
-                border-radius: 5px;
-
-                @media (max-width: '600px') {
-                    height: 60px;
-                    // margin: auto;
-                }
-            }
-
-        }
-    }
 
     .about_product {
         padding-top: 10px;
+        padding-left: 15px;
+      h4{
+        text-align: right;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: indigo;
+      }
         h2 {
             font-family: Arial, Helvetica, sans-serif;
-          font-size: 20px;
+            font-size: 20px;
 
         }
 
@@ -239,7 +252,8 @@ tr {
             margin: 8px 0;
             color: #777;
         }
-        h3{
+
+        h3 {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -247,13 +261,14 @@ tr {
             margin-top: 20px;
 
             h4 {
-                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;      
+                text-align: start;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
         }
 
         .descriptions {
             margin-top: 15px;
-            padding: 0 5px;
+            // padding: 0 5px;
             display: flex;
             justify-content: space-between;
 
@@ -263,7 +278,7 @@ tr {
             }
 
             .active_tab {
-                background-color: indigo;
+            background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
                 color: #fff;
 
             }
@@ -313,7 +328,12 @@ tr {
                 }
             }
 
-             
+
         }
+    }
+
+    img {
+        mix-blend-mode: multiply;
+
     }
 }

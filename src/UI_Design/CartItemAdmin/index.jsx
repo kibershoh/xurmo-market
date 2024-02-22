@@ -7,21 +7,23 @@ import { cartActions } from '../../Redux/slice/cartSlice'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../../Firebase/config'
 import { TbNumber, TbNumber0 } from 'react-icons/tb'
-import { Box, Modal, Rating } from '@mui/material'
+import { Box, Modal, Rating, Tab } from '@mui/material'
 import { motion } from 'framer-motion'
 import { CgClose } from 'react-icons/cg'
 import { formatCurrency } from '../../Constants/utils/moneyCurrent'
+import { TabContext, TabList, TabPanel } from '@mui/lab'
 
 const CartItemAdmin = ({ item, number }) => {
 
-  const { id, name, category, price, downloadURLs,reviews, shortDesc, description,user } = item
+  const { id, name, category, price, downloadURLs, reviews, shortDesc, description, user, dateExample } = item
 
   const deleteProduct = async (id) => {
     await deleteDoc(doc(db, "products", id))
 
   }
 
-  const title = ["ID_:", "Image:", "Name:", "Category:", "Price:", "Action:",]
+
+  const title = ["ID_:", "Image:", "Name:", "Category:", "Price:", "Date:", "Action:"]
   // ~~~~~~~~Modal Stayle ~~~~~~~Functions ~~~~~~~~~~~//
 
   const [open, setOpen] = useState(false);
@@ -58,8 +60,20 @@ const CartItemAdmin = ({ item, number }) => {
   }
 
   // ~~~~~~~~~~ Description Tab~~~~~~~~~~~~~//
-    const [tab, setTab] = useState('reviews')
+  const [tab, setTab] = useState('reviews')
+  const [value, setValue] = useState(0);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const dateObj = new Date(dateExample);
+
+  const minutes = dateObj.getMinutes();
+  const hours = dateObj.getHours();
+  const day = dateObj.getDate();
+  const month = dateObj.getMonth() + 1; // Adding 1 since getMonth() returns zero-based month index
+  const year = dateObj.getFullYear();
   return (
     <tr>
       <>
@@ -72,38 +86,41 @@ const CartItemAdmin = ({ item, number }) => {
           <Box sx={styleBox}>
             <div div className={styles.close_modal}>
               <h2>Product Details</h2>
-              <p>added by {user.userName}</p>
+              <div><span> added by</span> <p><img src={user.userImg} /><span>{user.userName}</span></p>  </div>
               <motion.button whileHover={{ scale: 1.1 }} onClick={handleClose}><CgClose className={styles.close_icon} size={20} /></motion.button>
+
             </div>
 
             <div className={styles.detailAdmin}>
-              <div className={styles.images}>
-                <div className={styles.firstImg}>
-                  <img src={downloadURLs[1]} alt="" />
-                </div>
-                <div className={styles.otherImages}>
-                  <div>
-                    <img src={downloadURLs[1]} alt="" /><br />
 
-                  </div>
-                  <div>
-                    <img src={downloadURLs[2]} alt="" /><br />
 
-                  </div>
-                  <div>
-                    <img src={downloadURLs[2]} alt="" /><br />
 
-                  </div>
-                  <div>
-                    <img src={downloadURLs[2]} alt="" /><br />
+              <Box sx={{}}>
+                <TabContext value={value}>
+                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <TabList
 
-                  </div>
-                  
+                      onChange={handleChange} aria-label="lab API tabs example">
+                      {
+                        downloadURLs.map((item, inx) => (
+                          <Tab sx={{ maxWidth: '100%' }} label={item ? <img width='100%' style={{ borderRadius: '5px', marginRight: 'auto' }} height={60} src={item} /> : null} value={inx} />
 
-                  
-                </div>
-              </div>
+                        ))
+                      }
+                    </TabList>
+                  </Box>
+
+                  {downloadURLs.map((item, inx) => (
+                    <TabPanel value={inx}>
+                      <img width='80%' src={item} height={'200px'} style={{ borderRadius: '5px',margin:'auto' }} alt="" />
+                    </TabPanel>
+
+                  ))}
+                </TabContext>
+              </Box>
+
               <div className={styles.about_product}>
+                <h4>Created: {dateExample}</h4>
                 <h2>{name}</h2>
                 <p>{category}</p>
                 <h3>{formatCurrency(price)}</h3>
@@ -135,7 +152,7 @@ const CartItemAdmin = ({ item, number }) => {
                       }
                     </div>
                   </div>
-                  
+
                 </div>
 
               </div>
@@ -152,6 +169,7 @@ const CartItemAdmin = ({ item, number }) => {
           {label === "Name:" ? name : null}
           {label === "Category:" ? category : null}
           {label === "Price:" ? price : null}
+          {label === "Date:" ? dateExample : null}
           {label === "Action:" ? (
             <div onClick={() => { deleteProduct(id) }} className={styles.delete}>
               <button type="button" className={styles.delete_btn}>

@@ -36,6 +36,7 @@ if("lkjhgfcf"){
           <>
              
             <div className={styles.overflow_table}>
+              <p>Total products: {productsData.length}</p>
               <table>
                
                  <thead>
@@ -45,6 +46,7 @@ if("lkjhgfcf"){
                     <th scope="col">Name</th>
                     <th scope="col">Category</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>

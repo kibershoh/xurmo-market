@@ -4,12 +4,15 @@ import Select from '../../../UI_Design/SelectOption';
 import { MdAddAPhoto } from 'react-icons/md';
 import { db, storage } from '../../../Firebase/config';
 import { toast } from 'react-toastify';
-import { addDoc, collection } from 'firebase/firestore';
+import { FieldValue, Timestamp, addDoc, collection } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from '../../../Components';
 import { v4 as uuidv4 } from 'uuid';
 import UseAuth from '../../../Custom Hooks/UseAuth';
+import { Time } from '../../../Constants/date';
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { BsArrowLeft } from 'react-icons/bs';
 
 const AddProduct = () => {
   const { currentUser } = UseAuth()
@@ -20,68 +23,77 @@ const AddProduct = () => {
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [loading, setLoading] = useState(false);
+  const [progressBar, setProgressBar] = useState(0);
   const [files, setFiles] = useState([]);
   const navigate = useNavigate();
   const id = uuidv4();
 
   const addProduct = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
-    try {
-      const docRef = collection(db, 'products');
+    if (files.length > 4) {
+      toast.error("Rasm limitdan oshib ketgan")
+    }
+    else {
+      try {
+        const docRef = collection(db, 'products');
 
-      const uploadTasks = files.map((file) => {
-        const storageRef = ref(storage, `productImages/${Date.now()}_${file.name}`);
-        return uploadBytesResumable(storageRef, file);
-      });
+        const uploadTasks = files.map((file) => {
+          const storageRef = ref(storage, `productImages/${Date.now()}_${file.name}`);
+          const uploadTask = uploadBytesResumable(storageRef, file)
+              uploadTask.on('state_changed', (snapshot)=>{
+                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          setProgressBar(progress);
+              });
+          return uploadTask
+        });
 
-      Promise.all(uploadTasks).then(async (snapshots) => {
-        const downloadURLs = await Promise.all(snapshots.map((snapshot) => getDownloadURL(snapshot.ref)));
+        Promise.all(uploadTasks).then(async (snapshots) => {
+          const downloadURLs = await Promise.all(snapshots.map((snapshot) => getDownloadURL(snapshot.ref)));
 
-        const data = {
-          ID: id,
-          name: name,
-          shortDesc: shortDesc,
-          description: description,
-          category: category,
-          price: price,
-          user: {
-            userName: currentUser?.displayName,
-            userImg: currentUser?.photoURL,
-          },
-
-          likeCount: [],
-          reviews: [
-            {
-              rating: 4.8,
-              text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+          const data = {
+            ID: id,
+            name: name,
+            shortDesc: shortDesc,
+            description: description,
+            category: category,
+            price: price,
+            dateExample: Time,
+            user: {
+              userName: currentUser?.displayName,
+              userImg: currentUser?.photoURL,
             },
-            {
-              rating: 4.8,
-              text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-            },
-          ],
-          avgRating: 4.7,
-          downloadURLs: downloadURLs,
-        };
 
-        await addDoc(docRef, data);
+            likeCount: [],
+            reviews: [
+              {
+                rating: 4.8,
+                text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+              },
+              {
+                rating: 4.8,
+                text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+              },
+            ],
+            avgRating: 4.7,
+            downloadURLs: downloadURLs,
+          };
 
-        setName('');
-        setCategory('');
-        setPrice('');
-        setShortDesc('');
-        setDescription('');
-        setFiles([]);
-        console.log(data);
-        toast.success('Product successfully added!');
-        navigate('/dashboard/all-products');
-        setLoading(false);
-      });
-    } catch (error) {
-      toast.error('Failed to add product');
-      setLoading(false);
+          await addDoc(docRef, data);
+
+          setName('');
+          setCategory('');
+          setPrice('');
+          setShortDesc('');
+          setDescription('');
+          setFiles([]);
+          console.log(data);
+          toast.success('Product successfully added!');
+          navigate('/dashboard/all-products');
+        });
+      } catch (error) {
+        toast.error('Failed to add product');
+      }
     }
   };
 
@@ -97,13 +109,15 @@ const AddProduct = () => {
   const handleFileChange = (e) => {
     setFiles(Array.from(e.target.files));
   };
-
+console.log(progressBar);
   return (
     <>
       {loading && <Loader />}
       <div className={styles.add_product}>
         <form onSubmit={addProduct}>
-          <h1>Add Product</h1>
+            <button className={styles.back}  onClick={()=>navigate('/dashboard/all-products')}>
+              <BsArrowLeft   size={28}/>
+            </button>
           <div className={styles.inputs}>
             <label> Product Name </label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} name="text" required />
@@ -133,9 +147,15 @@ const AddProduct = () => {
                 <input ref={fileInputRef} onChange={handleFileChange} type='file' required multiple />
               </div>
             </div>
+           
+          </div>
+          
+ <div className={styles.myProgress}>
+            <div className={styles.myBar} style={{width:`${progressBar}%`, display: `${progressBar > 0 ? 'block' : 'none'}`}}>{progressBar}%</div>
           </div>
           <div className={styles.add_product_btn}>
-            <button type='submit'>Add Product</button>
+
+             <button type='submit'>Add Product</button>
           </div>
         </form>
       </div>

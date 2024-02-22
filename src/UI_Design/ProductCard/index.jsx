@@ -36,7 +36,7 @@ import UseAuth from '../../Custom Hooks/UseAuth';
 const ProductCard = ({ item, index }) => {
   const {currentUser} = UseAuth()
   const { idParams } = useParams()
-  const { ID, id, name, price, downloadURL, category, reviews, likeCount,timestamp } = item
+  const { ID, id, name, price, downloadURLs, category, reviews, likeCount,timestamp } = item
   const productItems = useSelector(state => state.cart.cartItems)
   const { data: products, loading } = useGetData("products")
   const dispatch = useDispatch()
@@ -57,7 +57,7 @@ const ProductCard = ({ item, index }) => {
         id: id,
         name: name,
         price: price,
-        downloadURL: downloadURL,
+        downloadURL: downloadURLs,
       })
     )
     active()
@@ -159,7 +159,7 @@ const ProductCard = ({ item, index }) => {
               <div className={styles.product_img}>
                 <a href="#shop_detail">
 
-                  <motion.img onClick={() => toDetails(ID)} whileHover={{ scale: 0.8 }} src={downloadURL} alt="" />
+                  <motion.img onClick={() => toDetails(ID)} whileHover={{ scale: 0.8 }} src={downloadURLs[0]} alt="" />
 
                 </a>
               </div>
@@ -206,9 +206,3 @@ const ProductCard = ({ item, index }) => {
 }
 
 export default ProductCard
-
-
-
-
-
-
