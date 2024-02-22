@@ -5,9 +5,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import Routers from './Routes/Routers';
 import { useLocation } from 'react-router-dom';
 import { NavbarAdmin } from './Admin/Components';
+import { Box, Tab } from '@mui/material';
+import { Tabs } from 'rsuite';
+import { TabPanel } from '@mui/lab';
 function App() {   
  const location = useLocation()
+const [value, setValue] = useState(0);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}
   return (
     <div>
     <ToastContainer
@@ -16,6 +29,8 @@ function App() {
      closeOnClick
      pauseOnHover={false}
      />
+
+
      {
       location.pathname.startsWith("/dashboard") ? <NavbarAdmin/> : <Navbar/>
      }

@@ -6,6 +6,7 @@ import styles  from '../CartItemsStyles/styles.module.scss'
 import { useDispatch } from 'react-redux'
 import { cartActions } from '../../Redux/slice/cartSlice'
 import { RiDeleteBin5Line } from 'react-icons/ri'
+
 const CartItem = ({item,number}) => {
   console.log(item)
     const dispatch = useDispatch()

@@ -20,13 +20,12 @@
         position: absolute;
         text-align: right;
         z-index: 10;
-        top: 0;
-        right: 5px;
+        top: -8px;
+        right: -2px;
         margin-left: 15px;
         background-color: transparent;
         border: none;
         padding: 4px;
-    backdrop-filter: blur(5px);
 
         div {
             display: flex;
@@ -34,10 +33,7 @@
             align-items: center;
         }
 
-        img {
-            margin-bottom: 6px;
-        }
-
+      
         button {
             margin-top: 5px;
             background: transparent;
@@ -54,11 +50,12 @@
 
     .product_img {
         padding: 10px;
-
+        padding-left: 0;
         img {
-            border-radius: 5px;
+            
+border-radius: 5px;
 
-            width: 85%;
+            width: 95%;
             height: 150px;
             @media (max-width: '600px') {
                 height: 100px;
@@ -76,7 +73,7 @@
         h3 {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 20px;
-            margin: 15px 0;
+            margin: 10px 0;
 
             @media (max-width: '600px') {
                 font-size: 15px;
@@ -96,7 +93,18 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 15px;
+         @media (max-width: '600px') {
+               flex-direction: column;
+              
+            }
+            span {
+                width: 100%;
+                text-align: left;
+        color: #696969;
+        font-weight: 600;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
     }
 
     // ~~~~~~~~~~~~~~~~~~~~~~
@@ -121,6 +129,11 @@
         border-radius: 0.45em;
         font-family: "Arial";
         transition: background 0.3s;
+         @media (max-width: '600px') {
+            margin-top: 10px;
+               width: 100%;
+              
+            }
     }
 
     .product_btn::before {
@@ -216,11 +229,7 @@
 
     // ~~~~~~~~~~~~~~~~~~~~~~
 
-    span {
-        color: #696969;
-        font-weight: 600;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+    
 
 
 }

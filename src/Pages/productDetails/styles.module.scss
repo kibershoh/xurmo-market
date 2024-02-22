@@ -13,189 +13,262 @@
         border-radius: 10px;
         // background-color: aliceblue;
 
-      box-shadow: 1px 1px 6px -1px rgba(113,102,102,0.69);
--webkit-box-shadow: 1px 1px 6px -1px rgba(113,102,102,0.69);
--moz-box-shadow: 1px 1px 6px -1px rgba(113,102,102,0.69);
+        box-shadow: 1px 1px 6px -1px rgba(113, 102, 102, 0.69);
+        -webkit-box-shadow: 1px 1px 6px -1px rgba(113, 102, 102, 0.69);
+        -moz-box-shadow: 1px 1px 6px -1px rgba(113, 102, 102, 0.69);
+
         .product_detail {
+
             // display: flex;
             // justify-content: space-between;
             // align-items: center;
-             @media (max-width: '1060px') {
-           flex-direction: column;
-
-
-        }
-
-        
-.detailAdmin {
-
-    padding: 10px;
-    display: grid;
-    grid-template-columns: 50% 50%;
-
-    @media (max-width: '900px') {
-        grid-template-columns: auto;
-        overflow-y: scroll;
-        height: 300px;
-    &::-webkit-scrollbar{
- width: 4px;
-  height: 1px;
-    }
- 
-
-    }
-
-
-
-    .about_product {
-        padding-top: 50px;
-        padding-left: 15px;
-        .add_product_btn{
-display: flex;
-justify-content: space-between;
-align-items: center;
-            button{
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                 background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
-            margin: 10px;
-            padding: 15px 45px;
-            text-align: center;
-            transition: 0.5s;
-            background-size: 200% auto;
-            color: white;
-            box-shadow: 0 0 20px #eee;
-            border-radius: 10px;
-            background-color: indigo;
-            color: #fff;
-            font-size: 18px;
-            border-radius: 4px;
-            border: none;
-            padding: 5px;
-            margin: 20px 0;
-
-            &:hover {
-                transition: all .4s;
-                transform: scale(1.08);
-                background-position: right center;
-                /* change the direction of the change here */
-                color: #fff;
-                text-decoration: none;
-
-                .fiPlus {
-                    transition: all .4s;
-                    transform: rotate(-180deg);
-                }
-            }
-
-            }
-        }
-      h4{
-        text-align: right;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: indigo;
-      }
-        h2 {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 20px;
-
-        }
-
-        p {
-            margin: 8px 0;
-            color: #777;
-        }
-
-        h3 {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .desc {
-            margin-top: 20px;
-
-            h4 {
-                text-align: start;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-        }
-
-        .descriptions {
-            margin-top: 15px;
-            // padding: 0 5px;
-            display: flex;
-            justify-content: space-between;
-
-            @media (max-width: '1050px') {
+            @media (max-width: '1060px') {
                 flex-direction: column;
 
-            }
-
-            .active_tab {
-            background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
-                color: #fff;
 
             }
 
-            .tab_btn {
-                padding-bottom: 15px;
 
-                @media (max-width: '1060px') {
+            .detailAdmin {
 
-                    margin-top: 20px;
+                padding: 0;
+                display: grid;
+                grid-template-columns: 40% 60%;
+
+                .smallImg {
+                    width: 100px;
+                    height: 80px;
+
+                    @media (max-width: '450px') {
+                        width: 50px;
+                        height: 40px;
+
+
+                    }
+                }
+
+                .bigImg {
+                    width: 100%;
+                    height: 200px;
+
+                    @media (max-width: '450px') {
+                        width: 100%;
+                        height: 150px;
+
+
+                    }
+                }
+
+                @media (max-width: '900px') {
+                    grid-template-columns: auto;
+                    overflow-y: scroll;
+                    height: 300px;
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                        height: 1px;
+                    }
 
 
                 }
-            }
-
-            .tab_btn button {
-                border-radius: 4px;
-                border: 1px solid indigo;
-                padding: 5px;
-                margin-right: 15px;
-                font-size: 20px;
 
 
 
-                &:hover {
-                    transform: scale(1.1);
-                    transition: all .3s;
+                .about_product {
+                    padding-top: 50px;
+                    padding-left: 15px;
+                       padding-right: 20px;
+                    @media (max-width: '900px') {
+                        padding-top: 15px;
 
+
+                    }
+
+                    .add_product_btn {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .addProduct {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
+                            margin: 10px;
+                            padding: 15px 45px;
+                            text-align: center;
+                            transition: 0.5s;
+                            background-size: 200% auto;
+                            color: white;
+                            box-shadow: 0 0 20px #eee;
+                            border-radius: 10px;
+                            background-color: indigo;
+                            color: #fff;
+                            font-size: 18px;
+                            border-radius: 4px;
+                            border: none;
+                            padding: 5px;
+                            margin: 20px 0;
+
+                            &:hover {
+                                transition: all .4s;
+                                transform: scale(1.08);
+                                background-position: right center;
+                                /* change the direction of the change here */
+                                color: #fff;
+                                text-decoration: none;
+
+                                .fiPlus {
+                                    transition: all .4s;
+                                    transform: rotate(-180deg);
+                                }
+                            }
+
+                        }
+
+                        .plus_minus_btn {
+                            display: flex;
+                            border: 1px solid indigo;
+                            border-radius: 4px;
+                            justify-content: space-between;
+                            width: 100px;
+                            text-align: right;
+                            height: 30px;
+
+                            span {
+                                font-size: 20px;
+                            }
+
+                            button {
+                                background: indigo;
+                                outline: none;
+                                width: 30px;
+                                border: none;
+                                height: 100%;
+                                border-right: 1px solid indigo;
+                                color: #fff;
+                                border: none;
+
+                                &:hover {
+
+                                    .plus_icon,
+                                    .minus_icon {
+                                        transition: all .4s;
+                                        transform: rotate(180deg);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    h4 {
+                        text-align: right;
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        color: rgb(9, 9, 9);
+                    }
+
+                    h2 {
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 20px;
+
+                    }
+
+                    p {
+                        margin: 8px 0;
+                        color: #777;
+                    }
+
+                    h3 {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    }
+
+                    .desc {
+                        margin-top: 20px;
+
+                        h4 {
+                            text-align: start;
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        }
+                    }
+
+                    .descriptions {
+                        margin-top: 15px;
+                        // padding: 0 5px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        @media (max-width: '1050px') {
+                            flex-direction: column;
+
+                        }
+
+                        .active_tab {
+                            background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
+                            color: #fff;
+
+                        }
+
+                        .tab_btn {
+                            padding-bottom: 15px;
+
+                            @media (max-width: '1060px') {
+
+                                margin-top: 20px;
+
+
+                            }
+                        }
+
+                        .tab_btn button {
+                            border-radius: 4px;
+                            border: 1px solid indigo;
+                            padding: 5px;
+                            margin-right: 15px;
+                            font-size: 20px;
+
+
+
+                            &:hover {
+                                transform: scale(1.1);
+                                transition: all .3s;
+
+
+                            }
+                        }
+
+                        .description_rewiews {
+                            padding-right: 10px;
+
+                            p {
+                                font-family: 'Roboto';
+                                text-align: justify;
+                                color: #000;
+                                line-height: 25px;
+                            }
+
+                            @media (max-width: '1060px') {
+                                margin-bottom: 20px;
+                                padding-right: 0;
+
+                            }
+                        }
+
+
+                    }
+                }
+
+                img {
+                    mix-blend-mode: multiply;
 
                 }
             }
-
-            .description_rewiews {
-                padding-right: 10px;
-
-                p {
-                    font-family: 'Roboto';
-                    text-align: justify;
-                    color: #000;
-                    line-height: 25px;
-                }
-
-                @media (max-width: '1060px') {
-                    margin-bottom: 20px;
-                    padding-right: 0;
-
-                }
-            }
-
-
         }
     }
-
-    img {
-        mix-blend-mode: multiply;
-
-    }
 }
-}}}
 
-.category_name{
+.category_name {
     margin: 25px 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align: center;
 }
-        

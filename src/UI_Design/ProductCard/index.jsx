@@ -54,7 +54,7 @@ const ProductCard = ({ item, index }) => {
   const addToCart = () => {
     dispatch(
       cartActions.addProduct({
-        id: id,
+        id: ID,
         name: name,
         price: price,
         downloadURL: downloadURLs,
@@ -95,42 +95,9 @@ const ProductCard = ({ item, index }) => {
           toast.error(error)
         });
     }
-  }
-  // ~~~~~~~~~~~ Read Comment ~~~~~~~~~~//
-    
+  } 
  
-
-
-
-  
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
-  const styleBox = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    right: 0,
-    transform: 'translate(-50%, -50%)',
-    width: {
-      xs: '90%',
-      sm: '50%',
-    },
-    maxHeight: '90vh',
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    borderRadius: '5px',
-    pb: 1,
-    
-  };
-  const styleModal = {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-
-
-  // ~~~~~~~~~Delete comment ~~~~~~~~~~~~~~~//
+   
    
   return (
     <>
@@ -144,10 +111,10 @@ const ProductCard = ({ item, index }) => {
                 <div>
                   {
                     likeCount.indexOf(currentUser?.displayName) != -1 ? (
-                      <motion.button onClick={() => likesHandler(id)}> <motion.img whileHover={{ scale: 1.1 }} src={fillThumb} width='25px' alt="" /> {likesNo} </motion.button>
+                      <motion.button onClick={() => likesHandler(id)}> <motion.img whileHover={{ scale: 1.1 }} src={fillThumb} width='24px' alt="" /></motion.button>
                     )
                       :
-                      (currentUser ? <motion.button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}><img src={thumb} width='25px' alt="" /> {likesNo}</motion.button> : <p>Likes {likesNo}</p>)
+                      (currentUser ? <motion.button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}><img src={thumb} width='24px' alt="" /> </motion.button> : <p>Likes {likesNo}</p>)
 
                   }
                 
@@ -166,15 +133,13 @@ const ProductCard = ({ item, index }) => {
 
               <div className={styles.name_price}>
                 <h3>{name}</h3>
-                <TextInput />
               </div>
               <div>
                 <span className={styles.category}>{category}</span>
-                <div>
-
-                </div>
+                 
               </div>
               <div className={styles.product_add}>
+                      <span>{formatCurrency(price)}</span>
                 <motion.button onClick={addToCart} whileHover={{ scale: 1.09 }} className={styles.product_btn}>
                   <div className={styles.button_wrapper}>
 
@@ -190,7 +155,6 @@ const ProductCard = ({ item, index }) => {
                       }
                     </span>
                   </div></motion.button>
-                <span>{formatCurrency(price)}</span>
                  
               </div>
 

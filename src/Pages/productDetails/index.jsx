@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // --------React Icons -----------//
 import { IoStarSharp } from "react-icons/io5";
@@ -25,6 +25,8 @@ import { cartActions } from '../../Redux/slice/cartSlice';
 import useGetData from '../../Custom Hooks/UseGetData';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { FiPlus } from 'react-icons/fi';
+import { GoPlus } from 'react-icons/go';
+import { HiMinus } from 'react-icons/hi';
 
 
 
@@ -39,12 +41,14 @@ const ProductDetails = () => {
       setproduct(foundProduct);
     }
   }, [id, products]);
-  const { ID, price, description, downloadURLs, name, category, shortDesc, reviews, dateExample } = product
+  console.log(product);
+
+  const { ID, price, description, downloadURLs, name, category, shortDesc, reviews, dateExample, quantity } = product
 
   // ----------States -----------//
   const [namee, setNamee] = useState('')
   const [message, setMessage] = useState('')
-  const [tab, setTab] = useState('desc')
+  const [tab, setTab] = useState('reviews')
   // console.log(product);
 
 
@@ -152,43 +156,43 @@ const ProductDetails = () => {
 
 
   };
-  const styleModal = {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    maxHeight: '100vh'
-  }
+   
 
   // ~~~~~~~~~~ Description Tab~~~~~~~~~~~~~//
-  // const [tab, setTab] = useState('reviews')
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const handleIncrement = () => {
+    dispatch(cartActions.incrementQuantity(ID))
+  }
+  const handleDecrement = () => {
+    dispatch(cartActions.decrementQuantity(ID))
+  }
+  const productItems = useSelector(state => state.cart.cartItems)
+   
+  const productItem = productItems.filter((item)=>{
+    return item.id === ID
+  })
+  console.log(productItem);
   return (
     <>
 
       <div id='shop_detail' className={styles.details}>
-
-
-
         <div className={styles.product_details}>
           <div className={styles.product_detail}>
             <div className={styles.detailAdmin}>
-
-
-
-              <Box>
-                <TabContext value={value}>
+              <Box sx={{ display: 'flex' }}>
+                <TabContext value={value} >
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList
-
+                      orientation='vertical'
                       onChange={handleChange} aria-label="lab API tabs example">
                       {
                         downloadURLs?.map((item, inx) => (
-                          <Tab sx={{ maxWidth: '100%' }} label={item ? <img width='100%' style={{ borderRadius: '5px', marginRight: 'auto' }} height={60} src={item} /> : null} value={inx} />
+                          <Tab sx={{ maxWidth: '100%', padding: '5px' }} label={item ? <img className={styles.smallImg} style={{ borderRadius: '5px', marginRight: 'auto' }} src={item} /> : null} value={inx} />
 
                         ))
                       }
@@ -196,8 +200,9 @@ const ProductDetails = () => {
                   </Box>
 
                   {downloadURLs?.map((item, inx) => (
-                    <TabPanel value={inx}>
-                      <img width='80%' src={item} height={'250px'} style={{ borderRadius: '5px', margin: 'auto', border: '1px solid indigo' }} alt="" />
+                    <TabPanel
+                      value={inx}>
+                      <img className={styles.bigImg} src={item} style={{ borderRadius: '5px', margin: 'auto' }} alt="" />
                     </TabPanel>
 
                   ))}
@@ -208,8 +213,21 @@ const ProductDetails = () => {
                 <h2>{name}</h2>
                 <p>{category}</p>
                 <div className={styles.add_product_btn}>
+                 {
+                  productItem.length !==0 && 
+                   (<div className={styles.plus_minus_btn}>
+                    <button><GoPlus onClick={handleIncrement} className={styles.plus_icon} size={22} /></button>
+                    {
+                     productItem.map((item)=>(
+                      <span>{item.quantity}</span>
+                     ))
+                    }
+                    <button><HiMinus onClick={handleDecrement} className={styles.minus_icon} size={22} /></button>
+                  </div>)
+                 }
                   <h3>{formatCurrency(price)}</h3>
-                    <button> <span>Add product</span> <FiPlus className={styles.fiPlus} size={22} /></button>
+
+                  <button className={styles.addProduct} onClick={addToCart}> <span>Add product</span> <FiPlus className={styles.fiPlus} size={22} /></button>
 
                 </div>
                 <div className={styles.desc}>
