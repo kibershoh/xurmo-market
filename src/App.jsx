@@ -8,10 +8,11 @@ import { NavbarAdmin } from './Admin/Components';
 import { Box, Tab } from '@mui/material';
 import { Tabs } from 'rsuite';
 import { TabPanel } from '@mui/lab';
+import UseAuth from './Custom Hooks/UseAuth';
 function App() {   
  const location = useLocation()
 const [value, setValue] = useState(0);
-
+const {currentUser} = UseAuth()
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -32,7 +33,7 @@ const [value, setValue] = useState(0);
 
 
      {
-      location.pathname.startsWith("/dashboard") ? <NavbarAdmin/> : <Navbar/>
+      location.pathname.startsWith("/dashboard") && currentUser?.displayName==='Oybek' && currentUser ? <NavbarAdmin/> : <Navbar/>
      }
     <div>
       <Routers/>

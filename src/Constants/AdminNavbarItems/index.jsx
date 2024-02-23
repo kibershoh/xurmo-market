@@ -14,7 +14,7 @@ import {AiOutlineDashboard} from "react-icons/ai";
   {
     id: 2,
     title: "Orders",
-    path: '/orders',
+    path: '/dashboard/orders',
   },
   {
     id: 2,

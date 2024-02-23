@@ -34,7 +34,12 @@ const Login = () => {
             console.log(user);
             setIsLoading(false)
             toast.success("Successfully logged in ")
-            navigate('/')
+            if(user.displayName === "Oybek"){
+                navigate('/dashboard')
+            }
+            else{
+                navigate('/')
+            }
         } catch (error) {
             setIsLoading(false)
             toast.error(error.message)

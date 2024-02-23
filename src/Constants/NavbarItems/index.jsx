@@ -1,5 +1,8 @@
 import {RiMenu2Fill } from "react-icons/ri";
 import {AiOutlineDashboard} from "react-icons/ai";
+import UseAuth from "../../Custom Hooks/UseAuth";
+// const {currentUser} = UseAuth()
+// const auth = currentUser?.displayName === "Oybek" || currentUser?.email === "oybek@gmail.com"
 export const navLinks = [
   {
     id: 1,  
@@ -14,12 +17,6 @@ export const navLinks = [
     icon: RiMenu2Fill,
   },
   
-  {
-    id: 3,
-    title: "Dashboard",
-    path: '/dashboard',
-    icon: RiMenu2Fill,
-  },
   
   
   

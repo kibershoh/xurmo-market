@@ -8,12 +8,15 @@ import clsx from "clsx";
 import { HiMenuAlt1 } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineDashboard } from "react-icons/ai";
 
 //----------------Files---------------- //
 
 import navLinks from "../../Constants/NavbarItems";
 import userImg from '../../assets/loginn.png'
 import logout from '../../assets/logoutt.png'
+import dashboard from '../../assets/dashboard.png'
+
 import styles from './style.module.scss'
 import MotionText from "../../Constants/Framer-Motions/ForNavbar/logo";
 
@@ -34,7 +37,7 @@ import UseAuth from "../../Custom Hooks/UseAuth";
 const Navbar = () => {
     // ~~~~~~Protected Route and firebase auth~~~~~//
 
-const {currentUser} = UseAuth()
+    const { currentUser } = UseAuth()
 
 
 
@@ -112,24 +115,24 @@ const {currentUser} = UseAuth()
     }, []);
 
     // -------------------FIREBASE---------------------------Logout------------//
-   
-   const logoutUser = ()=>{
-    signOut(auth).then(()=>{
-        toast.success("Logged out successfully")
-        navigate('/')
-        setActive(false)
-    }).catch((error)=>{
-        toast.error(error.message)
-    })
-   }
-  
-    
+
+    const logoutUser = () => {
+        signOut(auth).then(() => {
+            toast.success("Logged out successfully")
+            navigate('/')
+            setActive(false)
+        }).catch((error) => {
+            toast.error(error.message)
+        })
+    }
+
+
 
 
     // --------------------Redux-------------------//
     const dispatch = useDispatch()
 
-   const totalQuantity = useSelector(state => state.cart.totalQuantity)
+    const totalQuantity = useSelector(state => state.cart.totalQuantity)
 
 
 
@@ -148,8 +151,11 @@ const {currentUser} = UseAuth()
                     <MotionText logo={"Xurmo"} />
                 </Link>
                 <HiMenuAlt1 onClick={showClick} size={25} className={styles.menu_icon} />
-
+                    {
+                        currentUser?.displayName === "Oybek" && currentUser && currentUser?.email === "oybek@gmail.com" ? (<button className={styles.dashboard_page}><Link className={styles.unActiveLink} to={'/dashboard'}>Dashboard </Link> <img src={dashboard} alt="" /></button>  ) : ''
+                    }
                 <nav>
+
                     {/* -----------Navbar Links----------- */}
                     <ul>
                         {
@@ -169,12 +175,13 @@ const {currentUser} = UseAuth()
                                 </li>
                             ))
                         }
+
                     </ul>
                     {/* -----------Cart----------- */}
 
                     <div className={styles.cart}>
-                            <a href="#cart">
-                                <AiOutlineShoppingCart size={25} className={styles.icon_shop}
+                        <a href="#cart">
+                            <AiOutlineShoppingCart size={25} className={styles.icon_shop}
                                 onClick={() => {
                                     navigate('/cart')
                                     document.title = 'Cart';
@@ -183,7 +190,7 @@ const {currentUser} = UseAuth()
                             <span>
                                 {totalQuantity}
                             </span>
-                            </a>
+                        </a>
                     </div>
                     {/* -----------Profile----------- */}
 
@@ -191,14 +198,14 @@ const {currentUser} = UseAuth()
 
                         <HideLink>
                             <h1>
-                                <MotionText logo={currentUser ? `Hi ${currentUser.displayName}`: ''} />
+                                <MotionText logo={currentUser ? `Hi ${currentUser.displayName}` : ''} />
                             </h1>
                         </HideLink>
                         <button className={styles.btn_profile} onClick={ProfileHandler} >
-                            {                                
+                            {
                                 <img src={currentUser ? currentUser.photoURL : userImg} alt="" />
                             }
-                            
+
 
                         </button>
                         {/* -----------Authentication------------ */}
@@ -266,7 +273,7 @@ const {currentUser} = UseAuth()
 
             {/* -----------Sidebar Responsive------------ */}
 
-            <div className={clsx(styles.sidebar, show ? styles.right : styles.left)}            
+            <div className={clsx(styles.sidebar, show ? styles.right : styles.left)}
                 ref={ProfileRef}>
                 <div className={styles.logo_close}>
                     <Link to={'/'} className={styles.logo}>

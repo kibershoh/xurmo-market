@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import {Admin, Cart, Contact, Home, OrderHistory,Login,Register, Reset, Shop, Checkout, ProductDetails} from '../../Pages';
 import ProtectedRoute from '../ProtectedRoute';
 import { AddProduct, AllProducts, Dashboard, Users } from '../../Admin/Pages';
+import ProtectedAdminRoute from '../ProtectedAdminRoute';
 
 const Routers = () => {
   return (
@@ -16,10 +17,13 @@ const Routers = () => {
       
         <Route path='checkout' element={<Checkout/>}/>
         
-        <Route path='dashboard' element={<Dashboard/>}/>
+        <Route path='/*' element={<ProtectedAdminRoute/>}>
+          <Route path='dashboard' element={<Dashboard/>}/>
         <Route path='dashboard/all-products' element={<AllProducts/>}/>
         <Route path='dashboard/add-products' element={<AddProduct/>}/>
         <Route path='dashboard/users' element={<Users/>}/>
+        <Route path='dashboard/orders' element={<Users/>}/>
+        </Route>
        
        </Route>
     
