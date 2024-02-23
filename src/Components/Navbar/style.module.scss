@@ -24,6 +24,9 @@
     font-weight: 500;
     img{
         display: none;
+         @media (max-width: '800px') {
+                display: block;
+             }
     }
      @media (max-width: '800px') {
                  border: none;
