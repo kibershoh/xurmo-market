@@ -152,7 +152,7 @@ const Navbar = () => {
                 </Link>
                 <HiMenuAlt1 onClick={showClick} size={25} className={styles.menu_icon} />
                     {
-                        currentUser?.displayName === "Oybek" && currentUser && currentUser?.email === "oybek@gmail.com" ? (<button className={styles.dashboard_page}><Link className={styles.unActiveLink} to={'/dashboard'}>Dashboard </Link> <img src={dashboard} alt="" /></button>  ) : ''
+                        currentUser?.displayName === "Oybek" && currentUser && currentUser?.email === "oybek@gmail.com" ? (<button onClick={()=>navigate('/dashboard')} className={styles.dashboard_page}><Link className={styles.unActiveLink} to={'/dashboard'}>Dashboard </Link> <img onClick={()=>navigate('/dashboard')} src={dashboard} alt="" /></button>  ) : ''
                     }
                 <nav>
 
