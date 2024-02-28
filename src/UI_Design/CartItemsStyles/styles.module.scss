@@ -7,6 +7,7 @@ tr {
 
     td {
 
+
         &:nth-child(2) {
             padding: 20px;
 
@@ -16,7 +17,7 @@ tr {
                 mix-blend-mode: multiply;
                 height: 100px;
 
-                @media (max-width: '1170px') {
+                @media (max-width: '1100px') {
                     mix-blend-mode: multiply;
                     width: 150px;
                     margin: auto;
@@ -74,67 +75,128 @@ tr {
         }
     }
 
-    .delete {
+    .threeDote {
+        text-align: center;
+        position: relative;
 
-        .delete_btn {
-
-            position: relative;
-            width: 100px;
-            height: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            border: 1px solid indigo;
-            background-color: #fff;
-            border-radius: 4px;
-            overflow: hidden;
-
-            @media (max-width: '1170px') {
-                margin-left: auto;
-
-
+        .threeIcon {
+            &:hover {
+                transition: all .4s ease;
+                transform: scale(1.1);
             }
         }
 
-        .delete_btn,
-        .btn_icon,
-        .btn_text {
-            transition: all 0.3s;
+        @media (max-width: '990px') {
+            text-align: right;
         }
 
-        .delete_btn .btn_text {
-            transform: translateX(20px);
-            color: indigo;
-            font-weight: 600;
-        }
+        .delete {
 
-        .delete_btn .btn_icon {
+            text-align: right;
+            width: 150px;
             position: absolute;
-            transform: translateX(70px);
-            height: 100%;
-            width: 39px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-left: 1px solid indigo;
-            color: red;
-        }
+            left: -70%;
+            z-index: 10;
+            padding: 10px;
+            padding-top: 0;
+            padding-right: 3px;
+            margin-left: auto;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 0px 0px 5px 0px rgba(207, 199, 199, 1);
+            -webkit-box-shadow: 0px 0px 5px 0px rgba(207, 199, 199, 1);
+            -moz-box-shadow: 0px 0px 5px 0px rgba(207, 199, 199, 1);
+.close_btn{
+    color: #777;
+    &:hover{
+        transform: scale(1.4);
+        transition: all .3s;
+    }
+}
+            @media (max-width: '950px') {
+                left: 80%;
+            }
+
+            @media (max-width: '800px') {
+                left: 70%;
+            }
+
+            @media (max-width: '600px') {
+                left: 60%;
+            }
+
+            @media (max-width: '450px') {
+                left: 40%;
+            }
+
+            @media (max-width: '320px') {
+                left: 20%;
+            }
+
+            .delete_btn {
+                position: relative;
+                width: 100px;
+                height: 25px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                border: none;
+                background-color: #fff;
+                border-radius: 2px;
+                overflow: hidden;
+                margin-bottom: 7px;
+
+                @media (max-width: '1170px') {}
+
+                &:hover {
+                    transition: all .2s;
+                    box-shadow: 0px 1px 4px -1px rgba(119, 36, 197, 0.75);
+                    -webkit-box-shadow: 0px 1px 4px -1px rgba(119, 36, 197, 0.75);
+                    -moz-box-shadow: 0px 1px 4px -1px rgba(119, 36, 197, 0.75);
+                }
+            }
+
+            .delete_btn,
+            .btn_icon,
+            .btn_text {
+                transition: all 0.3s;
+            }
+
+            .delete_btn .btn_text {
+                transform: translateX(40px);
+                color: indigo;
+                font-weight: 600;
+
+            }
+
+            .delete_btn .btn_icon {
+                position: absolute;
+                transform: translateX(0);
+                height: 100%;
+                width: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: indigo;
+            }
 
 
 
-        .delete_btn:hover .btn_text {
-            color: transparent;
-        }
+            .delete_btn:hover .btn_text {
+                color: transparent;
+            }
 
-        .delete_btn:hover .btn_icon {
-            width: 100px;
-            transform: translateX(0);
-        }
+            .delete_btn:hover .btn_icon {
+                width: 90px;
+                transform: translateX(40px);
+            }
 
-        .delete_btn:active {
-            transform: translate(3px, 3px);
+            .delete_btn:active {
+                transform: translate(3px, 3px);
+            }
         }
     }
+
 
 }
 
@@ -219,16 +281,39 @@ tr {
     padding: 10px;
     display: grid;
     grid-template-columns: 50% 50%;
+.smallImg {
+                    width: 100px;
+                    height: 80px;
 
+                    @media (max-width: '450px') {
+                        width: 50px;
+                        height: 40px;
+
+
+                    }
+                }
+
+                .bigImg {
+                    width: 100%;
+                    height: 200px;
+
+                    @media (max-width: '450px') {
+                        width: 100%;
+                        height: 150px;
+
+
+                    }
+                }
     @media (max-width: '900px') {
         grid-template-columns: auto;
         overflow-y: scroll;
         height: 300px;
-    &::-webkit-scrollbar{
- width: 4px;
-  height: 1px;
-    }
- 
+
+        &::-webkit-scrollbar {
+            width: 4px;
+            height: 1px;
+        }
+
 
     }
 
@@ -237,11 +322,13 @@ tr {
     .about_product {
         padding-top: 10px;
         padding-left: 15px;
-      h4{
-        text-align: right;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: indigo;
-      }
+
+        h4 {
+            text-align: right;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: indigo;
+        }
+
         h2 {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 20px;
@@ -278,7 +365,7 @@ tr {
             }
 
             .active_tab {
-            background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
+                background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
                 color: #fff;
 
             }
@@ -336,4 +423,10 @@ tr {
         mix-blend-mode: multiply;
 
     }
+}
+.show{
+    display: block;
+}
+.hide{
+    display: none;
 }

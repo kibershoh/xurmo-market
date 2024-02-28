@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import {Admin, Cart, Contact, Home, OrderHistory,Login,Register, Reset, Shop, Checkout, ProductDetails} from '../../Pages';
 import ProtectedRoute from '../ProtectedRoute';
-import { AddProduct, AllProducts, Dashboard, Users } from '../../Admin/Pages';
+import { AddProduct, AllProducts, Dashboard, Edit, Users } from '../../Admin/Pages';
 import ProtectedAdminRoute from '../ProtectedAdminRoute';
 
 const Routers = () => {
@@ -22,7 +22,7 @@ const Routers = () => {
         <Route path='dashboard/all-products' element={<AllProducts/>}/>
         <Route path='dashboard/add-products' element={<AddProduct/>}/>
         <Route path='dashboard/users' element={<Users/>}/>
-        <Route path='dashboard/orders' element={<Users/>}/>
+        <Route path='dashboard/edit/:id' element={<Edit/>}/>
         </Route>
        
        </Route>

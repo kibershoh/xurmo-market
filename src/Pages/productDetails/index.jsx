@@ -27,6 +27,9 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { FiPlus } from 'react-icons/fi';
 import { GoPlus } from 'react-icons/go';
 import { HiMinus } from 'react-icons/hi';
+import { BsEyeFill } from 'react-icons/bs';
+import { doc } from 'firebase/firestore';
+import { db } from '../../Firebase/config';
 
 
 
@@ -43,7 +46,7 @@ const ProductDetails = () => {
   }, [id, products]);
   console.log(product);
 
-  const { ID, price, description, downloadURLs, name, category, shortDesc, reviews, dateExample, quantity } = product
+  const { ID, price, description, images, name, category, shortDesc, reviews, dateExample, likeCount,viewCount } = product
 
   // ----------States -----------//
   const [namee, setNamee] = useState('')
@@ -81,82 +84,55 @@ const ProductDetails = () => {
 
 
   // -------------Functions---------//
-  const submitHandler = (e) => {
-    e.preventDefault()
+  // const submitHandler = (e) => {
+  //   e.preventDefault()
 
-    const reviewUserName = rewiewUser.current.value;
-    const reviewUserMsg = reviewMsg.current.value;
+  //   const reviewUserName = rewiewUser.current.value;
+  //   const reviewUserMsg = reviewMsg.current.value;
 
-    switch (rating) {
-      case 0.5: text = labels['0.5']
-        break;
-      case 1: text = labels[1]
-        break;
-      case 1.5: text = labels['1.5']
-        break;
-      case 2: text = labels['2']
-        break;
-      case 2.5: text = labels['2.5']
-        break;
-      case 3: text = labels['3']
-        break;
-      case 3.5: text = labels['3.5']
-        break;
-      case 4: text = labels['4']
-        break;
-      case 4.5: text = labels['4.5']
-        break;
-      case 5: text = labels['5']
-        break;
-      default: text = ' '
+  //   switch (rating) {
+  //     case 0.5: text = labels['0.5']
+  //       break;
+  //     case 1: text = labels[1]
+  //       break;
+  //     case 1.5: text = labels['1.5']
+  //       break;
+  //     case 2: text = labels['2']
+  //       break;
+  //     case 2.5: text = labels['2.5']
+  //       break;
+  //     case 3: text = labels['3']
+  //       break;
+  //     case 3.5: text = labels['3.5']
+  //       break;
+  //     case 4: text = labels['4']
+  //       break;
+  //     case 4.5: text = labels['4.5']
+  //       break;
+  //     case 5: text = labels['5']
+  //       break;
+  //     default: text = ' '
 
-    }
+  //   }
 
-    const rewiewArr = {
-      userName: reviewUserName,
-      text: reviewUserMsg,
-      rating: rating,
-      text: text,
-    }
-    toast.success('Reviews send!')
-  }
+  //   const rewiewArr = {
+  //     userName: reviewUserName,
+  //     text: reviewUserMsg,
+  //     rating: rating,
+  //     text: text,
+  //   }
+  //   toast.success('Reviews send!')
+  // }
   const addToCart = () => {
     dispatch(cartActions.addProduct({
       id: product.ID,
-      downloadURL: product.downloadURLs,
+      images: product.images,
       name: product.name,
       price: product.price,
     }))
   }
 
-  // const rewiews = product.reviews;
-
-
-  // Tab For images
-  const styleBox = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    right: 0,
-    transform: {
-      xs: 'translate(-50%, -50%)',
-      sm: 'translate(-50%, -50%)'
-    },
-    width: {
-      xs: '90%',
-      sm: '70%',
-    },
-    maxHeight: '90vh',
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    borderRadius: '5px',
-    pb: 1,
-    border: '1px solid white',
-    outline: 'none',
-
-
-  };
-   
+  
 
   // ~~~~~~~~~~ Description Tab~~~~~~~~~~~~~//
   const [value, setValue] = useState(0);
@@ -177,6 +153,7 @@ const ProductDetails = () => {
     return item.id === ID
   })
   console.log(productItem);
+
   return (
     <>
 
@@ -191,7 +168,7 @@ const ProductDetails = () => {
                       orientation='vertical'
                       onChange={handleChange} aria-label="lab API tabs example">
                       {
-                        downloadURLs?.map((item, inx) => (
+                        images?.map((item, inx) => (
                           <Tab sx={{ maxWidth: '100%', padding: '5px' }} label={item ? <img className={styles.smallImg} style={{ borderRadius: '5px', marginRight: 'auto' }} src={item} /> : null} value={inx} />
 
                         ))
@@ -199,7 +176,7 @@ const ProductDetails = () => {
                     </TabList>
                   </Box>
 
-                  {downloadURLs?.map((item, inx) => (
+                  {images?.map((item, inx) => (
                     <TabPanel
                       value={inx}>
                       <img className={styles.bigImg} src={item} style={{ borderRadius: '5px', margin: 'auto' }} alt="" />
@@ -210,11 +187,27 @@ const ProductDetails = () => {
               </Box>
 
               <div className={styles.about_product}>
-                <h2>{name}</h2>
+                <div className={styles.likes_views}>
+                  <h2>{name}</h2>
+                  <div>
+                    <span>
+                  <span>{viewCount}</span>
+                  <BsEyeFill/>
+                 </span>
+                    <span>
+                  <span>{likeCount?.length}</span>
+                  likes
+                 </span>
+                 
+                  </div>
+                </div>
                 <p>{category}</p>
                 <div className={styles.add_product_btn}>
-                 {
-                  productItem.length !==0 && 
+                 
+                  <div className={styles.price_addCount}>
+
+                    {
+                  productItem.length !== 0 && 
                    (<div className={styles.plus_minus_btn}>
                     <button><GoPlus onClick={handleIncrement} className={styles.plus_icon} size={22} /></button>
                     {
@@ -225,8 +218,9 @@ const ProductDetails = () => {
                     <button><HiMinus onClick={handleDecrement} className={styles.minus_icon} size={22} /></button>
                   </div>)
                  }
-                  <h3>{formatCurrency(price)}</h3>
+                    <h3>{formatCurrency(price)}</h3>
 
+                  </div>
                   <button className={styles.addProduct} onClick={addToCart}> <span>Add product</span> <FiPlus className={styles.fiPlus} size={22} /></button>
 
                 </div>

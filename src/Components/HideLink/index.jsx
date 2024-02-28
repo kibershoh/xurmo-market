@@ -21,19 +21,3 @@ export const ShowOnLogout = ({ children }) => {
 }
 
 export default HideLink
-// import React from 'react'
-
-// export const HideLink = () => {
-//   return (
-//     <div>HideLink</div>
-//   )
-// }
-
-
-// const ShowOnLogout = () => {
-//   return (
-//     <div>ShowOnLogout</div>
-//   )
-// }
-
-// export default ShowOnLogout

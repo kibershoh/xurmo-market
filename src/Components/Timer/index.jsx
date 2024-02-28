@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 const Timer = () => {
-  // States
+  //~~~~~~~ States~~~~~~~
   const [days, setDays] = useState()
   const [hours, setHours] = useState()
   const [minutes, setMinutes] = useState()

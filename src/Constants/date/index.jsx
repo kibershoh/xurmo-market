@@ -1,5 +1,5 @@
 
-  const date = new Date();
+  const date = new Date()
   const pad=(n)=>{
       return n<10 ? '0'+n : n
   }
