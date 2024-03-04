@@ -9,11 +9,14 @@
      right: 0;
      height: 65px;
      z-index: 1000;
-
+     visibility: visible;
+     transform: translateY(0);
      .navbar {
+        position: relative;
          display: flex;
          align-items: center;
          justify-content: space-between;
+
 .dashboard_page{
     color: #fff;
     background-color: transparent;
@@ -399,3 +402,18 @@
      left: 0;
      transition-duration: all .6s;
  }
+ 
+
+   .showNav{
+      visibility:visible;
+      transition: all 1s;
+      transform: translateY(0);
+
+    }
+    .hiddenNav {
+      visibility: hidden;
+      transition: all 0.2s;
+      transform: translateY(-100%);
+
+    }
+ 

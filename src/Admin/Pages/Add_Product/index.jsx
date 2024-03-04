@@ -174,7 +174,7 @@ const AddProduct = () => {
 
           <div className={styles.inputs}>
             <label>Description</label>
-            <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} name="text" required />
+            <textarea type="text" value={description} onChange={(e) => setDescription(e.target.value)} name="text" required />
           </div>
 
           <div className={styles.inputs}>

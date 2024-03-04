@@ -1,6 +1,6 @@
-import bg1 from '../../../assets/sliderImages/bg1.jpg'
-import bg2 from '../../../assets/sliderImages/bg2.jpg'
-import bg3 from '../../../assets/sliderImages/bg3.jpg'
+import bg1 from '../../../assets/sliderImages/img1.jpg'
+import bg2 from '../../../assets/sliderImages/img1.jpg'
+import bg3 from '../../../assets/sliderImages/img3.jpg'
 export const sliderData = [
     {
         image:bg1,

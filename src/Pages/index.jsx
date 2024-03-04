@@ -9,4 +9,5 @@ export {default as Reset} from './authention/reset'
 export {default as Shop} from './shop'
 export {default as Checkout} from './checkout'
 export {default as ProductDetails} from './productDetails'
+export {default as MyOrders} from './myOrders'
  

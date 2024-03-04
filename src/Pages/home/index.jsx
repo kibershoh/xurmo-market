@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import Slider from '../../Components/Slider'
+// import Slider from '../../Components/Slider'
 import { Services, Timer } from '../../Components'
 // import products from '../../Constants/data/products'
 import styles from './styles.module.scss'
 import { ProductList } from '../../UI_Design'
 import useGetData from '../../Custom Hooks/UseGetData'
-
+import {motion, useScroll} from 'framer-motion'
+import Slider from '../../Components/Slider/slider'
 const Home = () => {
+    const { scrollYProgress } = useScroll();
+
    const {data:products,loading} = useGetData("products")
   const [micraphone, setMicraphone] = useState(null)
   const [headphones, setHeadphones] = useState(null)
@@ -43,8 +46,10 @@ const Home = () => {
 
 
   return (
-    <div className={styles.home}>
-      <Slider />
+    <div
+    className={styles.home}>
+      {/* <Slider /> */}
+      <Slider/>
       <Services />
       <h1 className={styles.product_name}>Microphones</h1>
       <ProductList data={micraphone} />

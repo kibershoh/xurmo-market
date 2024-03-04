@@ -205,15 +205,14 @@
                 border: 1px solid #ddd;
                 padding: .35em;
             }
-
-            th,
-            td {
+            
+            th,td{
                 padding: .625em;
                 text-align: start;
 
                 &:nth-child(1) {
-                    width: 100px;
-
+                    width: 200px;
+                      
                     @media (max-width: '1170px') {
 
                         width: 100%;
@@ -224,7 +223,6 @@
             th {
                 font-size: .85em;
                 letter-spacing: .1em;
-                text-transform: uppercase;
             }
 
             @media screen and (max-width: 1000px) {
@@ -265,7 +263,6 @@
                         content: attr(data-label);
                         float: left;
                         font-weight: bold;
-                        text-transform: uppercase;
                     }
 
                     &:last-child {

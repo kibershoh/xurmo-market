@@ -1,7 +1,7 @@
 //--------------- Library---------------//
 
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 // -----------React-icons-----------//
 
@@ -27,6 +27,9 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import HideLink, { ShowOnLogout } from "../HideLink";
 import UseAuth from "../../Custom Hooks/UseAuth";
+import  { useScroll } from "./useScroll";
+import ProgressScrollY from "../../UI_Design/progressScrollY";
+import { animate, useMotionValue, useTransform,motion } from 'framer-motion';
 
 // Components
 
@@ -96,24 +99,10 @@ const Navbar = () => {
         };
     })
 
-    // Scrolled
-    useEffect(() => {
-        const handleScroll = () => {
+   
+    const { scrollX, scrollY, scrollDirection } = useScroll();  
 
-            const scrollTop = window.scrollY;
-            if (scrollTop > 200) {
-                setScrolled(true);
-            }
-            else {
-                setScrolled(false)
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
+  
     // -------------------FIREBASE---------------------------Logout------------//
 
    const logoutUser = () => {
@@ -131,10 +120,10 @@ const Navbar = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       logoutUser();
-    }, 60*60*24 * 1000); // Logout after 1 hour (60 minutes * 60 seconds * 1000 milliseconds)
+    }, 60*60*24 * 1000); 
 
     return () => clearTimeout(timer); // Clear the timer when component unmounts or re-renders
-  }, []); // Empty dependency array ensures this effect runs only once
+  }, []); 
 
 
 
@@ -144,30 +133,37 @@ const Navbar = () => {
     const dispatch = useDispatch()
 
     const totalQuantity = useSelector(state => state.cart.totalQuantity)
+ 
+const location = useLocation()
 
 
-
-
+console.log(scrollDirection);
 
 
     return (
+      <>
         <nav
-            ref={ProfileRef}
-            className={clsx(styles.header,
-                scrolled ? styles.scrolled : styles.unscrolled,
-            )}>
+        ref={ProfileRef}
+        className={clsx(
+             scrollDirection === "down" || scrollDirection === undefined || scrollY === undefined   ? styles.showNav : (scrollY > 0 ? styles.hiddenNav : ' ' ),
+              styles.header,
+            )}
+            >
             {/* -----------Desktop Navbar----------- */}
             <div className={styles.navbar}>
                 <Link to={'/'} className={styles.logo}>
                     <MotionText logo={"Xurmo"} />
                 </Link>
+                
                 <HiMenuAlt1 onClick={showClick} size={25} className={styles.menu_icon} />
+
                     {
                         currentUser?.displayName === "Oybek" && currentUser && currentUser?.email === "oybek@gmail.com" ? (<button onClick={()=>navigate('/dashboard')} className={styles.dashboard_page}><Link className={styles.unActiveLink} to={'/dashboard'}>Dashboard </Link> <img onClick={()=>navigate('/dashboard')} src={dashboard} alt="" /></button>  ) : ''
                     }
                 <nav>
 
                     {/* -----------Navbar Links----------- */}
+
                     <ul>
                         {
                             navLinks.map((nav, inx) => (
@@ -315,7 +311,9 @@ const Navbar = () => {
                     }
                 </ul>
             </div>
+
         </nav>
+      </>
     )
 }
 

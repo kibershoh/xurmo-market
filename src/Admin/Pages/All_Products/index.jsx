@@ -42,7 +42,7 @@ const AllProducts = () => {
 
                   <thead>
                     <tr>
-                      <th scope="col"><TbNumber size={19} /> </th>
+                      {/* <th scope="col"><TbNumber size={19} /> </th> */}
                       <th scope="col">Image</th>
                       <th scope="col">Name</th>
                       <th scope="col">Category</th>
