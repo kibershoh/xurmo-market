@@ -47,6 +47,7 @@ const NavbarDown = () => {
     <nav className={styles.navbar_down}>
 <div className={styles.links}>
         {
+          
           navbarDownLinks.map(({id,name,path,icon})=>(
  <div key={id}>
    {icon}
