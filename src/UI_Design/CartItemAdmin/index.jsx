@@ -41,8 +41,11 @@ const CartItemAdmin = ({ item, number }) => {
   const handleOpen = () => setOpen(true);
   const styleBox = {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
+    top:'50%',
+    left: {
+      xs:'50%',
+      sm:'60%',
+    },
     right: 0,
     transform: {
       xs: 'translate(-50%, -50%)',

@@ -7,4 +7,5 @@ export {default as Slider} from './Slider'
 export {default as Timer} from './Timer'
 export {default as ShowOnLogout} from './HideLink'
 export {default as LoaderTable} from './LoaderTable'
+export {default as NavbarDown} from './NavbarDown'
 

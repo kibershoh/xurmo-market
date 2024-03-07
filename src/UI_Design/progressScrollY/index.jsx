@@ -26,7 +26,7 @@ const {scrollDirection} = useScroll()
   return (
     <div id='progress-container'
      style={{
-        zIndex:100000,
+        zIndex:999,
         display: scrollDirection === "down" ?  'none' : 'block',
         height:"8px",
         width:"100%",

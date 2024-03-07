@@ -6,9 +6,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+padding-left: 20%;
+ @media (max-width: '1000px') {
+      padding-left: 20px;
+    }
   form {
-    width: 70%;
+    width: 100%;
     margin: auto;
 
     @media (max-width: '1200px') {

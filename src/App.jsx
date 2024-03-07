@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Footer, Navbar} from './Components/index';
+import {Footer, Navbar, NavbarDown} from './Components/index';
  import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Routers from './Routes/Routers';
@@ -35,7 +35,7 @@ const {currentUser} = UseAuth()
   return (
     <div>
     <ToastContainer
-     autoClose={500}
+     autoClose ={500}
      theme='dark'
      closeOnClick
      pauseOnHover={false}
@@ -43,7 +43,12 @@ const {currentUser} = UseAuth()
      <ProgressScrollY/>
 
      {
-      location.pathname.startsWith("/dashboard") && currentUser?.displayName==='Oybek' && currentUser ? <NavbarAdmin/> : <Navbar/>
+      location.pathname.startsWith("/dashboard") && currentUser?.displayName==='Oybek' && currentUser ? <NavbarAdmin/> 
+      :
+       <>
+      <Navbar/>
+      <NavbarDown/>
+      </>
      }
     <div>
       <Routers/>
