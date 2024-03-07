@@ -1,0 +1,110 @@
+.my_order_items {
+
+    .my_order {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 5px;
+        padding: 20px;
+        border: 1px solid #cecbcb;
+        border-radius: 4px;
+        padding-bottom: 10px;
+
+
+
+        @media (max-width: '450px') {
+            padding: 8px;
+        }
+
+        .image_name {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+
+        }
+
+        .desc {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-left: 30px;
+
+            @media (max-width: '600px') {
+                flex-direction: column;
+                align-content: end;
+                margin-left: 10px;
+            }
+
+            .name_price {
+                display: flex;
+                flex-direction: column;
+
+               
+
+                h3 {
+                    font-weight: 600;
+                    // font-size: 17px;
+                    font-family: "Noto Sans";
+                    margin-bottom: 10px;
+
+                    
+                }
+
+                span {
+                    font-family: "Noto Sans";
+                    color: #444;
+                }
+                 @media (max-width: '350px') {
+                    span {
+                        font-size: 12px;
+
+                    }
+
+                    h3 {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .count_price {
+                width: 50%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                @media (max-width: '900px') {
+                    font-size: 15px;
+                }
+
+                @media (max-width: '600px') {
+                    width: 100%;
+                    margin-top: 20px;
+                }
+
+                @media (max-width: '350px') {
+                    margin-top: 30%;
+                    
+                    h3 {
+                        font-size: 13px;
+                    }
+                    p{
+                        font-size: 10px;
+                    }
+                }
+
+                p {
+                    font-weight: 600;
+                    font-family: "Noto Sans";
+                }
+
+                h3 {
+                    font-weight: 500;
+                    font-family: "Noto Sans";
+                }
+            }
+        }
+    }
+
+}
