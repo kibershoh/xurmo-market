@@ -172,11 +172,12 @@
     align-items: center;
     height: 80vh;
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(../../assets/sliderImages/img5.jpg) center/cover no-repeat fixed;
+    
     .search_input {
         position: relative;
         width: 100%;
         text-align: center;
-
+     
         .input_box {
             position: relative;
             width: 40%;
@@ -243,4 +244,78 @@
             }
         }
     }
+    .fixed {
+        position: fixed;
+        top: 0;
+        z-index: 999;
+        width: 100%;
+        text-align: center;
+     
+        .input_box {
+            position: relative;
+            width: 40%;
+            margin: 0 auto;
+             @media (max-width: '1060px') {
+           width: 100%;
+        }
+            input {
+                width: 100%;
+                outline: none;
+                padding: 10px;
+                border-radius: 0;
+                height: 30px;
+                font-size: 18px;
+                border: 1px solid #fff;
+            }
+
+            .search_btn {
+                position: absolute;
+                background-color: #fff;
+                top: 7px;
+                right: 15px;
+                color: #666;
+            }
+        }
+
+        .searched_products {
+            position: absolute;
+            width: 50%;
+            height: auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            top: 60px;
+            left: 25%;
+ @media (max-width: '1060px') {
+           width: 90%;
+           left: 5%;
+        }
+            .names {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 15px;
+                    color: #333;
+                    font-family: "Noto Sans";
+
+                    span {
+                        margin-left: 20px;
+                        font-size: 15px;
+                        font-weight: 600;
+
+                    }
+
+                    &:hover {
+                        color: indigo;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+   
 }

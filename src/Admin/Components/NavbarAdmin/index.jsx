@@ -1,11 +1,11 @@
 //--------------- Library---------------//
 
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 // -----------React-icons-----------//
 
-import { HiMenuAlt1 } from "react-icons/hi";
+import { HiMenuAlt1, HiViewGrid } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiSearchAlt2 } from "react-icons/bi";
@@ -14,20 +14,26 @@ import { BiSearchAlt2 } from "react-icons/bi";
 
 import userImg from '../../../assets/loginn.png'
 import logout from '../../../assets/logoutt.png'
+import logotip from '../../../assets/logotip.png'
 import styles from './styles.module.scss'
 // ----------- Firebase ------------------//
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import UseAuth from "../../../Custom Hooks/UseAuth";
-import adminNavLinks from "../../../Constants/AdminNavbarItems";
 import MotionText from "../../../Constants/Framer-Motions/ForNavbar/logo";
 import { auth } from "../../../Firebase/config";
 
 // ~~~~~~~~~~~ React Icons~~~~~~~~~~~ //
-import { MdOutlineSettings } from "react-icons/md";
-import { FaRegBell } from "react-icons/fa6";
-import { HideLink, ShowOnLogout } from "../../../Components";
+import { MdFormatListBulleted, MdLibraryAdd, MdOutlineSettings } from "react-icons/md";
+import { FaBars, FaCalendarDay, FaRegBell, FaStaylinked, FaUsers } from "react-icons/fa6";
+import { IoNotificationsOutline, IoSearchOutline } from "react-icons/io5";
+import { LuWarehouse } from "react-icons/lu";
+import { BsFillAirplaneFill } from "react-icons/bs";
+import { FaUserAlt, FaUserFriends } from "react-icons/fa";
+import { useScroll } from "../../../Components/Navbar/useScroll";
+import HideLink, { ShowOnLogout } from "../../../Components/HideLink";
+import useGetData from "../../../Custom Hooks/UseGetData";
 
 
 // ~~~~~~~~~~~ Components~~~~~~~~~~~ //
@@ -37,7 +43,7 @@ import { HideLink, ShowOnLogout } from "../../../Components";
 
 
 const NavbarAdmin = () => {
-
+  const location = useLocation()
   // ~~~~~~Protected Route and firebase auth~~~~~//
   const { currentUser } = UseAuth()
 
@@ -51,7 +57,7 @@ const NavbarAdmin = () => {
   const [authLinks, setAuthLinks] = useState('')
   const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
-  const [search,setSearch] = useState('')
+  const [search, setSearch] = useState('')
   const navigate = useNavigate()
   // Functions//
 
@@ -67,18 +73,15 @@ const NavbarAdmin = () => {
 
 
   // Active Link Handler
-  const activeLinkHandler = (title) => {
-    setActiveLink(title)
-    document.title = title
-  }
+
 
   // Refs
   const ProfileRef = useRef(null);
   const navbarRef = useRef(null)
 
-  //-----------useEffects()--------------//
+  // //-----------useEffects()--------------//
 
-  // For Navbar and Sidebar
+  // // For Navbar and Sidebar
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -86,7 +89,7 @@ const NavbarAdmin = () => {
         !ProfileRef.current.contains(event.target)
       ) {
         setActive(false);
-        setShow(false);
+        setSidebar(false);
       }
     };
 
@@ -97,25 +100,25 @@ const NavbarAdmin = () => {
     };
   })
 
-  // Scrolled
-  useEffect(() => {
-    const handleScroll = () => {
+  // // Scrolled
+  // useEffect(() => {
+  //   const handleScroll = () => {
 
-      const scrollTop = window.scrollY;
-      if (scrollTop > 200) {
-        setScrolled(true);
-      }
-      else {
-        setScrolled(false)
-      }
-    };
+  //     const scrollTop = window.scrollY;
+  //     if (scrollTop > 200) {
+  //       setScrolled(true);
+  //     }
+  //     else {
+  //       setScrolled(false)
+  //     }
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
-  // -------------------FIREBASE---------------------------Logout------------//
+  // // -------------------FIREBASE---------------------------Logout------------//
 
   const logoutUser = () => {
     signOut(auth).then(() => {
@@ -125,196 +128,244 @@ const NavbarAdmin = () => {
     }).catch((error) => {
       toast.error(error.message)
     })
-  }  
+  }
 
-  // --------------------Redux-------------------//
-  const dispatch = useDispatch()
+  // // --------------------Redux-------------------//
+  // const dispatch = useDispatch()
 
-  const totalQuantity = useSelector(state => state.cart.totalQuantity)
-
-
+  // const totalQuantity = useSelector(state => state.cart.totalQuantity)
 
 
 
 
+
+
+
+  const [sidebar, setSidebar] = useState(false);
+  const showSidebar = () => {
+    setSidebar(!sidebar);
+  };
+  const activeLinkHandler = (title) => {
+    setActiveLink(title)
+    document.title = title
+    setSidebar(false)
+  }
+
+  console.log(location.pathname.startsWith());
+  const { scrollX, scrollY, scrollDirection } = useScroll();
+
+  const data = [
+    {
+      id: 1,
+      icon: <HiViewGrid size={17} className={styles.icons} />,
+      name: "Dashboard",
+      path: "/dashboard",
+    },
+    {
+      id: 2,
+      icon: <FaStaylinked size={17} className={styles.icons} />,
+      name: "All Products",
+      path: "/dashboard/all-products",
+    },
+
+
+
+    {
+      id: 3,
+      icon: <FaUsers  size={17} className={styles.icons} />,
+      name: "Users",
+      path: "/dashboard/users",
+    },
+    {
+      id: 4,
+      icon: <MdLibraryAdd  size={17} className={styles.icons} />,
+      name: "Add Products",
+      path: "/dashboard/add-products",
+    },
+    {
+      id: 4,
+      icon: <MdFormatListBulleted   size={17} className={styles.icons} />,
+      name: "Order List",
+      path: "/dashboard/add-products",
+    },
+
+
+  ];
+  const {data:productsData,loading} = useGetData("products")
+const [searchedProducts,setSearchedProducts] = useState([])
+const [inputText,setInputText] = useState('')
+
+const handleSearch = (e)=>{
+    const searchTerm = e.target.value;
+    const searchedProducts = productsData.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    setSearchedProducts(searchedProducts)
+    setInputText(searchTerm)
+    
+  } 
   return (
-    <nav
-      ref={ProfileRef}
-      className={clsx(styles.header,
-        scrolled ? styles.scrolled : styles.unscrolled,
+    <>
+      <div ref={ProfileRef} className={clsx(
+        styles.navbar,
+        scrollDirection === "down" || scrollDirection === undefined || scrollY === undefined ? styles.showNav : (scrollY > 0 ? styles.hiddenNav : ' '),
+
       )}>
-      {/* -----------Desktop Navbar----------- */}
-      <div className={styles.navbar}>
-        <Link to={'/'} className={styles.logo}>
-          <MotionText logo={"Xurmo"} />
+        <Link to='#' className={styles.menu_bars}>
+          <HiMenuAlt1 size={25} onClick={showSidebar} />
         </Link>
-        <HiMenuAlt1 onClick={showClick} size={25} className={styles.menu_icon} />
-      {/* <div className={styles.search_input}>
-        <input
-        value={search}
-        onChange={(e)=>setSearch(e.target.value)}
-        type="search" />
-        {search === ''? <button className={styles.search_icon}><BiSearchAlt2 size={22}/></button> : <button className={styles.search_text}>Search</button>}
-      </div> */}
-        <nav>
-          {/* -----------Navbar Links----------- */}
-          <ul>
+          <div className={styles.search_admin}>
+             <input type="search" placeholder="Search...." onChange={handleSearch} />
+             <IoSearchOutline className={styles.search_icon}/>
+          </div>
+          {
+        inputText !=='' && searchedProducts.length !==0 && 
+         <div className={styles.searched_products}>
+            
+            <div className={styles.names}>
             {
-              adminNavLinks.map((nav, inx) => (
-                <li key={nav.id}>
-                  <Link classes={clsx(
-                    activeLink === nav.title ? styles.activeLink : '', styles.unActiveLink
-                  )}
-                    onClick={() => activeLinkHandler(nav.title)} to={nav.path}
-                  >
-                    <MotionText
-                      logo={nav.title}
-                      classes={clsx(
-                        activeLink === nav.title ? styles.activeLink : '', styles.unActiveLink
-                      )} />
-                  </Link>
-                </li>
-              ))
-            }
-          </ul>
-          {/* -----------Cart----------- */}
+          inputText &&  searchedProducts?.map((item,index)=>(
+                <Link to={/shop/ + item.ID}><BiSearchAlt2 size={20}/> <span>{item.name}</span></Link>
+            ))
+        }
+        </div>
+      </div>
+     }
+          <div className={styles.admin_auth}>
+            {/* -----------Cart----------- */}
 
-          <div className={styles.cart}>
-            <a href="#cart">
-              <FaRegBell size={22} className={styles.icon_shop}
-                onClick={() => {
-                  navigate('/cart')
-                  document.title = 'Cart';
-                }}
-              />
-              <span>
-                {totalQuantity}
-              </span>
-            </a>
-          </div>
-          <div className={styles.cart}>
-            <a href="#cart">
-              <MdOutlineSettings size={22} className={styles.icon_shop}
-                onClick={() => {
-                  navigate('/cart')
-                  document.title = 'Cart';
-                }}
-              />               
-            </a>
-          </div>
-          {/* -----------Profile----------- */}
-
-          <div className={styles.profile} ref={ProfileRef}>
-
-            <HideLink>
-              <h1>
-                <MotionText logo={currentUser ? `Hi ${currentUser.displayName}` : ''} />
-              </h1>
-            </HideLink>
-            <button className={styles.btn_profile} onClick={ProfileHandler} >
-              {
-                <img src={currentUser ? currentUser.photoURL : userImg} alt="" />
-              }
-
-
-            </button>
-            {/* -----------Authentication------------ */}
-            <div className={
-              clsx(
-                styles.auth_modal,
-                active ? styles.block : styles.hidden
-              )
-            }>
-              <h1>{displayName}</h1>
-              <p>{email}</p>
-              <div className={styles.links_auth}>
-                {/* <IoCaretUpSharp size={17} className={styles.top_icon} /> */}
-                <span className={styles.links}>
-
-                  <HideLink>
-                    <Link
-                      onClick={() => {
-                        setAuthLinks('My Orders')
-                        setActive(false)
-                      }}
-
-                      className={clsx(
-                        authLinks === 'My Orders' ? styles.authActiveLinks : ''
-                      )} to={"/order-history"}>My Orders</Link>
-                  </HideLink>
-
-                  <ShowOnLogout>
-                    <Link
-                      onClick={() => {
-                        setAuthLinks('Register')
-                        setActive(false)
-                      }}
-
-                      className={clsx(
-                        authLinks === 'Register' ? styles.authActiveLinks : ''
-                      )} to={"/register"}>Register</Link>
-
-                    <Link
-                      onClick={() => {
-                        setAuthLinks('Login')
-                        setActive(false)
-
-                      }}
-
-                      className={clsx(
-                        authLinks === 'Login' ? styles.authActiveLinks : ''
-                      )} to={"/login"}>Login</Link>
-                  </ShowOnLogout>
-
-                  <HideLink>
-                    <button
-                      onClick={logoutUser}
-                      className={styles.logout}
-                    >Logout <img src={logout} width={10} alt="" /> </button>
-                  </HideLink>
-
+            <div className={styles.cart}>
+              <a href="#cart">
+                <AiOutlineShoppingCart size={25} className={styles.icon_shop}
+                  onClick={() => {
+                    navigate('/dashboard')
+                    document.title = 'Cart';
+                  }}
+                />
+                <span>
+                  8
                 </span>
+              </a>
+            </div>
+            {/* -----------Profile----------- */}
+
+            <div className={styles.profile}>
+
+              <HideLink>
+                
+                   <h1>
+                 Hi {currentUser.displayName}
+                </h1>
+                  
+                
+              </HideLink>
+              <button className={styles.btn_profile} onClick={ProfileHandler} >
+                {
+                  <img src={currentUser ? currentUser?.photoURL : userImg} alt="" />
+                }
+
+
+              </button>
+              {/* -----------Authentication------------ */}
+              <div className={
+                clsx(
+                  styles.auth_modal,
+                  active ? styles.block : styles.hidden
+                )
+              }>
+                <h1>{currentUser?.displayName}</h1>
+                <p>{currentUser?.email}</p>
+                <div className={styles.links_auth}>
+                  <span className={styles.links}>
+
+                    <ShowOnLogout>
+                      <Link
+                        onClick={() => {
+                          setAuthLinks('My Orders')
+                          setActive(false)
+                        }}
+
+                        className={clsx(
+                          authLinks === 'My Orders' ? styles.authActiveLinks : ''
+                        )} to={"/order-history"}>My Orders</Link>
+                    </ShowOnLogout>
+
+                    <ShowOnLogout>
+                      <Link
+                        onClick={() => {
+                          setAuthLinks('Register')
+                          setActive(false)
+                        }}
+
+                        className={clsx(
+                          authLinks === 'Register' ? styles.authActiveLinks : ''
+                        )} to={"/register"}>Register</Link>
+
+                      <Link
+                        onClick={() => {
+                          setAuthLinks('Login')
+                          setActive(false)
+
+                        }}
+
+                        className={clsx(
+                          authLinks === 'Login' ? styles.authActiveLinks : ''
+                        )} to={"/login"}>Login</Link>
+                    </ShowOnLogout>
+
+                    <HideLink>
+                      <button
+                       onClick={logoutUser}
+                        className={styles.logout}
+                      >Logout <img src={logout} width={10} alt="" /> </button>
+                    </HideLink>
+
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </nav>
+
+
+
 
       </div>
-
-      {/* -----------Sidebar Responsive------------ */}
-
-      <div className={clsx(styles.sidebar, show ? styles.right : styles.left)}
-        ref={ProfileRef}>
-        <div className={styles.logo_close}>
-          <Link to={'/'} className={styles.logo}>
-            <MotionText logo={"Xurmo"} classes={''} />
+      {/* ~~~~~~~~~~~Responsive Sidebasr */}
+      <nav
+      ref={ProfileRef}
+        className={clsx(
+          styles.navLeft,
+          sidebar ? styles.active : ''
+        )}
+      >
+        <div className={styles.navMenu}>
+          <Link to={'/'}>
+            <span>Xurmo</span>
           </Link>
-          <CgClose onClick={showClick} className={styles.close_btn} size={22} />
+          <img src={logotip} width={30} alt="" />
+          <CgClose size={30} className={styles.faTimes} onClick={showSidebar} />
         </div>
-
-        {/* -----------Sidebar Links------------ */}
         <ul>
           {
-            adminNavLinks.map((nav) => (
-              <li key={nav.id}>
-                <Link
-                  to={nav.path}
+            data?.map(({id,name,icon,path}, inx) => (
+              <li key={id}>
+                <NavLink to={path} className={clsx(
+                  activeLink === name ? styles.active : '',
+                )}
                   onClick={() => {
-                    activeLinkHandler(nav.title)
-                    setShow(false)
-                  }}
-                  className={clsx(
-                    activeLink === nav.title ? styles.activeLink : ''
-                  )}
+                    activeLinkHandler(name)
+                    
+                  }} 
                 >
-                  {nav.title}
-                </Link>
+                  {icon}
+                  {name}
+                </NavLink>
               </li>
             ))
           }
+
+
         </ul>
-      </div>
-    </nav>
+      </nav>
+    </>
   )
 }
 

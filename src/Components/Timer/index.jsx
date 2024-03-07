@@ -8,7 +8,7 @@ const Timer = () => {
   const [seconds, setSeconds] = useState()
   let interval;
   const countDown = () => {
-    const dedline = new Date('March 3, 2024').getTime()
+    const dedline = new Date('April 3, 2024').getTime()
     interval = setInterval(() => {
       const now = new Date().getTime()
       const Timedifference = dedline - now

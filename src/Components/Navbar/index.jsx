@@ -168,7 +168,7 @@ console.log(scrollDirection);
                         {
                             navLinks.map((nav, inx) => (
                                 <li key={nav.id}>
-                                    <Link classes={clsx(
+                                    <Link className={clsx(
                                         activeLink === nav.title ? styles.activeLink : '', styles.unActiveLink
                                     )}
                                         onClick={() => activeLinkHandler(nav.title)} to={nav.path}
