@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import styles from './styles.module.scss'
 
 import { FiHeart } from "react-icons/fi";
-import { BsPlusLg } from "react-icons/bs";
+import { BsEyeFill, BsPlusLg } from "react-icons/bs";
 import { BsCartPlus } from "react-icons/bs";
 import { TfiCommentAlt } from "react-icons/tfi";
 
@@ -22,7 +22,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useGetData from '../../Custom Hooks/UseGetData';
 import CardLoader from '../../Constants/LoaderCard';
 import { auth, db } from '../../Firebase/config';
-import { Timestamp, addDoc, collection, doc, onSnapshot, arrayUnion, setDoc, updateDoc, query, getDocs, orderBy, getDoc, deleteDoc} from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, onSnapshot, arrayUnion, setDoc, updateDoc,FieldValue, query, getDocs, orderBy, getDoc, deleteDoc} from 'firebase/firestore';
 import { FaHeart } from 'react-icons/fa';
 // import    from '@mui/material/Modal';
 import { Box, Typography, Modal, TextField } from '@mui/material';
@@ -33,10 +33,11 @@ import { CgClose } from 'react-icons/cg';
 import { TextInput } from './CommentInput';
 import { IoSend } from 'react-icons/io5';
 import UseAuth from '../../Custom Hooks/UseAuth';
+import { errorSound, successSound } from '../../Constants/sounds';
 const ProductCard = ({ item, index }) => {
   const {currentUser} = UseAuth()
   const { idParams } = useParams()
-  const { ID, id, name, price, downloadURLs, category, reviews, likeCount,timestamp } = item
+  const { ID, id, name, price, images, category, reviews, likeCount,timestamp,viewCount } = item
   const productItems = useSelector(state => state.cart.cartItems)
   const { data: products, loading } = useGetData("products")
   const dispatch = useDispatch()
@@ -52,21 +53,23 @@ const ProductCard = ({ item, index }) => {
     }
   }
   const addToCart = () => {
+    Add()
     dispatch(
       cartActions.addProduct({
         id: ID,
         name: name,
         price: price,
-        downloadURL: downloadURLs,
+         ...images,
       })
     )
     active()
-
-
+ 
   }
+ 
 
   const toDetails = (id) => {
     navigate('/shop/' + id)
+    Add()
   }
   const [likesNo, setLikesNo] = useState(likeCount.length !== 0  ? likeCount.length : 0);
   const [isLikesOpen, setIsLikesOpen] = useState(false);
@@ -97,9 +100,26 @@ const ProductCard = ({ item, index }) => {
     }
   } 
  
-   
-   
-  return (
+    
+
+
+ const Add = async () => {
+  const docRef = doc(db, "products", id);
+  const docSnapshot = await getDoc(docRef);
+  if (docSnapshot.exists() && id) {
+    const productData = docSnapshot.data();
+    const currentCount = productData.viewCount || 0;
+    const updatedCount = currentCount + 1;
+    const customerCount = productData.customers ? productData.customers.length : 0;
+
+    await Promise.all([
+      updateDoc(docRef, { viewCount: updatedCount }),
+      updateDoc(docRef, { customerCount })
+    ]);
+  }
+};
+ 
+    return (
     <>
       {
         (loading && !window.navigator.onLine) ? <CardLoader /> :
@@ -126,7 +146,7 @@ const ProductCard = ({ item, index }) => {
               <div className={styles.product_img}>
                 <a href="#shop_detail">
 
-                  <motion.img onClick={() => toDetails(ID)} whileHover={{ scale: 0.8 }} src={downloadURLs[0]} alt="" />
+                  <motion.img onClick={() => toDetails(ID)} whileHover={{ scale: 0.8 }} src={images[0]} alt="" />
 
                 </a>
               </div>
@@ -134,9 +154,12 @@ const ProductCard = ({ item, index }) => {
               <div className={styles.name_price}>
                 <h3>{name}</h3>
               </div>
-              <div>
-                <span className={styles.category}>{category}</span>
-                 
+              <div className={styles.category}>
+                <span>{category}</span>
+                 <p>
+                  <span>{viewCount}</span>
+                  <BsEyeFill/>
+                 </p>
               </div>
               <div className={styles.product_add}>
                       <span>{formatCurrency(price)}</span>
@@ -151,7 +174,7 @@ const ProductCard = ({ item, index }) => {
                     </div>
                     <span className={styles.icon}>
                       {
-                        added ? 'Added' : <BsCartPlus />
+                        added ? 'Added' : <BsCartPlus className={styles.cart_icon} />
                       }
                     </span>
                   </div></motion.button>

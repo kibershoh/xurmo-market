@@ -1,11 +1,11 @@
-//React Hooks
+//~~~~~~~~~React Hooks~~~~~~~
 import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 
-//Icons
+//~~~~~~~~~~Icons~~~~~~~~~~~~~
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 
-//Styles
+//~~~~~~~~~~~~Styles~~~~~~~~~~~~
 import styles from './style.module.scss'
 import { sliderData } from '../../Constants/data/Slider'
 
@@ -15,12 +15,12 @@ const Slider = () => {
   const slideLength = sliderData.length;
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  //AutoScroll
+  //~~~~~~~~~~~~~~AutoScroll~~~~~~~~~~~~~~
   const autoScroll = true
   let slideInterval;
   let intervalTime = 3000;
 
-  // Functions
+  // ~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~
   const nextSlide = () => {
     setCurrentSlide(currentSlide === slideLength - 1 ? 0 : currentSlide + 1)
   }
@@ -28,7 +28,7 @@ const Slider = () => {
     setCurrentSlide(currentSlide === 0 ? slideLength - 1 : currentSlide - 1)
   }
 
-  // useEffects()
+  //~~~~~~~~~~~~~~useEffects()~~~~~~~~~~~~~~
   useEffect(() => {
     setCurrentSlide(0)
 
@@ -42,6 +42,8 @@ const Slider = () => {
     }
     return () => clearInterval(slideInterval)
   }, [currentSlide, autoScroll, slideInterval])
+  
+  
   return (
     <div className={styles.slider}>
       <AiOutlineArrowLeft className={clsx(

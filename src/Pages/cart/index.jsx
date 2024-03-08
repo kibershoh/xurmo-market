@@ -40,7 +40,7 @@ const Cart = () => {
                     </thead>
                     <tbody>
                       {
-                        productItems.map((item, index) => (
+                        productItems?.map((item, index) => (
                           <CartItem item={item} key={index} number={index} />
                         ))
                       }

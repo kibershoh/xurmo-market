@@ -1,53 +1,81 @@
+// ~~~~~~React Hooks ~~~~~~~~~~//
 import React, { useRef, useState } from 'react';
-import styles from './styles.module.scss';
-import Select from '../../../UI_Design/SelectOption';
-import { MdAddAPhoto } from 'react-icons/md';
-import { db, storage } from '../../../Firebase/config';
-import { toast } from 'react-toastify';
-import { FieldValue, Timestamp, addDoc, collection } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
-import { Loader } from '../../../Components';
-import { v4 as uuidv4 } from 'uuid';
-import UseAuth from '../../../Custom Hooks/UseAuth';
-import { Time } from '../../../Constants/date';
-import { IoMdArrowRoundBack } from "react-icons/io";
+
+// ~~~~~~React Icons ~~~~~~~~~~//
+import { MdAddAPhoto } from 'react-icons/md';
 import { BsArrowLeft } from 'react-icons/bs';
 
+// ~~~~~~FIREBASE (Backend) ~~~~~~~~~~//
+import { db, storage } from '../../../Firebase/config';
+import { addDoc, collection } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+
+// ~~~~~~Installed libraries ~~~~~~~~~~//
+import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
+
+// ~~~~~~Styles ~~~~~~~~~~//
+import styles from './styles.module.scss';
+
+// ~~~~~~ Components ~~~~~~~~~~//
+import Select from '../../../UI_Design/SelectOption';
+import UseAuth from '../../../Custom Hooks/UseAuth';
+import { Loader } from '../../../Components';
+
+// ~~~~~~ Datas ~~~~~~~~~~//
+import { Time } from '../../../Constants/date';
+
+
 const AddProduct = () => {
-  const { currentUser } = UseAuth()
-  console.log(currentUser);
+
+  // ~~~~~~~~~States~~~~~~~~~~~//
   const [name, setName] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
-  const [loading, setLoading] = useState(false);
   const [progressBar, setProgressBar] = useState(0);
+  const [viewCount, setviewCount] = useState(0);
   const [files, setFiles] = useState([]);
+
+  // ~~~~~~~~~Libraries~~~~~~~~~~~//
+  const { currentUser } = UseAuth()
   const navigate = useNavigate();
   const id = uuidv4();
+  // ~~~~~~~~~onChange Functions~~~~~~~~~~~//
+  const handleFileChange = (e) => {
+    setFiles(Array.from(e.target.files));
+  };
 
+
+  // ~~~~~~~~~Functions~~~~~~~~~~~//
+  const fileInputRef = useRef(null);
+  const openFilePicker = () => {
+    fileInputRef.current.click();
+  };
   const addProduct = async (e) => {
     e.preventDefault();
 
+    const numericValue = parseInt(price.split(' ').join('')) // Number tipiga o'tkazish
+
     if (files.length > 4) {
-      toast.error("Rasm limitdan oshib ketgan")
+      toast.error("Rasm 4 tadan oshib ketgan")
     }
     else {
       try {
         const docRef = collection(db, 'products');
 
         const uploadTasks = files.map((file) => {
-          const storageRef = ref(storage, `productImages/${Date.now()}_${file.name}`);
+          const storageRef = ref(storage, `productImages/${file.name}`);
           const uploadTask = uploadBytesResumable(storageRef, file)
-              uploadTask.on('state_changed', (snapshot)=>{
-                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          setProgressBar(progress);
-              });
+          uploadTask.on('state_changed', (snapshot) => {
+            const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            setProgressBar(progress);
+          });
           return uploadTask
         });
-
+        // Yangi array hosil qilish//
         Promise.all(uploadTasks).then(async (snapshots) => {
           const downloadURLs = await Promise.all(snapshots.map((snapshot) => getDownloadURL(snapshot.ref)));
 
@@ -57,26 +85,26 @@ const AddProduct = () => {
             shortDesc: shortDesc,
             description: description,
             category: category,
-            price: price,
+            price: numericValue,
             dateExample: Time,
+            viewCount: viewCount,
             user: {
               userName: currentUser?.displayName,
               userImg: currentUser?.photoURL,
             },
-
             likeCount: [],
             reviews: [
               {
-                rating: 4.8,
+                rating: Math.floor(Math.random() * 5) + 1,
                 text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
               },
               {
-                rating: 4.8,
+                rating: Math.floor(Math.random() * 5) + 1,
                 text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
               },
             ],
-            avgRating: 4.7,
-            downloadURLs: downloadURLs,
+            avgRating: Math.floor(Math.random() * 5) + 1,
+            images: downloadURLs,
           };
 
           await addDoc(docRef, data);
@@ -86,8 +114,7 @@ const AddProduct = () => {
           setPrice('');
           setShortDesc('');
           setDescription('');
-          setFiles([]);
-          console.log(data);
+          // setFiles([]);
           toast.success('Product successfully added!');
           navigate('/dashboard/all-products');
         });
@@ -101,42 +128,63 @@ const AddProduct = () => {
     setCategory(e.target.value);
   };
 
-  const fileInputRef = useRef(null);
-  const openFilePicker = () => {
-    fileInputRef.current.click();
+  const handlePriceChange = (event) => {
+    let inputValue = event.target.value.replace(/\D/g, ''); // Remove non-digit characters
+    let formattedValue = formatInput(inputValue);
+    setPrice(formattedValue);
   };
 
-  const handleFileChange = (e) => {
-    setFiles(Array.from(e.target.files));
+  const handleKeyDown = (event) => {
+    if (event.key === 'Backspace') {
+      let inputValue = value.substring(0, value.length - 1).replace(/\D/g, '');
+      let formattedValue = formatInput(inputValue);
+      setPrice(formattedValue);
+    }
   };
-console.log(progressBar);
+
+  const formatInput = (inputValue) => {
+    let formattedValue = '';
+    if (inputValue.length >= 4 && inputValue.length <= 20) {
+      formattedValue = inputValue.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
+    } else if (inputValue.length > 8) {
+      formattedValue = inputValue.replace(/(\d{1,})(\d{1})/, '$1 $2');
+    } else {
+      formattedValue = inputValue;
+    }
+    return formattedValue;
+  };
   return (
     <>
-      {loading && <Loader />}
+
       <div className={styles.add_product}>
         <form onSubmit={addProduct}>
-            <button className={styles.back}  onClick={()=>navigate('/dashboard/all-products')}>
-              <BsArrowLeft   size={28}/>
-            </button>
+          <button className={styles.back} onClick={() => navigate('/dashboard/all-products')}>
+            <BsArrowLeft size={28} />
+          </button>
+
           <div className={styles.inputs}>
             <label> Product Name </label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} name="text" required />
+            <input  type="text" value={name} onChange={(e) => setName(e.target.value)} name="text" required />
           </div>
+
           <div className={styles.inputs}>
             <label>Short Description</label>
             <input type="text" value={shortDesc} onChange={(e) => setShortDesc(e.target.value)} name="text" required />
           </div>
+
           <div className={styles.inputs}>
             <label>Description</label>
             <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} name="text" required />
           </div>
+
           <div className={styles.inputs}>
             <label>Price</label>
-            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} name="text" placeholder='UZS' required />
+            <input type="text" onKeyDown={handleKeyDown} value={price} onChange={handlePriceChange} name="text" placeholder='UZS' required />
           </div>
+
           <div className={styles.select_photo}>
             <div className={styles.categories}>
-              <Select handleFilter={handleFilter} />
+              <Select handleFilter={handleFilter} category = {category}/>
             </div>
             <div className={styles.photoDown}>
               <div className={styles.file_input}>
@@ -147,15 +195,16 @@ console.log(progressBar);
                 <input ref={fileInputRef} onChange={handleFileChange} type='file' required multiple />
               </div>
             </div>
-           
+
+          </div>
+
+          <div className={styles.myProgress}>
+            <div className={styles.myBar} style={{ width: `${progressBar}%`, display: `${progressBar > 0 ? 'block' : 'none'}` }}>{progressBar}%</div>
           </div>
           
- <div className={styles.myProgress}>
-            <div className={styles.myBar} style={{width:`${progressBar}%`, display: `${progressBar > 0 ? 'block' : 'none'}`}}>{progressBar}%</div>
-          </div>
           <div className={styles.add_product_btn}>
 
-             <button type='submit'>Add Product</button>
+            <button type='submit'>Add Product</button>
           </div>
         </form>
       </div>

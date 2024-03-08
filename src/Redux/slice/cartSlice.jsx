@@ -1,6 +1,7 @@
  
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { playBackSound, playLightOnSound, playLightSound, playSuccessSound } from "../../Constants/sounds";
 
 const initialState = {
     cartItems: [],
@@ -35,8 +36,8 @@ const cartSlice = createSlice({
                     
                 })
 
+                playSuccessSound();
                 toast.success("Product added successfully");
-               
             } else {
                 // existingItem.quantity++;
                 existingItem.totalPrice = Number(existingItem.totalPrice) + Number(newItem.price);
@@ -58,11 +59,12 @@ const cartSlice = createSlice({
                     0
                 );
             }
+            playBackSound()
         },
         incrementQuantity: (state, action) => {
             const id = action.payload;
             const existingItem = state.cartItems.find((item) => item.id === id);
-
+playLightSound()
             if (existingItem) {
                 existingItem.quantity++;
                 existingItem.totalPrice = Number(existingItem.totalPrice) + Number(existingItem.price);
@@ -77,6 +79,7 @@ const cartSlice = createSlice({
             const existingItem = state.cartItems.find((item) => item.id === id)
 
             if (existingItem && existingItem.quantity > 1) {
+                playLightOnSound()
                 existingItem.quantity--;
                 existingItem.totalPrice = Number(existingItem.totalPrice) - Number(existingItem.price);
                 state.totalQuantity--;

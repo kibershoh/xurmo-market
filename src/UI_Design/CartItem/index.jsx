@@ -8,7 +8,6 @@ import { cartActions } from '../../Redux/slice/cartSlice'
 import { RiDeleteBin5Line } from 'react-icons/ri'
 
 const CartItem = ({item,number}) => {
-  console.log(item)
     const dispatch = useDispatch()
     const DeleteProduct = ()=>{
          const action = window.confirm('Do you want delete?')
@@ -26,7 +25,7 @@ const CartItem = ({item,number}) => {
     }
    
       const title=["ID_:","Image:","Name:","Price:","Quantity:","Total Price:","Action:"]
- 
+ console.log(item);
   return (
     <>
 
@@ -39,7 +38,7 @@ const CartItem = ({item,number}) => {
     {title.map((label, index) => (
       <td key={index} scope="row" data-label={label}>
         {label==="ID_:"  ? <p>{number + 1}</p> : null}
-        {label === "Image:" ? <img src={item.downloadURL} alt="" /> : null}
+        {/* {label === "Image:" ? <img src={item.images[0]} alt="" /> : null} */}
         {label === "Name:" ? item.name : null}
         {label === "Price:" ? item.price : null}
         {label === "Quantity:" ? ( <div className={styles.plus_minus_btn}>
