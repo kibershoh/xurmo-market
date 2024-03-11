@@ -59,7 +59,7 @@ const ProductCard = ({ item, index }) => {
         id: ID,
         name: name,
         price: price,
-         ...images,
+        downloadURL: downloadURLs,
       })
     )
     active()

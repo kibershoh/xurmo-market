@@ -1,14 +1,9 @@
 .add_product {
   margin-top: 65px;
   padding: 20px;
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   form {
-    width: 70%;
+    width: 100%;
     margin: auto;
 
     @media (max-width: '1200px') {
@@ -41,8 +36,8 @@
         font-size: 14px;
         color: #000;
       }
-
-      input {
+      
+      input,textarea {
         &:user-invalid {
           border: 2px solid #dc1515;
         }
@@ -55,7 +50,7 @@
         border: 2px #dedada solid;
         padding: 5px 15px;
         background-color: #fff;
-        font-size: 15;
+        font-size: 17px;
         font-weight: 500;
 
         @media (max-width: '1200px') {
@@ -75,9 +70,15 @@
         &:focus {
           border: 2px solid blueviolet;
           color: indigo;
+           
         }
       }
+textarea{
+        height: 70px;
+        padding-top: 8px;
+        font-size: 18px;
 
+      }
     }
 
     .select_photo {

@@ -34,26 +34,26 @@ const AllProducts = () => {
         {
           productsData.length === 0 ? <h1 className={styles.dont_add}>{!window.navigator.onLine ? <LoaderTable /> : <span>{!loading ? "Don't added product" : <LoaderTable />}</span>}</h1> :
 
-            <>
-
-              <div className={styles.overflow_table}>
-                <p>Total products: {productsData.length}</p>
-                <table>
-
-                  <thead>
-                    <tr>
-                      <th scope="col"><TbNumber size={19} /> </th>
-                      <th scope="col">Image</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Category</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {
+          <>
+             
+            <div className={styles.overflow_table}>
+              <p>Total products: {productsData.length}</p>
+              <table>
+               
+                 <thead>
+                  <tr>
+                    <th scope="col"><TbNumber size={19} /> </th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+               
+                <tbody>
+                  {
 
 
                       productsData?.map((item, index) => (

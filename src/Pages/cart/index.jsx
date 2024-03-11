@@ -1,6 +1,6 @@
 import React from 'react'
 // ~~~~~~~~~~~Hooks~~~~~~~~~~~//
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // ~~~~~~~~~~~ React icons ~~~~~~~~~~~//
 import { TbNumber } from "react-icons/tb";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -13,7 +13,7 @@ import CartItem from '../../UI_Design/CartItem';
 import styles from './styles.module.scss'
 import { formatCurrency } from '../../Constants/utils/moneyCurrent';
 const Cart = () => {
-
+   const navigate = useNavigate()
   // ~~~~~~ Redux datas ~~~~~~~~~~//
   const productItems = useSelector(state => state.cart.cartItems)
   const totalAmout = useSelector(state => state.cart.totalAmout)
@@ -29,7 +29,7 @@ const Cart = () => {
                   <table>
                     <thead>
                       <tr>
-                        <th scope="col"><TbNumber size={19} /> </th>
+                        {/* <th scope="col"><TbNumber size={19} /> </th> */}
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
@@ -54,9 +54,9 @@ const Cart = () => {
                   </div>
                   <p>If you want to buy, you can pay by card. Payments are made safely with us.</p>
                   <div className={styles.checkout_btn}>
-                    <Link to={'/checkout'}>Checkout</Link>
-                    <Link to={'/shop'}>Continue Shopping <FaArrowRightLong className={styles.right_icon} /></Link>
+                    <button onClick={()=>navigate('/checkout')}>Checkout</button>
                   </div>
+                    <Link className={styles.continue_shop} to={'/shop'}>Continue Shopping <FaArrowRightLong className={styles.right_icon} /></Link>
                 </div>
               </>
             }

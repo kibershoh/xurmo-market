@@ -20,10 +20,12 @@ const Shop = () => {
   const [allProducts,setAllProducts] = useState(products)
   const [productsData,setProductsData] = useState(products)
   const [inputText,setInputText] = useState('')
+  const [category,setCategory] = useState('')
   const navigate = useNavigate()
  
   const handleFilter = (e)=>{
     const filterValue = e.target.value;
+    setCategory(filterValue)
     if(filterValue==='all'){
       
       setProductsData(products)
@@ -72,10 +74,10 @@ const Shop = () => {
     }
     
   } 
-   const handSearch = (e)=>{
+   const handleSearch = (e)=>{
     const searchTerm = e.target.value;
     setInputText(searchTerm)
-    const searchedProducts = products.filter(item => item.name.toLowerCase().includes(searchTerm))
+const searchedProducts = products.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
     setProductsData(searchedProducts)
     
   }  
@@ -87,14 +89,14 @@ const Shop = () => {
      <div className={styles.shop_header}>
        <div className={styles.filter_product}>
        
-        <Select handleFilter={handleFilter}/>
+        <Select handleFilter={handleFilter} category={category}/>
 
        
       </div>
       <div className={styles.search_product}>
         <MdOutlineSearch size={22} className={styles.search_icon}/>
          <input type="text" placeholder='Search....' className={styles.search_input} 
-         onChange={handSearch}
+         onChange={handleSearch}
          />
       </div>
      </div>

@@ -6,5 +6,4 @@ export {default as Services} from './Services'
 export {default as Slider} from './Slider'
 export {default as Timer} from './Timer'
 export {default as ShowOnLogout} from './HideLink'
-export {default as LoaderTable} from './LoaderTable'
 

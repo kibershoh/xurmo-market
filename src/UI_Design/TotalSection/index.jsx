@@ -5,7 +5,7 @@ const TotalSection = ({title}) => {
     <div className={styles.total_section}>
 
         <h1>
-            {title}
+            {/* {title} */}
         </h1>
     </div>
   )
