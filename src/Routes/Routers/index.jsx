@@ -8,21 +8,21 @@ import ProtectedAdminRoute from '../ProtectedAdminRoute';
 const Routers = () => {
   return (
     <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/cart' element={<Cart />} />
-      <Route path='/shop' element={<Shop />} />
-      <Route path='/shop/:id' element={<ProductDetails />} />
-      <Route path='/contact' element={<Contact />} />
-      <Route path='/my_orders' element={<MyOrders />} />
-
-      <Route path='/*' element={<ProtectedRoute />}>
-        <Route path='checkout' element={<Checkout />} />
-        <Route path='/*' element={<ProtectedAdminRoute />}>
-          <Route path='dashboard' element={<Dashboard />} />
-          <Route path='dashboard/all-products' element={<AllProducts />} />
-          <Route path='dashboard/add-products' element={<AddProduct />} />
-          <Route path='dashboard/users' element={<Users />} />
-          <Route path='dashboard/edit/:id' element={<Edit />} />
+      <Route path='/' element={<Home/>}/>
+      <Route path='/cart' element={<Cart/>}/>
+      <Route path='/shop' element={<Shop/>}/>
+      <Route path='/shop/:id' element={<ProductDetails/>}/>
+      <Route path='/contact' element={<Contact/>}/>
+       <Route path='/*' element={<ProtectedRoute/>}>
+      
+        <Route path='checkout' element={<Checkout/>}/>
+        
+        <Route path='/*' element={<ProtectedAdminRoute/>}>
+          <Route path='dashboard' element={<Dashboard/>}/>
+        <Route path='dashboard/all-products' element={<AllProducts/>}/>
+        <Route path='dashboard/add-products' element={<AddProduct/>}/>
+        <Route path='dashboard/users' element={<Users/>}/>
+        <Route path='dashboard/orders' element={<Users/>}/>
         </Route>
 
       </Route>

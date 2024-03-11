@@ -105,26 +105,15 @@ const Navbar = () => {
   
     // -------------------FIREBASE---------------------------Logout------------//
 
-   const logoutUser = () => {
-    signOut(auth)
-      .then(() => {
-        toast.success("Logged out successfully");
-        navigate('/');
-        setActive(false);
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      logoutUser();
-    }, 60*60*24 * 1000); 
-
-    return () => clearTimeout(timer); // Clear the timer when component unmounts or re-renders
-  }, []); 
-
+    const logoutUser = () => {
+        signOut(auth).then(() => {
+            toast.success("Logged out successfully")
+            navigate('/')
+            setActive(false)
+        }).catch((error) => {
+            toast.error(error.message)
+        })
+    }
 
 
 

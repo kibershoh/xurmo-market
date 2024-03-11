@@ -10,11 +10,11 @@
     }
     .add_product_btn {
 
+        width: 80%;
+        margin: auto;
+        text-align: end;
+ @media (max-width: '1170px') {
         width: 100%;
-        text-align: right;
-
-        @media (max-width: '1170px') {
-            width: 100%;
 
         }
 
@@ -215,12 +215,11 @@
                 text-align: start;
 
                 &:nth-child(1) {
-                    width: 200px;
-
-                    @media (max-width: '1170px') {
-
-                        width: 100%;
-                    }
+                    width: 100px;
+                     @media (max-width: '1170px') {
+                    
+                    width: 100%;
+                }
                 }
             }
 
