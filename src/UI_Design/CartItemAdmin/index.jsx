@@ -198,7 +198,8 @@ const CartItemAdmin = ({ item, number }) => {
           </>
           {title.map((label, index) => (
             <td key={index} scope="row" data-label={label}>
-              {label === "Image:" ? <img className={styles.img_admin} onClick={handleOpen} src={images[0]} alt="" /> : null}
+              {label === "ID_:" ? <p>{number + 1}   </p> : null}
+              {label === "Image:" ? <img onClick={handleOpen} src={images[0]} alt="" /> : null}
               {label === "Name:" ? name : null}
               {label === "Category:" ? category : null}
               {label === "Price:" ? price : null}

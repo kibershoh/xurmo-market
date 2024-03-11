@@ -10,8 +10,6 @@ import { FaUsers } from 'react-icons/fa'
 import { MdOutlineAttachMoney, MdOutlineToday } from 'react-icons/md'
 import { RiExchangeDollarLine } from 'react-icons/ri'
 import { FaRegRectangleList } from "react-icons/fa6";
-import OrderChart from '../../Components/orderChart'
-import CategoriesChart from '../../Components/categoriesChart'
 
 const Dashboard = () => {
   return (
@@ -130,10 +128,10 @@ const Dashboard = () => {
         </div>
         
        
-        <div className={styles.charts}>
+        {/* <div className={styles.charts}>
             <CategoriesChart/>
             <OrderChart/>
-        </div>
+        </div> */}
     </div>
   )
 }
