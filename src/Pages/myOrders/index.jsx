@@ -26,12 +26,10 @@ const MyOrders = () => {
     const [data, setData] = useState([])
     const [tab, setTab] = useState('last')
 
-
     //   console.log(productsData);
     //   const newData = productsData.filter((item)=>{
     //     item?.user.email === currentUser.email
     // })
-    console.log(data);
     const newData = productsData.filter(item => item?.user.email === currentUser.email).sort((a, b) => a.date - b.date);
     useEffect(() => {
         setData(newData)
@@ -39,6 +37,7 @@ const MyOrders = () => {
 
 
 
+    console.log(data);
 
     const deleteProduct = async (id) => {
         await deleteDoc(doc(db, "orders", id))
@@ -81,7 +80,57 @@ const MyOrders = () => {
     console.log(String(23).length);
     return (
         <>
-           
+            <div className={styles.my_orders}>
+
+                <div className={styles.tab_btn}>
+                    <button onClick={() => setTab('last')} className={tab === 'last' ? styles.active_tab : styles.noActive_tab}>Last Order </button>
+                    <button onClick={() => setTab('all')} className={tab === 'all' ? styles.active_tab : styles.noActive_tab}>All Order</button>
+
+                </div>
+                {
+                    tab === 'last' ?
+                        <>
+                            {
+                                data && data.length > 0 && (
+                                    <div>
+                                        <div className={styles.date_price}>
+                                            <div>
+                                                <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(data.length)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
+                                                <span>accepted</span><MdDelete onClick={()=>deleteProduct(item.id)} className={styles.delete_order}/>
+                                            </div>
+                                            <span className={styles.total_price}>Total Price: {formatCurrency(data[data.length - 1]?.orderPrice)}</span>
+                                        </div>
+                                        <div className={styles.product_items}>
+                                            <MyOrdersItem item={data[data.length - 1]} />
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </> :
+                        <>
+                            {
+                                data?.map((item, index) => (
+
+                                    <div>
+                                        <div className={styles.date_price}>
+                                            <div><p>Order <p className={styles.count_order}><TbNumber size={22} /> {number(index + 1)}</p> at {time(item?.date)}</p> <span>accepted</span><MdDelete onClick={()=>deleteProduct(item.id)} className={styles.delete_order}/> </div>
+                                            <span className={styles.total_price}>Total Price: {formatCurrency(item?.orderPrice)}</span>
+                                        </div>
+                                        <div className={styles.product_items}>
+                                            <MyOrdersItem item={item} />
+                                        </div>
+
+                                    </div>
+
+                                ))
+                            }
+
+                        </>
+                }
+
+
+
+            </div>
         </>
     )
 }
