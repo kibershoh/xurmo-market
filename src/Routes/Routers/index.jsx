@@ -1,11 +1,13 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Admin, Cart, Contact, Home, OrderHistory, Login, Register, Reset, Shop, Checkout, ProductDetails, MyOrders } from '../../Pages';
+import { Admin, Cart, Contact, Home, OrderHistory, Login, Register, Reset, Shop, Checkout, ProductDetails, MyOrders, NotFound } from '../../Pages';
 import ProtectedRoute from '../ProtectedRoute';
 import { AddProduct, AllProducts, Dashboard, Edit, Users } from '../../Admin/Pages';
 import ProtectedAdminRoute from '../ProtectedAdminRoute';
+import UseAuth from '../../Custom Hooks/UseAuth';
 
 const Routers = () => {
+  const {currentUser} = UseAuth()
   return (
     <Routes>
       <Route path='/' element={<Home/>}/>

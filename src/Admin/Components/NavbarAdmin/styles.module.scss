@@ -71,6 +71,9 @@
                  color: rgba(43, 9, 67, 0.8);
                  margin-right: 10px;
                  font-family: "Noto Sans";
+                  @media (max-width: '800px') {
+                         display: none;
+                     }
 
                  span {
                      @media (max-width: '250px') {

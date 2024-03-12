@@ -252,7 +252,7 @@ const handleSearch = (e)=>{
               <HideLink>
                 
                    <h1>
-                 Hi {currentUser.displayName}
+                 Hin {currentUser.displayName}
                 </h1>
                   
                 

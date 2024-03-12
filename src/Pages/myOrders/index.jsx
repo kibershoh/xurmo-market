@@ -113,8 +113,11 @@ const MyOrders = () => {
 
                                     <div>
                                         <div className={styles.date_price}>
-                                            <div><p>Order <p className={styles.count_order}><TbNumber size={22} /> {number(index + 1)}</p> at {time(item?.date)}</p> <span>accepted</span><MdDelete onClick={()=>deleteProduct(item.id)} className={styles.delete_order}/> </div>
-                                            <span className={styles.total_price}>Total Price: {formatCurrency(item?.orderPrice)}</span>
+<div>
+                                                <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(data.length)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
+                                                <span>accepted</span><MdDelete onClick={()=>deleteProduct(item.id)} className={styles.delete_order}/>
+                                            </div>
+                                                                                        <span className={styles.total_price}>Total Price: {formatCurrency(item?.orderPrice)}</span>
                                         </div>
                                         <div className={styles.product_items}>
                                             <MyOrdersItem item={item} />

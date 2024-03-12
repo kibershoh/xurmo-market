@@ -26,7 +26,10 @@
               border-radius: 4px;
               font-size: 20px;
               font-weight: 500;
-
+              outline: none;
+             &:hover{
+                background: transparent;
+             }
               img {
                   display: none;
 
@@ -138,11 +141,9 @@
                       color: white;
                       margin-right: 10px;
 
-                      span {
-                          @media (max-width: '250px') {
+                          @media (max-width: '800px') {
                               display: none;
                           }
-                      }
                   }
 
                   .auth_modal {

@@ -182,6 +182,22 @@ console.log(scrollDirection);
                                 </li>
                             ))
                         }
+                        {
+                            currentUser?.email === 'oybek@gmail.com' && 
+                             <li>
+                                    <Link className={clsx(
+                                        activeLink === 'Admin' ? styles.activeLink : '', styles.unActiveLink
+                                    )}
+                                        onClick={() => activeLinkHandler("Admin")} to={'/dashboard'}
+                                    >
+                                        <MotionText
+                                            logo={"Admin"}
+                                            classes={clsx(
+                                                activeLink === 'Admin' ? styles.activeLink : '', styles.unActiveLink
+                                            )} />
+                                    </Link>
+                                </li>
+                        }
 
                     </ul>
                     {/* -----------Cart----------- */}
@@ -210,7 +226,7 @@ console.log(scrollDirection);
                         </HideLink>
                         <button className={styles.btn_profile} onClick={ProfileHandler} >
                             {
-                                <img src={currentUser ? currentUser.photoURL : userImg} alt="" />
+                                <img src={currentUser ? currentUser?.photoURL : userImg} alt="" />
                             }
 
 

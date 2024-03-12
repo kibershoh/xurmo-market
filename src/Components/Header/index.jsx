@@ -8,7 +8,7 @@ import { IoSearchOutline } from 'react-icons/io5'
 import clsx from 'clsx'
 import { useScroll } from '../Navbar/useScroll'
 
-const Slider = () => {
+const Header = () => {
 const {data:productsData,loading} = useGetData("products")
 console.log(productsData);
 const [data,setData] = useState([])
@@ -21,28 +21,28 @@ const handleSearch = (e)=>{
     setInputText(searchTerm)
     
   } 
-  const [color, setColor] = useState(false);
+  const [fixed, setFixed] = useState(false);
 
-    const changeColor = () => {
+    const changeFixed = () => {
         if (window.scrollY >= 350) {
-            setColor(true)
+            setFixed(true)
         }
         else {
-            setColor(false);
+            setFixed(false);
         }
     };
     useEffect(()=>{
-      window.addEventListener("scroll", changeColor);
+      window.addEventListener("scroll", changeFixed);
       
     },[scrollY])
     
 
 
     return (
-    <div className={styles.slider}>
+    <div className={styles.header}>
       <div className={clsx(
         styles.search_input,
-          color ? styles.fixed : '',
+          fixed ? styles.fixed : '',
         )}>
          <div className={clsx(
            
@@ -69,4 +69,4 @@ const handleSearch = (e)=>{
   )
 }
 
-export default Slider
+export default Header

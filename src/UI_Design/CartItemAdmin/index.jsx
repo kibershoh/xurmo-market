@@ -20,7 +20,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import clsx from 'clsx'
 const CartItemAdmin = ({ item, number }) => {
 
-  const { id, name, category, price, images, reviews, shortDesc, description, user, dateExample, timestamp } = item
+  const { id, name, category, price, images, reviews, shortDesc, description, user, date, timestamp } = item
   const navigate = useNavigate()
   const [isAction, setIsAction] = useState(false)
 
@@ -105,6 +105,26 @@ const CartItemAdmin = ({ item, number }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   })
+
+   const formatDate = (n) => {
+        return n < 10 ? '0' + n : n
+    }
+    const time = (date) => {
+        const day = `${formatDate(date.toDate().getDate())}.${formatDate(date.toDate().getMonth() + 1)}.${formatDate(date.toDate().getFullYear())}, ${formatDate(date.toDate().getHours())} : ${formatDate(date.toDate().getMinutes())}`
+        return day
+    }
+    const Count = (num) => {
+        if (String(num).length === 1) {
+            return `000${num}`
+        }
+        if (String(num).length === 2) {
+            return `00${num}`
+        }
+        if (String(num).length === 3) {
+            return `0${num}`
+        }
+        else return num
+    }
   return (
     <tr ref={IsActionRef}>
       {
@@ -154,7 +174,7 @@ const CartItemAdmin = ({ item, number }) => {
                   </Box>
 
                   <div className={styles.about_product}>
-                    <h4>Created: {dateExample}</h4>
+                    <h4>Created: {time(date)}</h4>
                     <h2>{name}</h2>
                     <p>{category}</p>
                     <h3>{formatCurrency(price)}</h3>
