@@ -9,7 +9,7 @@ import {motion, useScroll} from 'framer-motion'
 import Slider from '../../Components/Slider/slider'
 const Home = () => {
     const { scrollYProgress } = useScroll();
-
+    const { data: productsData } = useGetData("orders")
    const {data:products,loading} = useGetData("products")
   const [micraphone, setMicraphone] = useState(null)
   const [headphones, setHeadphones] = useState(null)
