@@ -59,7 +59,7 @@ const ProductCard = ({ item, index }) => {
         id: ID,
         name: name,
         price: price,
-        downloadURL: downloadURLs,
+        images:images,
       })
     )
     active()
@@ -112,7 +112,7 @@ const ProductCard = ({ item, index }) => {
     const updatedCount = currentCount + 1;
     const customerCount = productData.customers ? productData.customers.length : 0;
 
-    await Promise.all([
+await Promise.all([
       updateDoc(docRef, { viewCount: updatedCount }),
       updateDoc(docRef, { customerCount })
     ]);
