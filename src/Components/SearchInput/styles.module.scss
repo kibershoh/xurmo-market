@@ -1,0 +1,73 @@
+ .search_input {
+        position: relative;
+        text-align: center;
+       
+        .input_box {
+            margin: auto;
+            position: relative;
+             @media (max-width: '1060px') {
+           width: 90%;
+        }
+            input {
+                width: 100%;
+                outline: none;
+                padding: 10px 20px;
+                border-radius: 10px;
+                height: 40px;
+                font-size: 17px;
+                border: 1px solid indigo;
+            }
+
+            .search_btn {
+                position: absolute;
+                background-color: #fff;
+                top: 12px;
+                right: 17px;
+                color: #666;
+            }
+        }
+
+        .searched_products {
+            position: absolute;
+            width: 50%;
+            height: auto;
+            border-radius: 5px;
+            padding: 20px;
+            top: 50px;
+            left: 25%;
+            background-color: #f6f9fa;
+            box-shadow: 1px 1px 5px -1px rgba(159,153,153,0.75);
+-webkit-box-shadow: 1px 1px 5px -1px rgba(159,153,153,0.75);
+-moz-box-shadow: 1px 1px 5px -1px rgba(159,153,153,0.75);
+ @media (max-width: '1060px') {
+           width: 90%;
+           left: 5%;
+        }
+            .names {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 15px;
+                    color: #333;
+                    font-family: "Noto Sans";
+
+                    span {
+                        margin-left: 20px;
+                        font-size: 15px;
+                        font-weight: 600;
+
+                    }
+
+                    &:hover {
+                        color: indigo;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+    

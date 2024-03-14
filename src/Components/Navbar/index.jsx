@@ -27,9 +27,10 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import HideLink, { ShowOnLogout } from "../HideLink";
 import UseAuth from "../../Custom Hooks/UseAuth";
-import  { useScroll } from "./useScroll";
+import { useScroll } from "./useScroll";
 import ProgressScrollY from "../../UI_Design/progressScrollY";
-import { animate, useMotionValue, useTransform,motion } from 'framer-motion';
+import { animate, useMotionValue, useTransform, motion } from 'framer-motion';
+import SearchInput from "../SearchInput";
 
 // Components
 
@@ -99,31 +100,31 @@ const Navbar = () => {
         };
     })
 
-   
-    const { scrollX, scrollY, scrollDirection } = useScroll();  
 
-  
+    const { scrollX, scrollY, scrollDirection } = useScroll();
+
+
     // -------------------FIREBASE---------------------------Logout------------//
 
-   const logoutUser = () => {
-    signOut(auth)
-      .then(() => {
-        toast.success("Logged out successfully");
-        navigate('/');
-        setActive(false);
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  };
+    const logoutUser = () => {
+        signOut(auth)
+            .then(() => {
+                toast.success("Logged out successfully");
+                navigate('/');
+                setActive(false);
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            });
+    };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      logoutUser();
-    }, 60*60*24 * 1000); 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            logoutUser();
+        }, 60 * 60 * 24 * 1000);
 
-    return () => clearTimeout(timer); // Clear the timer when component unmounts or re-renders
-  }, []); 
+        return () => clearTimeout(timer); // Clear the timer when component unmounts or re-renders
+    }, []);
 
 
 
@@ -133,58 +134,59 @@ const Navbar = () => {
     const dispatch = useDispatch()
 
     const totalQuantity = useSelector(state => state.cart.totalQuantity)
- 
-const location = useLocation()
+
+    const location = useLocation()
 
 
-console.log(scrollDirection);
+    console.log(scrollDirection);
 
 
     return (
-      <>
-        <nav
-        ref={ProfileRef}
-        className={clsx(
-             scrollDirection === "down" || scrollDirection === undefined || scrollY === undefined   ? styles.showNav : (scrollY > 0 ? styles.hiddenNav : ' ' ),
-              styles.header,
-            )}
+        <>
+            <nav
+                ref={ProfileRef}
+                className={clsx(
+                    scrollDirection === "down" || scrollDirection === undefined || scrollY === undefined ? styles.showNav : (scrollY > 0 ? styles.hiddenNav : ' '),
+                    styles.header,
+                )}
             >
-            {/* -----------Desktop Navbar----------- */}
-            <div className={styles.navbar}>
-                <Link to={'/'} className={styles.logo}>
-                    <MotionText logo={"Xurmo"} />
-                </Link>
-                
-                <HiMenuAlt1 onClick={showClick} size={25} className={styles.menu_icon} />
+                {/* -----------Desktop Navbar----------- */}
+                <div className={styles.navbar}>
+                    <Link to={'/'} className={styles.logo}>
+                        <MotionText logo={"Xurmo"} />
+                    </Link>
 
-                    {
-                        currentUser?.displayName === "Oybek" && currentUser && currentUser?.email === "oybek@gmail.com" ? (<button onClick={()=>navigate('/dashboard')} className={styles.dashboard_page}><Link className={styles.unActiveLink} to={'/dashboard'}>Dashboard </Link> <img onClick={()=>navigate('/dashboard')} src={dashboard} alt="" /></button>  ) : ''
-                    }
-                <nav>
+                    <HiMenuAlt1 onClick={showClick} size={28} className={styles.menu_icon} />
 
-                    {/* -----------Navbar Links----------- */}
+                   <div className={styles.searchInput}>
+                     <SearchInput />
+                   </div>
 
-                    <ul>
-                        {
-                            navLinks.map((nav, inx) => (
-                                <li key={nav.id}>
-                                    <Link className={clsx(
-                                        activeLink === nav.title ? styles.activeLink : '', styles.unActiveLink
-                                    )}
-                                        onClick={() => activeLinkHandler(nav.title)} to={nav.path}
-                                    >
-                                        <MotionText
-                                            logo={nav.title}
-                                            classes={clsx(
-                                                activeLink === nav.title ? styles.activeLink : '', styles.unActiveLink
-                                            )} />
-                                    </Link>
-                                </li>
-                            ))
-                        }
-                        {
-                            currentUser?.email === 'oybek@gmail.com' && 
-                             <li>
+                    <nav>
+
+                        {/* -----------Navbar Links----------- */}
+
+                        <ul>
+                            {
+                                navLinks.map((nav, inx) => (
+                                    <li key={nav.id}>
+                                        <Link className={clsx(
+                                            activeLink === nav.title ? styles.activeLink : '', styles.unActiveLink
+                                        )}
+                                            onClick={() => activeLinkHandler(nav.title)} to={nav.path}
+                                        >
+                                            <MotionText
+                                                logo={nav.title}
+                                                classes={clsx(
+                                                    activeLink === nav.title ? styles.activeLink : '', styles.unActiveLink
+                                                )} />
+                                        </Link>
+                                    </li>
+                                ))
+                            }
+                            {
+                                currentUser?.email === 'oybek@gmail.com' &&
+                                <li>
                                     <Link className={clsx(
                                         activeLink === 'Admin' ? styles.activeLink : '', styles.unActiveLink
                                     )}
@@ -197,139 +199,139 @@ console.log(scrollDirection);
                                             )} />
                                     </Link>
                                 </li>
-                        }
-
-                    </ul>
-                    {/* -----------Cart----------- */}
-
-                    <div className={styles.cart}>
-                        <a href="#cart">
-                            <AiOutlineShoppingCart size={25} className={styles.icon_shop}
-                                onClick={() => {
-                                    navigate('/cart')
-                                    document.title = 'Cart';
-                                }}
-                            />
-                            <span>
-                                {totalQuantity}
-                            </span>
-                        </a>
-                    </div>
-                    {/* -----------Profile----------- */}
-
-                    <div className={styles.profile} ref={ProfileRef}>
-
-                        <HideLink>
-                            <h1>
-                                <MotionText logo={currentUser ? `Hi ${currentUser.displayName}` : ''} />
-                            </h1>
-                        </HideLink>
-                        <button className={styles.btn_profile} onClick={ProfileHandler} >
-                            {
-                                <img src={currentUser ? currentUser?.photoURL : userImg} alt="" />
                             }
 
+                        </ul>
+                        {/* -----------Cart----------- */}
 
-                        </button>
-                        {/* -----------Authentication------------ */}
-                        <div className={
-                            clsx(
-                                styles.auth_modal,
-                                active ? styles.block : styles.hidden
-                            )
-                        }>
-                            <h1>{displayName}</h1>
-                            <p>{email}</p>
-                            <div className={styles.links_auth}>
-                                {/* <IoCaretUpSharp size={17} className={styles.top_icon} /> */}
-                                <span className={styles.links}>
-
-                                    <HideLink>
-                                        <Link
-                                            onClick={() => {
-                                                setAuthLinks('My Orders')
-                                                setActive(false)
-                                            }}
-
-                                            className={clsx(
-                                                authLinks === 'My Orders' ? styles.authActiveLinks : ''
-                                            )} to={"/order-history"}>My Orders</Link>
-                                    </HideLink>
-
-                                    <ShowOnLogout>
-                                        <Link
-                                            onClick={() => {
-                                                setAuthLinks('Register')
-                                                setActive(false)
-                                            }}
-
-                                            className={clsx(
-                                                authLinks === 'Register' ? styles.authActiveLinks : ''
-                                            )} to={"/register"}>Register</Link>
-
-                                        <Link
-                                            onClick={() => {
-                                                setAuthLinks('Login')
-                                                setActive(false)
-
-                                            }}
-
-                                            className={clsx(
-                                                authLinks === 'Login' ? styles.authActiveLinks : ''
-                                            )} to={"/login"}>Login</Link>
-                                    </ShowOnLogout>
-
-                                    <HideLink>
-                                        <button
-                                            onClick={logoutUser}
-                                            className={styles.logout}
-                                        >Logout <img src={logout} width={10} alt="" /> </button>
-                                    </HideLink>
-
+                        <div className={styles.cart}>
+                            <a href="#cart">
+                                <AiOutlineShoppingCart size={25} className={styles.icon_shop}
+                                    onClick={() => {
+                                        navigate('/cart')
+                                        document.title = 'Cart';
+                                    }}
+                                />
+                                <span>
+                                    {totalQuantity}
                                 </span>
+                            </a>
+                        </div>
+                        {/* -----------Profile----------- */}
+
+                        <div className={styles.profile} ref={ProfileRef}>
+
+                            <HideLink>
+                                <h1>
+                                    <MotionText logo={currentUser ? `Hi ${currentUser.displayName}` : ''} />
+                                </h1>
+                            </HideLink>
+                            <button className={styles.btn_profile} onClick={ProfileHandler} >
+                                {
+                                    <img src={currentUser ? currentUser?.photoURL : userImg} alt="" />
+                                }
+
+
+                            </button>
+                            {/* -----------Authentication------------ */}
+                            <div className={
+                                clsx(
+                                    styles.auth_modal,
+                                    active ? styles.block : styles.hidden
+                                )
+                            }>
+                                <h1>{displayName}</h1>
+                                <p>{email}</p>
+                                <div className={styles.links_auth}>
+                                    {/* <IoCaretUpSharp size={17} className={styles.top_icon} /> */}
+                                    <span className={styles.links}>
+
+                                        <HideLink>
+                                            <Link
+                                                onClick={() => {
+                                                    setAuthLinks('My Orders')
+                                                    setActive(false)
+                                                }}
+
+                                                className={clsx(
+                                                    authLinks === 'My Orders' ? styles.authActiveLinks : ''
+                                                )} to={"/order-history"}>My Orders</Link>
+                                        </HideLink>
+
+                                        <ShowOnLogout>
+                                            <Link
+                                                onClick={() => {
+                                                    setAuthLinks('Register')
+                                                    setActive(false)
+                                                }}
+
+                                                className={clsx(
+                                                    authLinks === 'Register' ? styles.authActiveLinks : ''
+                                                )} to={"/register"}>Register</Link>
+
+                                            <Link
+                                                onClick={() => {
+                                                    setAuthLinks('Login')
+                                                    setActive(false)
+
+                                                }}
+
+                                                className={clsx(
+                                                    authLinks === 'Login' ? styles.authActiveLinks : ''
+                                                )} to={"/login"}>Login</Link>
+                                        </ShowOnLogout>
+
+                                        <HideLink>
+                                            <button
+                                                onClick={logoutUser}
+                                                className={styles.logout}
+                                            >Logout <img src={logout} width={10} alt="" /> </button>
+                                        </HideLink>
+
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </nav>
+                    </nav>
 
-            </div>
-
-            {/* -----------Sidebar Responsive------------ */}
-
-            <div className={clsx(styles.sidebar, show ? styles.right : styles.left)}
-                ref={ProfileRef}>
-                <div className={styles.logo_close}>
-                    <Link to={'/'} className={styles.logo}>
-                        <MotionText logo={"Xurmo"} classes={''} />
-                    </Link>
-                    <CgClose onClick={showClick} className={styles.close_btn} size={22} />
                 </div>
 
-                {/* -----------Sidebar Links------------ */}
-                <ul>
-                    {
-                        navLinks.map((nav) => (
-                            <li key={nav.id}>
-                                <Link
-                                    to={nav.path}
-                                    onClick={() => {
-                                        activeLinkHandler(nav.title)
-                                        setShow(false)
-                                    }}
-                                    className={clsx(
-                                        activeLink === nav.title ? styles.activeLink : ''
-                                    )}
-                                >
-                                    {nav.title}
-                                </Link>
-                            </li>
-                        ))
-                    }
-                </ul>
-            </div>
+                {/* -----------Sidebar Responsive------------ */}
 
-        </nav>
-      </>
+                <div className={clsx(styles.sidebar, show ? styles.right : styles.left)}
+                    ref={ProfileRef}>
+                    <div className={styles.logo_close}>
+                        <Link to={'/'} className={styles.logo}>
+                            <MotionText logo={"Xurmo"} classes={''} />
+                        </Link>
+                        <CgClose onClick={showClick} className={styles.close_btn} size={22} />
+                    </div>
+
+                    {/* -----------Sidebar Links------------ */}
+                    <ul>
+                        {
+                            navLinks.map((nav) => (
+                                <li key={nav.id}>
+                                    <Link
+                                        to={nav.path}
+                                        onClick={() => {
+                                            activeLinkHandler(nav.title)
+                                            setShow(false)
+                                        }}
+                                        className={clsx(
+                                            activeLink === nav.title ? styles.activeLink : ''
+                                        )}
+                                    >
+                                        {nav.title}
+                                    </Link>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+
+            </nav>
+        </>
     )
 }
 

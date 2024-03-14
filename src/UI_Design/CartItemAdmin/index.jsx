@@ -20,7 +20,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import clsx from 'clsx'
 const CartItemAdmin = ({ item, number }) => {
 
-  const { id, name, category, price, images, reviews, shortDesc, description, user, date, timestamp } = item
+  const { id, name, category, price, images, reviews, shortDesc, description, user, date } = item
   const navigate = useNavigate()
   const [isAction, setIsAction] = useState(false)
 
@@ -223,7 +223,7 @@ const CartItemAdmin = ({ item, number }) => {
               {label === "Name:" ? name : null}
               {label === "Category:" ? category : null}
               {label === "Price:" ? price : null}
-              {label === "Date:" ? dateExample : null}
+              {label === "Date:" ? time(date) : null}
               {label === "Action:" ? (
                 <div className={styles.threeDote}>
 

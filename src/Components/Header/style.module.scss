@@ -80,11 +80,13 @@
     }
     .fixed {
         position: fixed;
-        top: 0;
+        top: 10px;
         z-index: 999;
         width: 100%;
         text-align: center;
-     
+          @media (max-width: '800px') {
+           top: 0;
+        }
         .input_box {
             position: relative;
             width: 40%;

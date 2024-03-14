@@ -28,7 +28,7 @@ const {scrollDirection} = useScroll()
      style={{
         zIndex:999,
         display: scrollDirection === "down" ?  'none' : 'block',
-        height:"8px",
+        height:"6px",
         width:"100%",
         backgroundClor:'transparent',
         position:"fixed",

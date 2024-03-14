@@ -86,7 +86,7 @@ const AddProduct = () => {
             description: description,
             category: category,
             price: numericValue,
-            dateExample: Time,
+            date: new Date(),
             viewCount: viewCount,
             user: {
               userName: currentUser?.displayName,

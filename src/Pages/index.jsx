@@ -11,4 +11,6 @@ export {default as Checkout} from './checkout'
 export {default as ProductDetails} from './productDetails'
 export {default as MyOrders} from './myOrders'
 export {default as NotFound} from './notFound'
+export {default as LikedProducts} from './liked'
+export {default as UserProfile} from './userProfile'
  

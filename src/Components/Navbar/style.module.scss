@@ -1,7 +1,7 @@
   .header {
       transition-duration: all .4s;
       background-color: indigo;
-      padding: 15px 15px;
+      padding: 15px;
       position: fixed;
       top: 0;
       left: 0;
@@ -11,7 +11,10 @@
       z-index: 1000;
       visibility: visible;
       transform: translateY(0);
-
+        @media (max-width: '800px') {
+                  height: 50px;
+                  padding-top: 8px;
+              }
       .navbar {
           position: relative;
           display: flex;
@@ -80,6 +83,12 @@
                   display: none;
               }
           }
+          .searchInput{
+            width: 40%;
+             @media (max-width: '800px') {
+                  width: 100%;
+              }
+          }
 
           nav {
               display: flex;
@@ -127,6 +136,9 @@
                           font-family: 'Times New Roman', Times, serif;
                       }
                   }
+                   @media (max-width: '800px') {
+                  display: none;
+              }
               }
 
               .profile {
