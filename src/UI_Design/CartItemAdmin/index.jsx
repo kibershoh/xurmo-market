@@ -127,7 +127,7 @@ const CartItemAdmin = ({ item, number }) => {
     }
   return (
     <tr ref={IsActionRef}>
-      {
+         {
         item &&
         <>
           <>
@@ -222,7 +222,7 @@ const CartItemAdmin = ({ item, number }) => {
               {label === "Image:" ? <img onClick={handleOpen} src={images[0]} alt="" /> : null}
               {label === "Name:" ? name : null}
               {label === "Category:" ? category : null}
-              {label === "Price:" ? price : null}
+              {label === "Price:" ? formatCurrency(price) : null}
               {label === "Date:" ? time(date) : null}
               {label === "Action:" ? (
                 <div className={styles.threeDote}>

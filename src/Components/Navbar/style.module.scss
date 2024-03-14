@@ -1,5 +1,6 @@
   .header {
       transition-duration: all .4s;
+      backdrop-filter: blur(50px);
       background-color: indigo;
       padding: 15px;
       position: fixed;
@@ -308,7 +309,6 @@
           }
 
           ul li a span {
-              border-radius: 2px;
               color: #bebdbd;
               font-size: 18px;
               font-weight: 500;
@@ -353,7 +353,7 @@
               }
 
               .activeLink {
-                  border-bottom: 2px solid #fff;
+                  border-bottom: 1px solid #fff;
                   font-weight: 500;
                   color: #fff;
               }

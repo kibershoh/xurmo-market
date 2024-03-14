@@ -171,7 +171,7 @@ const Navbar = () => {
                                 navLinks.map((nav, inx) => (
                                     <li key={nav.id}>
                                         <Link className={clsx(
-                                            activeLink === nav.title ? styles.activeLink : '', styles.unActiveLink
+                                            // activeLink === nav.title ? styles.activeLink : '',
                                         )}
                                             onClick={() => activeLinkHandler(nav.title)} to={nav.path}
                                         >
