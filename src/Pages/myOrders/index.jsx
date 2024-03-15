@@ -96,7 +96,7 @@ const MyOrders = () => {
                                         <div className={styles.date_price}>
                                             <div>
                                                 <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(data.length)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
-                                                <span>accepted</span><MdDelete onClick={()=>deleteProduct(item.id)} className={styles.delete_order}/>
+                                                <span>accepted</span><MdDelete onClick={()=>deleteProduct(data[data.length - 1]?.id)} className={styles.delete_order}/>
                                             </div>
                                             <span className={styles.total_price}>Total Price: {formatCurrency(data[data.length - 1]?.orderPrice)}</span>
                                         </div>

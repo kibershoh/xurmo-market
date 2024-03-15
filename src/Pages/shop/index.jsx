@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 
 // ~~~~~~~~~React Icons~~~~~~~~~//
 import { MdOutlineSearch } from "react-icons/md";
@@ -10,18 +9,15 @@ import { ProductList } from '../../UI_Design';
 import styles from './styles.module.scss'
 
 // ~~~~~~~~~Data~~~~~~~~~~//
-// import products from '../../Constants/data/products'
 import Select from '../../UI_Design/SelectOption';
 import useGetData from '../../Custom Hooks/UseGetData';
 import CardLoader from '../../Constants/LoaderCard';
 
 const Shop = () => {
   const {data:products,loading} = useGetData("products")
-  const [allProducts,setAllProducts] = useState(products)
   const [productsData,setProductsData] = useState(products)
   const [inputText,setInputText] = useState('')
   const [category,setCategory] = useState('')
-  const navigate = useNavigate()
  
   const handleFilter = (e)=>{
     const filterValue = e.target.value;

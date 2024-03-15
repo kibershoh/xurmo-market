@@ -1,7 +1,8 @@
 // ~~~~~~React Hooks ~~~~~~~~~~//
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { Box, Modal} from '@mui/material'
+import {motion} from 'framer-motion'
 // ~~~~~~React Icons ~~~~~~~~~~//
 import { MdAddAPhoto } from 'react-icons/md';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -25,6 +26,8 @@ import { Loader } from '../../../Components';
 
 // ~~~~~~ Datas ~~~~~~~~~~//
 import { Time } from '../../../Constants/date';
+import { CgClose } from 'react-icons/cg';
+import { FaPlus } from 'react-icons/fa6';
 
 
 const AddProduct = () => {
@@ -153,18 +156,53 @@ const AddProduct = () => {
     }
     return formattedValue;
   };
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+  const styleBox = {
+    position: 'absolute',
+    top:'50%',
+    left: {
+      xs:'50%',
+      sm:'60%',
+    },
+    right: 0,
+    transform: {
+      xs: 'translate(-50%, -50%)',
+      sm: 'translate(-50%, -50%)'
+    },
+    width: {
+      xs: '90%',
+      sm: '70%',
+    },
+    maxHeight: '90vh',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    borderRadius: '5px',
+    pb: 1,
+    border: '1px solid white',
+    outline: 'none',
+
+
+  };
+  const styleModal = {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    maxHeight: '100vh'
+  }
   return (
     <>
 
       <div className={styles.add_product}>
-        <form onSubmit={addProduct}>
+        <form>
           <button className={styles.back} onClick={() => navigate('/dashboard/all-products')}>
             <BsArrowLeft size={28} />
           </button>
 
           <div className={styles.inputs}>
             <label> Product Name </label>
-            <input  type="text" value={name} onChange={(e) => setName(e.target.value)} name="text" required />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} name="text" required />
           </div>
 
           <div className={styles.inputs}>
@@ -178,13 +216,45 @@ const AddProduct = () => {
           </div>
 
           <div className={styles.inputs}>
-            <label>Price</label>
+              <label>Price</label>
             <input type="text" onKeyDown={handleKeyDown} value={price} onChange={handlePriceChange} name="text" placeholder='UZS' required />
           </div>
 
           <div className={styles.select_photo}>
             <div className={styles.categories}>
-              <Select handleFilter={handleFilter} category = {category}/>
+              <motion.button whileHover={{scale:1.1}} onClick={()=>navigate('/dashboard/categories')}><FaPlus size={25}/></motion.button>
+              <Select handleFilter={handleFilter} category={category} />
+
+
+              <Modal
+                keepMounted
+                open={open}
+                onClose={handleClose}
+                sx={styleModal}
+              >
+                <Box sx={styleBox}>
+                  <div div className={styles.close_modal}>
+                    <h2>Product Details</h2>
+                    <div><span> added by</span>  </div>
+                    <motion.button whileHover={{ scale: 1.1 }} onClick={handleClose}><CgClose className={styles.close_icon} size={20} /></motion.button>
+
+                  </div>
+
+
+
+
+                    <Box sx={{ display: 'flex' }}>
+                      ghhghg
+                    </Box>
+
+                      
+                </Box>
+
+              </Modal>
+
+
+            </div>
+            <div className={styles.add_categories}>
             </div>
             <div className={styles.photoDown}>
               <div className={styles.file_input}>
@@ -201,10 +271,10 @@ const AddProduct = () => {
           <div className={styles.myProgress}>
             <div className={styles.myBar} style={{ width: `${progressBar}%`, display: `${progressBar > 0 ? 'block' : 'none'}` }}>{progressBar}%</div>
           </div>
-          
+
           <div className={styles.add_product_btn}>
 
-            <button type='submit'>Add Product</button>
+            <motion.button whileHover={{scale:1.05}} onClick={addProduct}>Add Product</motion.button>
           </div>
         </form>
       </div>

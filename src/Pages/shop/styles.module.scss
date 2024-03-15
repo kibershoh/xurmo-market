@@ -1,4 +1,7 @@
 .shop {
+   @media (max-width: '800px') {
+       padding-bottom: 40px;
+    }
   .shop_header {
     display: flex;
     justify-content: space-between;
@@ -42,8 +45,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+     
   }
   .category_select {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

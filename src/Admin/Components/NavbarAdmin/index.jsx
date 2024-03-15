@@ -188,6 +188,12 @@ const NavbarAdmin = () => {
       name: "Order List",
       path: "/dashboard/add-products",
     },
+    {
+      id: 5,
+      icon: <MdFormatListBulleted   size={17} className={styles.icons} />,
+      name: "Categories",
+      path: "/dashboard/categories",
+    },
 
 
   ];

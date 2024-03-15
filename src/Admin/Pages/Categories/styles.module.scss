@@ -1,0 +1,99 @@
+.categories{
+    padding-left: 20%;
+    padding-top: 80px;
+     @media (max-width: '800px') {
+         padding-left: 10%;
+
+
+        }
+
+     .add_category_btn {
+        margin-top: 15px;
+        padding: 5px 15px;
+        border: none;
+        font-size: 20px;
+        border-radius: 4px;
+        background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
+        color: #fff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        @media (max-width: '510px') {
+          width: 100%;
+
+        }
+
+        &:hover {
+          // transform: scale(1.05);
+          transition: all .3s;
+        }
+
+        // &:active {
+        //   transform: scale(0.8);
+
+        // }
+      }
+    .category{
+        width: 30%;
+        border: 1px solid indigo;
+       border-radius: 5px;
+       padding: 15px;
+       margin-top: 20px;
+       display: flex;
+        flex-wrap: wrap;
+         @media (max-width: '800px') {
+          width: 50%;
+        }
+         @media (max-width: '400px') {
+          width: 90%;
+          margin: auto;
+
+        }
+       p{
+        margin: 5px;
+        max-width:fit-content;
+        font-family: "Noto Sans";
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #e0dddd;
+        border-radius: 4px;
+        padding: 5px;
+        
+       }
+    }
+   
+}
+// .close_modal{
+//     width: 100%;
+//     text-align: end;
+//         button{
+//             background:transparent;
+//             border: none;
+//             color: #838080;
+//         }
+//     }
+    .input_and_btn{
+        display: flex;
+       input{
+           padding: 10px;
+           border: 1px solid indigo;
+           border-top-left-radius: 5px;
+           border-bottom-left-radius: 5px;
+           font-size: 17px;
+           outline: none;
+       }
+       button{
+           padding: 10px;
+           padding-top: 9px;
+            border-top-right-radius: 5px;
+           border-bottom-right-radius: 5px;
+           border:none;
+           color: #fff;
+           font-family: "Noto Sans";
+           font-size: 17px;
+       background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
+       }
+   }

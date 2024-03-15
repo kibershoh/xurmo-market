@@ -29,11 +29,7 @@ import { Box, Typography, Modal, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 
-import { CgClose } from 'react-icons/cg';
-import { TextInput } from './CommentInput';
-import { IoSend } from 'react-icons/io5';
 import UseAuth from '../../Custom Hooks/UseAuth';
-import { errorSound, successSound } from '../../Constants/sounds';
 const ProductCard = ({ item, index }) => {
   const {currentUser} = UseAuth()
   const { idParams } = useParams()
@@ -43,7 +39,6 @@ const ProductCard = ({ item, index }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [added, setAdded] = useState(false)
-  const [commentText, setCommentText] = useState("")
   const active = () => {
     if (item.action) {
       setAdded(false)

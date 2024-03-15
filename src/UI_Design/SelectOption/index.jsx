@@ -1,24 +1,27 @@
 import React from 'react'
 import styles from './styles.module.scss'
+import useGetData from '../../Custom Hooks/UseGetData'
 const Select = ({handleFilter,category}) => {
-  
+  const {data:categories,loading} = useGetData("categories")
+  const categoryEdit = (text)=>{
+    return  text.charAt(0).toUpperCase() + text.slice(1)
+  }
   return (
    <>
     <select 
         name="languages"
       id="language-select"
-      onfocus="this.size=6;"
-      onblur="this.size=0;"
-      onchange="this.size=1; this.blur()"
+       
       onChange={handleFilter}
         className={styles.category_select}>
           <option value="">{category === '' ? '--Category--' : category}</option>
-          <option value="mobile">Phones</option>
-          <option value="micraphone">Micraphones</option>
-          <option value="mouse">Mouses</option>
-          <option value="guitar">Guitars</option>
-          <option value="wireless">Wireless</option>
-          <option value="watch">Watch</option>
+          {
+             categories?.map((item,index)=>(
+              <option key={index} value={item.category}>
+             { item.category}
+              </option>
+            ))
+          }
         </select>
    </>
   )

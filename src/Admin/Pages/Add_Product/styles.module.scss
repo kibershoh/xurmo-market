@@ -104,8 +104,8 @@ textarea{
       .categories {
         width: 50%;
         display: flex;
-        flex-direction: column;
-        align-items: start;
+        // flex-direction: column;
+        align-items: center;
 
         label {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -113,7 +113,7 @@ textarea{
 
         select {
           background-color: white;
-          border: thin solid blue;
+          border: thin solid indigo;
           border-radius: 4px;
           display: inline-block;
           font: inherit;
@@ -176,7 +176,17 @@ textarea{
           }
         }
 
-
+    button{
+      background:transparent;
+      border: 1px solid indigo;
+      padding: 2px;
+      border-radius: 5px;
+      margin-right: 5px;
+       @media (max-width: '800px') {
+           padding: 0;
+           border: none;
+          }
+    }
 
       }
 
@@ -207,7 +217,7 @@ textarea{
             // width: 180px;
             height: 36px;
             border-radius: 5px;
-            border: 1px solid #000;
+            border: 1px solid indigo;
             color: #000;
             margin: 0;
             padding: 0 10px;
@@ -304,31 +314,7 @@ textarea{
 
       }
 
-      button {
-        margin-top: 15px;
-        padding: 5px 15px;
-        border: none;
-        font-size: 20px;
-        border-radius: 4px;
-        background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
-        color: #fff;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-        @media (max-width: '510px') {
-          width: 100%;
-
-        }
-
-        &:hover {
-          // transform: scale(1.05);
-          transition: all .3s;
-        }
-
-        // &:active {
-        //   transform: scale(0.8);
-
-        // }
-      }
+     
     }
     
   }
