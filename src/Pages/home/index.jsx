@@ -45,20 +45,38 @@ const Home = () => {
   return (
     <div
     className={styles.home}>
-      {/* <Slider /> */}
       <Header/>
       <Services />
+      {
+        micraphone?.length !==0 && 
       <h1 className={styles.product_name}>Microphones</h1>
+      }
       <ProductList data={micraphone} />
-      <h1 className={styles.product_name}>Mouses</h1>
+       {
+        headphones?.length !==0 && 
+      <h1 className={styles.product_name}>Mouse</h1>
+      }
       <ProductList data={headphones} />
       <Timer />
-      <h1 className={styles.product_name}>Headphones</h1>
+       {
+        wireless?.length !==0 && 
+      <h1 className={styles.product_name}>Wireless</h1>
+      }
       <ProductList data={wireless} />
+       {
+        mobile?.length !==0 && 
+      <h1 className={styles.product_name}>Mobile</h1>
+      }
       <ProductList data={mobile} />
+      {
+        watches?.length !==0 && 
       <h1 className={styles.product_name}>Watches</h1>
+      }
       <ProductList data={watches} />
-      <h1 className={styles.product_name}>Guitars</h1>
+       {
+        guitar?.length !==0 && 
+      <h1 className={styles.product_name}>Guitar</h1>
+      }
       <ProductList data={guitar} />
 
     </div>

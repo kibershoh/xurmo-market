@@ -5,6 +5,7 @@
         .input_box {
             margin: auto;
             position: relative;
+            
              @media (max-width: '1060px') {
            width: 90%;
         }
@@ -21,7 +22,7 @@
             .search_btn {
                 position: absolute;
                 background-color: #fff;
-                top: 12px;
+                top: 10px;
                 right: 17px;
                 color: #666;
             }
@@ -29,7 +30,7 @@
 
         .searched_products {
             position: absolute;
-            width: 50%;
+            width: 100%;
             height: auto;
             border-radius: 5px;
             padding: 20px;

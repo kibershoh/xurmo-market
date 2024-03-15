@@ -34,6 +34,7 @@ import { FaUserAlt, FaUserFriends } from "react-icons/fa";
 import { useScroll } from "../../../Components/Navbar/useScroll";
 import HideLink, { ShowOnLogout } from "../../../Components/HideLink";
 import useGetData from "../../../Custom Hooks/UseGetData";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 
 // ~~~~~~~~~~~ Components~~~~~~~~~~~ //
@@ -172,42 +173,42 @@ const NavbarAdmin = () => {
 
     {
       id: 3,
-      icon: <FaUsers  size={17} className={styles.icons} />,
+      icon: <FaUsers size={17} className={styles.icons} />,
       name: "Users",
       path: "/dashboard/users",
     },
     {
       id: 4,
-      icon: <MdLibraryAdd  size={17} className={styles.icons} />,
+      icon: <MdLibraryAdd size={17} className={styles.icons} />,
       name: "Add Products",
       path: "/dashboard/add-products",
     },
     {
       id: 4,
-      icon: <MdFormatListBulleted   size={17} className={styles.icons} />,
+      icon: <MdFormatListBulleted size={17} className={styles.icons} />,
       name: "Order List",
       path: "/dashboard/add-products",
     },
     {
       id: 5,
-      icon: <MdFormatListBulleted   size={17} className={styles.icons} />,
+      icon: <MdFormatListBulleted size={17} className={styles.icons} />,
       name: "Categories",
       path: "/dashboard/categories",
     },
 
 
   ];
-  const {data:productsData,loading} = useGetData("products")
-const [searchedProducts,setSearchedProducts] = useState([])
-const [inputText,setInputText] = useState('')
+  const { data: productsData, loading } = useGetData("products")
+  const [searchedProducts, setSearchedProducts] = useState([])
+  const [inputText, setInputText] = useState('')
 
-const handleSearch = (e)=>{
+  const handleSearch = (e) => {
     const searchTerm = e.target.value;
     const searchedProducts = productsData.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
     setSearchedProducts(searchedProducts)
     setInputText(searchTerm)
-    
-  } 
+
+  }
   return (
     <>
       <div ref={ProfileRef} className={clsx(
@@ -218,117 +219,117 @@ const handleSearch = (e)=>{
         <Link to='#' className={styles.menu_bars}>
           <HiMenuAlt1 size={25} onClick={showSidebar} />
         </Link>
-          <div className={styles.search_admin}>
-             <input type="search" placeholder="Search...." onChange={handleSearch} />
-             <IoSearchOutline className={styles.search_icon}/>
-          </div>
-          {
-        inputText !=='' && searchedProducts.length !==0 && 
-         <div className={styles.searched_products}>
-            
-            <div className={styles.names}>
-            {
-          inputText &&  searchedProducts?.map((item,index)=>(
-                <Link to={/shop/ + item.ID}><BiSearchAlt2 size={20}/> <span>{item.name}</span></Link>
-            ))
-        }
+        <div className={styles.search_admin}>
+          <input type="search" placeholder="Search...." onChange={handleSearch} />
+          <IoSearchOutline className={styles.search_icon} />
         </div>
-      </div>
-     }
-          <div className={styles.admin_auth}>
-            {/* -----------Cart----------- */}
+        {
+          inputText !== '' && searchedProducts.length !== 0 &&
+          <div className={styles.searched_products}>
 
-            <div className={styles.cart}>
-              <a href="#cart">
-                <AiOutlineShoppingCart size={25} className={styles.icon_shop}
-                  onClick={() => {
-                    navigate('/dashboard')
-                    document.title = 'Cart';
-                  }}
-                />
-                <span>
-                  8
-                </span>
-              </a>
+            <div className={styles.names}>
+              {
+                inputText && searchedProducts?.map((item, index) => (
+                  <Link to={/shop/ + item.ID}><BiSearchAlt2 size={20} /> <span>{item.name}</span></Link>
+                ))
+              }
             </div>
-            {/* -----------Profile----------- */}
+          </div>
+        }
+        <div className={styles.admin_auth}>
+          {/* -----------Cart----------- */}
 
-            <div className={styles.profile}>
+          <div className={styles.cart}>
+            <a href="#cart">
+              <IoMdNotificationsOutline size={25} className={styles.notifacation_icon}
+                onClick={() => {
+                  navigate('/dashboard')
+                  document.title = 'Cart';
+                }}
+              />
+              <span>
+                8
+              </span>
+            </a>
+          </div>
+          {/* -----------Profile----------- */}
 
-              <HideLink>
-                
-                   <h1>
-                 Hin {currentUser.displayName}
-                </h1>
-                  
-                
-              </HideLink>
-              <button className={styles.btn_profile} onClick={ProfileHandler} >
-                {
-                  <img src={currentUser ? currentUser?.photoURL : userImg} alt="" />
-                }
+          <div className={styles.profile}>
+
+            <HideLink>
+
+              <h1>
+                Hi {currentUser.displayName}
+              </h1>
 
 
-              </button>
-              {/* -----------Authentication------------ */}
-              <div className={
-                clsx(
-                  styles.auth_modal,
-                  active ? styles.block : styles.hidden
-                )
-              }>
-                <h1>{currentUser?.displayName}</h1>
-                <p>{currentUser?.email}</p>
-                <div className={styles.links_auth}>
-                  <span className={styles.links}>
+            </HideLink>
+            <button className={styles.btn_profile} onClick={ProfileHandler} >
+              {
+                <img src={currentUser ? currentUser?.photoURL : userImg} alt="" />
+              }
 
-                    <ShowOnLogout>
-                      <Link
-                        onClick={() => {
-                          setAuthLinks('My Orders')
-                          setActive(false)
-                        }}
 
-                        className={clsx(
-                          authLinks === 'My Orders' ? styles.authActiveLinks : ''
-                        )} to={"/order-history"}>My Orders</Link>
-                    </ShowOnLogout>
+            </button>
+            {/* -----------Authentication------------ */}
+            <div className={
+              clsx(
+                styles.auth_modal,
+                active ? styles.block : styles.hidden
+              )
+            }>
+              <h1>{currentUser?.displayName}</h1>
+              <p>{currentUser?.email}</p>
+              <div className={styles.links_auth}>
+                <span className={styles.links}>
 
-                    <ShowOnLogout>
-                      <Link
-                        onClick={() => {
-                          setAuthLinks('Register')
-                          setActive(false)
-                        }}
+                  <ShowOnLogout>
+                    <Link
+                      onClick={() => {
+                        setAuthLinks('My Orders')
+                        setActive(false)
+                      }}
 
-                        className={clsx(
-                          authLinks === 'Register' ? styles.authActiveLinks : ''
-                        )} to={"/register"}>Register</Link>
+                      className={clsx(
+                        authLinks === 'My Orders' ? styles.authActiveLinks : ''
+                      )} to={"/order-history"}>My Orders</Link>
+                  </ShowOnLogout>
 
-                      <Link
-                        onClick={() => {
-                          setAuthLinks('Login')
-                          setActive(false)
+                  <ShowOnLogout>
+                    <Link
+                      onClick={() => {
+                        setAuthLinks('Register')
+                        setActive(false)
+                      }}
 
-                        }}
+                      className={clsx(
+                        authLinks === 'Register' ? styles.authActiveLinks : ''
+                      )} to={"/register"}>Register</Link>
 
-                        className={clsx(
-                          authLinks === 'Login' ? styles.authActiveLinks : ''
-                        )} to={"/login"}>Login</Link>
-                    </ShowOnLogout>
+                    <Link
+                      onClick={() => {
+                        setAuthLinks('Login')
+                        setActive(false)
 
-                    <HideLink>
-                      <button
-                       onClick={logoutUser}
-                        className={styles.logout}
-                      >Logout <img src={logout} width={10} alt="" /> </button>
-                    </HideLink>
+                      }}
 
-                  </span>
-                </div>
+                      className={clsx(
+                        authLinks === 'Login' ? styles.authActiveLinks : ''
+                      )} to={"/login"}>Login</Link>
+                  </ShowOnLogout>
+
+                  <HideLink>
+                    <button
+                      onClick={logoutUser}
+                      className={styles.logout}
+                    >Logout <img src={logout} width={10} alt="" /> </button>
+                  </HideLink>
+
+                </span>
               </div>
             </div>
           </div>
+        </div>
 
 
 
@@ -336,7 +337,7 @@ const handleSearch = (e)=>{
       </div>
       {/* ~~~~~~~~~~~Responsive Sidebasr */}
       <nav
-      ref={ProfileRef}
+        ref={ProfileRef}
         className={clsx(
           styles.navLeft,
           sidebar ? styles.active : ''
@@ -351,15 +352,15 @@ const handleSearch = (e)=>{
         </div>
         <ul>
           {
-            data?.map(({id,name,icon,path}, inx) => (
+            data?.map(({ id, name, icon, path }, inx) => (
               <li key={id}>
                 <NavLink to={path} className={clsx(
                   activeLink === name ? styles.active : '',
                 )}
                   onClick={() => {
                     activeLinkHandler(name)
-                    
-                  }} 
+
+                  }}
                 >
                   {icon}
                   {name}
