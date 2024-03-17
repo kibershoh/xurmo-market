@@ -12,12 +12,11 @@ import { useSelector } from 'react-redux';
 import CartItem from '../../UI_Design/CartItem';
 import styles from './styles.module.scss'
 import { formatCurrency } from '../../Constants/utils/moneyCurrent';
-import useGetData from '../../Custom Hooks/UseGetData';
+import useGetData from '../../Custom_Hooks/UseGetData';
 import MyOrdersItem from '../../UI_Design/MyOrdersItem';
-import UseAuth from '../../Custom Hooks/UseAuth';
+import UseAuth from '../../Custom_Hooks/UseAuth';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../Firebase/config';
-import clsx from 'clsx';
 import { MdDelete } from 'react-icons/md';
 const MyOrders = () => {
     const { currentUser } = UseAuth()
@@ -48,11 +47,7 @@ const MyOrders = () => {
         return times;
 
     }
-    // useEffect(()=>{
-    //     data.map((item)=>{
-    //         console.log(item?.date.toDate().getMinutes());
-    //     })
-    // })
+   
     useEffect(() => {
         new Date()
         console.log(new Date());
@@ -82,12 +77,15 @@ const MyOrders = () => {
         <>
             <div className={styles.my_orders}>
 
-                <div className={styles.tab_btn}>
+               {
+                data &&  <div className={styles.tab_btn}>
                     <button onClick={() => setTab('last')} className={tab === 'last' ? styles.active_tab : styles.noActive_tab}>Last Order </button>
                     <button onClick={() => setTab('all')} className={tab === 'all' ? styles.active_tab : styles.noActive_tab}>All Order</button>
 
                 </div>
+               }
                 {
+                    
                     tab === 'last' ?
                         <>
                             {

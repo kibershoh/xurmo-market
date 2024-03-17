@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // ~~~~~~~~~React Icons~~~~~~~~~//
 import { MdOutlineSearch } from "react-icons/md";
@@ -14,99 +14,80 @@ import useGetData from '../../Custom Hooks/UseGetData';
 import CardLoader from '../../Constants/LoaderCard';
 
 const Shop = () => {
-  const {data:products,loading} = useGetData("products")
-  const [productsData,setProductsData] = useState(products)
-  const [inputText,setInputText] = useState('')
-  const [category,setCategory] = useState('')
- 
-  const handleFilter = (e)=>{
-    const filterValue = e.target.value;
-    setCategory(filterValue)
-    if(filterValue==='all'){
-      
-      setProductsData(products)
+  const { data: products, loading } = useGetData("products")
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~States ~~~~~~~~~~~~~~~~~~~//
+  const [inputText, setInputText] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState({});
+  const [searchedProducts, setSearchedProducts] = useState([]);
+
+  useEffect(() => {
+    if (products) {
+      const categories = [...new Set(products.map(product => product.category))];
+      setCategories(categories);
+      const categorizedProducts = categories.reduce((arr, category) => {
+        arr[category] = products.filter(product => product.category === category);
+        return arr;
+      }, {});
+      setFilteredProducts(categorizedProducts);
     }
-    else if(filterValue==='micraphone'){
-      const filteredProducts = products.filter(
-        (item)=>item.category === 'micraphone'
-      )
-      setProductsData(filteredProducts)
-    }
-    else if(filterValue==='mobile'){
-      const filteredProducts = products.filter(
-        (item)=>item.category === 'mobile'
-      )
-      setProductsData(filteredProducts)
-    }
-    else if(filterValue==='mouse'){
-      const filteredProducts = products.filter(
-        (item)=>item.category === 'mouse'
-      )
-      setProductsData(filteredProducts)
-    }
-    else if(filterValue==='wireless'){
-      const filteredProducts = products.filter(
-        (item)=>item.category === 'wireless'
-      )
-      setProductsData(filteredProducts)
-    }
-    else if(filterValue==='watch'){
-      const filteredProducts = products.filter(
-        (item)=>item.category === 'watch'
-      )
-      setProductsData(filteredProducts)
-    }
-    else if(filterValue==='guitar'){
-      const filteredProducts = products.filter(
-        (item)=>item.category === 'guitar'
-      )
-      setProductsData(filteredProducts)
-    }
-    else if(filterValue==='wireless'){
-      const filteredProducts = products.filter(
-        (item)=>item.category === 'wireless'
-      )
-      setProductsData(filteredProducts)
-    }
-    
-  } 
-   const handleSearch = (e)=>{
+  }, [products]);
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  }
+
+  const handleSearch = (e) => {
     const searchTerm = e.target.value;
     setInputText(searchTerm)
-const searchedProducts = products.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
-    setProductsData(searchedProducts)
-    
-  }  
-  
- 
-  return (
+    const searchProducts = products.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    setSearchedProducts(searchProducts)
+
+  }
+  const emptySearchInput = ()=>{
+    setInputText('')
+  }
+   return (
+   <>
+      <TotalSection title={"Products"} />
     <div className={styles.shop}>
-      <TotalSection title={"Products"}/>
-     <div className={styles.shop_header}>
-       <div className={styles.filter_product}>
-       
-        <Select handleFilter={handleFilter} category={category}/>
-
-       
+      <div className={styles.shop_header}>
+        <div className={styles.search_product}>
+          <MdOutlineSearch size={22} className={styles.search_icon} />
+          <input value={inputText} type="text" placeholder='Search....' className={styles.search_input}
+            onChange={handleSearch}
+          />
+        </div>
+        <div className={styles.filter_product}>
+          <Select value={selectedCategory} categories={categories} handleFilter={handleCategoryChange} click = {emptySearchInput} />
+        </div>
       </div>
-      <div className={styles.search_product}>
-        <MdOutlineSearch size={22} className={styles.search_icon}/>
-         <input type="text" placeholder='Search....' className={styles.search_input} 
-         onChange={handleSearch}
-         />
-      </div>
-     </div>
-     <div>
-     
-      {
-        (loading && window.navigator.onLine) ? <CardLoader/>:(
+      <div className={styles.all_products}>
 
-          (productsData.length === 0 && inputText==='')  ? <ProductList data={products}/>:
-         ((productsData.length === 0 && inputText!=='')? <h1>Mavjud emas</h1>: <ProductList data={productsData}/>) 
-        )
-     }
-     </div>
+         
+        {
+          inputText === '' ?
+            ((loading && window.navigator.onLine) ? <CardLoader /> : (
+
+              (selectedCategory === '' && inputText === '') ? <ProductList data={products} /> : 
+                (<ProductList data={filteredProducts[selectedCategory]} />)
+            )) :
+            (
+              (searchedProducts.length === 0 ? <h1 className={styles.empty_product}>This product is not available</h1>: <ProductList data={searchedProducts}/>)
+            )
+        }
+        {
+
+        }
+      </div>
+
+
+
+
     </div>
+   </>
   )
 }
 
