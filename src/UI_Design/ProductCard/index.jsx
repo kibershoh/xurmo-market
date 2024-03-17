@@ -29,7 +29,7 @@ import { Box, Typography, Modal, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 
-import UseAuth from '../../Custom Hooks/UseAuth';
+import UseAuth from '../../Custom_Hooks/UseAuth';
 const ProductCard = ({ item, index }) => {
   const {currentUser} = UseAuth()
   const { idParams } = useParams()
@@ -129,7 +129,7 @@ await Promise.all([
                       <motion.button onClick={() => likesHandler(id)}> <motion.img whileHover={{ scale: 1.1 }} src={fillThumb} width='24px' alt="" /></motion.button>
                     )
                       :
-                      (currentUser ? <motion.button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}><img src={thumb} width='24px' alt="" /> </motion.button> : <p>Likes {likesNo}</p>)
+                      (currentUser ? <motion.button whileHover={{ scale: 1.1 }} onClick={() => likesHandler(id)}><img src={thumb} width='24px' alt="" /> </motion.button> : <p className={styles.count_likes}>Likes {likesNo}</p>)
 
                   }
                 
@@ -158,7 +158,7 @@ await Promise.all([
               </div>
               <div className={styles.product_add}>
                       <span>{formatCurrency(price)}</span>
-                <motion.button onClick={addToCart} whileHover={{ scale: 1.09 }} className={styles.product_btn}>
+                <motion.button onClick={currentUser && addToCart} whileHover={{ scale: 1.09 }} className={styles.product_btn}>
                   <div className={styles.button_wrapper}>
 
                     <div className={styles.text}>
