@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from './styles.module.scss'
-import useGetData from '../../Custom Hooks/UseGetData'
-const Select = ({handleFilter,category}) => {
-  const {data:categories,loading} = useGetData("categories")
+const Select = ({handleFilter,category,value,click,categories}) => {
   const categoryEdit = (text)=>{
     return  text.charAt(0).toUpperCase() + text.slice(1)
   }
@@ -11,14 +9,15 @@ const Select = ({handleFilter,category}) => {
     <select 
         name="languages"
       id="language-select"
-       
+      value={value}
+       onClick={click}
       onChange={handleFilter}
         className={styles.category_select}>
-          <option value="">{category === '' ? '--Category--' : category}</option>
+          <option value=""> --Category-- </option>
           {
-             categories?.map((item,index)=>(
-              <option key={index} value={item.category}>
-             { item.category}
+             categories?.map((category)=>(
+              <option key={category} value={category}>
+             {categoryEdit(category)}
               </option>
             ))
           }

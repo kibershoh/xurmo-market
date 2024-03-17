@@ -327,6 +327,23 @@ const Navbar = () => {
                                 </li>
                             ))
                         }
+                        {
+                            currentUser?.email === 'oybek@gmail.com' &&
+                            <li>
+                                    <Link
+                                        to={'/dashboard'}
+                                        onClick={() => {
+                                            activeLinkHandler('Dashboard')
+                                            setShow(false)
+                                        }}
+                                        className={clsx(
+                                            activeLink === 'Dashboard' ? styles.activeLink : ''
+                                        )}
+                                    >
+                                        Admin
+                                    </Link>
+                                </li>
+                        }
                     </ul>
                 </div>
 

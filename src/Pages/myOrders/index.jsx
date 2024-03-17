@@ -12,9 +12,9 @@ import { useSelector } from 'react-redux';
 import CartItem from '../../UI_Design/CartItem';
 import styles from './styles.module.scss'
 import { formatCurrency } from '../../Constants/utils/moneyCurrent';
-import useGetData from '../../Custom_Hooks/UseGetData';
+import useGetData from '../../Custom Hooks/UseGetData';
 import MyOrdersItem from '../../UI_Design/MyOrdersItem';
-import UseAuth from '../../Custom_Hooks/UseAuth';
+import UseAuth from '../../Custom Hooks/UseAuth';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../Firebase/config';
 import { MdDelete } from 'react-icons/md';

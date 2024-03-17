@@ -29,7 +29,7 @@ import { Box, Typography, Modal, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 
-import UseAuth from '../../Custom_Hooks/UseAuth';
+import UseAuth from '../../Custom Hooks/UseAuth';
 const ProductCard = ({ item, index }) => {
   const {currentUser} = UseAuth()
   const { idParams } = useParams()
