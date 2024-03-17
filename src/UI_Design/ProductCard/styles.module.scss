@@ -31,6 +31,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            .count_likes{
+                margin-top: 10px;
+                color: #696969;
+            }
         }
 
 
@@ -128,10 +132,8 @@ font-weight: 600;
             font-weight: 600;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    }
 
-    // ~~~~~~~~~~~~~~~~~~~~~~
-    .product_btn {
+         .product_btn {
         --width: 100px;
         --height: 35px;
         --tooltip-height: 35px;
@@ -150,46 +152,60 @@ font-weight: 600;
         position: relative;
         text-align: center;
         border-radius: 0.45em;
-        font-family: "Arial";
+        font-family: "Noto Sans";
         transition: background 0.3s;
 
         @media (max-width: '600px') {
             margin-top: 10px;
             width: 100%;
+            height: 30px;
 
         }
-    }
 
-    .product_btn::before {
+        &::before{
         position: absolute;
-        content: attr(data-tooltip);
+        // content: attr(data-tooltip);
         width: var(--tooltip-width);
         height: var(--tooltip-height);
         font-size: 0.9rem;
         color: #fff;
         border-radius: .25em;
         line-height: var(--tooltip-height);
-        bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
-        left: calc(50% - var(--tooltip-width) / 2);
     }
-
-    .button::after {
+        &::after{
         position: absolute;
         content: '';
         width: 0;
         height: 0;
         border: 10px solid transparent;
         border-top-color: indigo;
-        left: calc(50% - 10px);
-        bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
     }
-
-    .product_btn::after,
-    .product_btn::before {
+    &::after,&::before{
         opacity: 0;
         visibility: hidden;
         transition: all 0.5s;
     }
+    &:hover {
+    .text {
+        top: -100%;
+    }
+    .icon {
+        top: 0;
+    }
+    &::before,&::after {
+        opacity: 1;
+    }
+
+    }
+    }
+    }
+
+    // ~~~~~~~~~~~~~~~~~~~~~~
+   
+
+ 
+ 
+   
 
     .text {
         display: flex;
@@ -238,24 +254,9 @@ font-weight: 600;
         height: 24px;
     }
 
-    .product_btn:hover {
-        background-image: linear-gradient(to right, indigo 0%, #580ed0 51%, rgb(44, 11, 68) 100%);
-    }
-
-    .product_btn:hover .text {
-        top: -100%;
-    }
-
-    .product_btn:hover .icon {
-        top: 0;
-    }
-
-    .product_btn:hover:before,
-    .product_btn:hover:after {
-        opacity: 1;
-        visibility: visible;
-    }
-
+ 
+    
+ 
 
 
 
