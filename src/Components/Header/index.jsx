@@ -40,31 +40,13 @@ const handleSearch = (e)=>{
 
     return (
     <div className={styles.header}>
-      {/* <div className={clsx(
-        styles.search_input,
-          fixed ? styles.fixed : '',
-        )}>
-         <div className={clsx(
-           
-          styles.input_box
-         )}>
-            <input placeholder='Search Products....' onChange={handleSearch} type="search" /> 
-        <IoSearchOutline size={20} className={styles.search_btn}/>
-         </div>
-     {
-        inputText !=='' && data.length !==0 && 
-         <div className={styles.searched_products}>
-            
-            <div className={styles.names}>
-            {
-          inputText &&  data?.map((item,index)=>(
-                <Link to={/shop/ + item.ID}><BiSearchAlt2 size={20}/> <span>{item.name}</span></Link>
-            ))
-        }
-        </div>
+       <div className={styles.waves}>
+        <div className={clsx(styles.wave1, styles.wave)}> </div>
+        <div className={clsx(styles.wave2, styles.wave)}> </div>
+        <div className={clsx(styles.wave3, styles.wave)}> </div>
+        <div className={clsx(styles.wave4, styles.wave)}> </div>
       </div>
-     }
-      </div> */}
+
     </div>
   )
 }

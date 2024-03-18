@@ -10,25 +10,29 @@ import { AiOutlineYoutube } from "react-icons/ai";
 import navLinks from '../../Constants/NavbarItems';
 import { useState } from 'react';
 import Select from 'react-select';
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
+// ~~~~~~~~~~~Images~~~~~~~~~~~~~~~~~~~//
+import visa from '../../assets/creditCardLogos/visa.png'
+import uzcard from '../../assets/creditCardLogos/uzcard.png'
+import humo from '../../assets/creditCardLogos/humo.png'
+import paypal from '../../assets/creditCardLogos/paypal.png'
+ import { MdAlternateEmail } from "react-icons/md";
+
 const aboutUs = [
-  { value: 'aboutUs', label: 'About Us' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
+  { value: 'aboutUs', label: 'About Us', },
+  { value: 'all_branches', label: 'All Branches',url:'/' },
+  { value: 'adresses', label: 'Adresses',url:'/shop' },
+  { value: 'history', label: "Company's history",url:'/contact' }
 ]
 const forCustomers = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
+  { value: 'forCustomers', label: 'For Customer' },
+  { value: 'freeShipping', label: 'Free Shipping',url:'/shipping' },
+  { value: 'Security', label: 'Security',url:'/' },
+  
 ]
 const contactUs = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
+  { value: 'contactUs', label: 'Contact Us' },
+  { value: 'phoneNumber', label: '+998 94 009 51 01',url:'/' },
+  { value: 'email', label:'saminovoybek563@gmail.com',url:'/',icon:<MdAlternateEmail/> },
 ]
 const socialMedias = [
   {
@@ -62,6 +66,12 @@ const socialMedias = [
 
   },
 ]
+const CustomOption = ({ innerRef, innerProps, data }) => (
+  <Link style={{display:'block',color:'indigo',fontFamily:'Noto Sans',margin:'10px'}} ref={innerRef} {...innerProps} to={data.url}  rel="noopener noreferrer">
+    {data.label}
+  </Link>
+);
+ 
 const Footer = () => {
   return (
     <div className={styles.footer}>
@@ -74,29 +84,33 @@ const Footer = () => {
 
       <div className={styles.items_desktop}>
         <div className={styles.informations}>
-          <h3>About Us</h3>
-          <ul>
-            <li><Link>Home</Link></li>
-            <li><Link>Amazon</Link></li>
-            <li><Link>Uzum</Link></li>
+           <ul>
+            {
+             aboutUs.map((item)=>(
+              <li><Link to={item.url}>{item.label}</Link></li>
+             )) 
+            }
           </ul>
         </div>
         <div className={styles.informations}>
-          <h3>For Customer</h3>
-          <ul>
-            <li><Link>Home</Link></li>
-            <li><Link>Amazon</Link></li>
-            <li><Link>Uzum</Link></li>
+           <ul>
+            {
+             forCustomers.map((item)=>(
+              <li><Link to={item.url}>{item.label}</Link></li>
+             )) 
+            }
           </ul>
         </div>
         <div className={styles.informations}>
-          <h3>About Us</h3>
-          <ul>
-            <li><Link>Home</Link></li>
-            <li><Link>Amazon</Link></li>
-            <li><Link>Uzum</Link></li>
+           <ul>
+            {
+             contactUs.map((item)=>(
+              <li><Link to={item.url}>{item.icon}{item.label}</Link></li>
+             )) 
+            }
           </ul>
         </div>
+         
         <div className={styles.icons}>
           <h3>Find us in social medias</h3>
           <div>
@@ -111,13 +125,22 @@ const Footer = () => {
       <div className={styles.items_mobile}>
         <div className={styles.informations}>
  
-          <Select defaultValue={aboutUs[0]} options={aboutUs} />
+          <Select
+          components={{Option:CustomOption}}
+           
+          defaultValue={aboutUs[0]} options={aboutUs} />
         </div>
         <div className={styles.informations}>
-          <Select options={forCustomers} />
+          <Select
+          components={{Option:CustomOption}}
+           
+          defaultValue={forCustomers[0]} options={forCustomers} />
         </div>
         <div className={styles.informations}>
-          <Select  options={contactUs} />
+         <Select
+          components={{Option:CustomOption}}
+           
+          defaultValue={contactUs[0]} options={contactUs} />
         </div>
 
           <div className={styles.icons}>
@@ -131,6 +154,14 @@ const Footer = () => {
                 </div>
           </div>
       </div>
+<div className={styles.card_images}>
+              <div className={styles.card_logos}>
+                <img src={visa} alt="" />
+              <img src={paypal} alt="" />
+              <img src={humo} alt="" />
+              <img src={uzcard} alt="" />
+              </div>
+            </div>
     </div>
   )
 }
