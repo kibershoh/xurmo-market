@@ -19,9 +19,9 @@ const Shop = () => {
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~States ~~~~~~~~~~~~~~~~~~~//
   const [inputText, setInputText] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchedProducts, setSearchedProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState({});
-  const [searchedProducts, setSearchedProducts] = useState([]);
 
   useEffect(() => {
     if (products) {

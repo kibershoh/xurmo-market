@@ -57,7 +57,10 @@ const {currentUser} = UseAuth()
       location.pathname.startsWith("/dashboard") && currentUser?.displayName==='Oybek' && currentUser ? ''
 
       :
-       <Footer/>
+       (
+        (location.pathname==='/login' || location.pathname === '/register' || location.pathname === '/reset') ? '' :
+        <Footer/>
+       )
      }
     
     </div>

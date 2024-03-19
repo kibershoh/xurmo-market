@@ -11,6 +11,7 @@ import { MdOutlineAttachMoney, MdOutlineToday } from 'react-icons/md'
 import { RiExchangeDollarLine } from 'react-icons/ri'
 import { FaRegRectangleList } from "react-icons/fa6";
 import { LineChart } from '../../Components'
+import { AdminsProduct, CategoriesPie } from '../Charts'
 
 const Dashboard = () => {
   return (
@@ -65,7 +66,6 @@ const Dashboard = () => {
                    <div className={styles.name_price}>
                     <p>Total Sales </p>
                     <h3>250</h3>
-
                    </div>
 
 
@@ -130,7 +130,8 @@ const Dashboard = () => {
         
        
         <div className={styles.charts}>
-            {/* <LineChart/> */}
+           <CategoriesPie/>
+           <AdminsProduct/>
          </div>
     </div>
   )
