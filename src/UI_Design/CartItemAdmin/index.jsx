@@ -250,7 +250,7 @@ const CartItemAdmin = ({ item, number }) => {
                         <TbListDetails size={18} />
                       </span>
                     </button>
-                    <button onClick={() => navigate(`/dashboard/edit/${ID}`)} type="button" className={styles.delete_btn}>
+                    <button onClick={() => navigate(`/dashboard/edit/${id}`)} type="button" className={styles.delete_btn}>
                       <span className={styles.btn_text}>Edit</span>
                       <span className={styles.btn_icon}>
                         <BiEditAlt size={18} />
