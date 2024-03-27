@@ -1,8 +1,8 @@
 // ~~~~~~React Hooks ~~~~~~~~~~//
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Modal} from '@mui/material'
-import {motion} from 'framer-motion'
+import { Box, Modal } from '@mui/material'
+import { motion } from 'framer-motion'
 // ~~~~~~React Icons ~~~~~~~~~~//
 import { MdAddAPhoto } from 'react-icons/md';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -20,7 +20,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.scss';
 
 // ~~~~~~ Components ~~~~~~~~~~//
-import Select from '../../../UI_Design/SelectOption';
+// import Select from '../../../UI_Design/SelectOption';
 import UseAuth from '../../../Custom Hooks/UseAuth';
 import { Loader } from '../../../Components';
 
@@ -28,16 +28,19 @@ import { Loader } from '../../../Components';
 import { Time } from '../../../Constants/date';
 import { CgClose } from 'react-icons/cg';
 import { FaPlus } from 'react-icons/fa6';
+import useGetData from '../../../Custom Hooks/UseGetData';
 
 
 const AddProduct = () => {
-
+  const { data: categories } = useGetData('categories')
+  console.log(categories);
   // ~~~~~~~~~States~~~~~~~~~~~//
   const [name, setName] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
+  const [benefit, setBenefit] = useState('');
   const [progressBar, setProgressBar] = useState(0);
   const [viewCount, setviewCount] = useState(0);
   const [files, setFiles] = useState([]);
@@ -60,7 +63,8 @@ const AddProduct = () => {
   const addProduct = async (e) => {
     e.preventDefault();
 
-    const numericValue = parseInt(price.split(' ').join('')) // Number tipiga o'tkazish
+    const priceValue = parseInt(price.split(' ').join('')) // Number tipiga o'tkazish
+    const benefitValue = parseInt(benefit.split(' ').join('')) // Number tipiga o'tkazish
 
     if (files.length > 4) {
       toast.error("Rasm 4 tadan oshib ketgan")
@@ -88,7 +92,9 @@ const AddProduct = () => {
             shortDesc: shortDesc,
             description: description,
             category: category,
-            price: numericValue,
+            price: priceValue + benefitValue,
+            benefit: benefitValue,
+            bodyPrice:priceValue,
             date: new Date(),
             viewCount: viewCount,
             user: {
@@ -136,6 +142,11 @@ const AddProduct = () => {
     let formattedValue = formatInput(inputValue);
     setPrice(formattedValue);
   };
+  const handleBenefitChange = (event) => {
+    let inputValue = event.target.value.replace(/\D/g, ''); // Remove non-digit characters
+    let formattedValue = formatInput(inputValue);
+    setBenefit(formattedValue);
+  };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Backspace') {
@@ -161,10 +172,10 @@ const AddProduct = () => {
   const handleOpen = () => setOpen(true);
   const styleBox = {
     position: 'absolute',
-    top:'50%',
+    top: '50%',
     left: {
-      xs:'50%',
-      sm:'60%',
+      xs: '50%',
+      sm: '60%',
     },
     right: 0,
     transform: {
@@ -191,6 +202,9 @@ const AddProduct = () => {
     alignItems: 'center',
     maxHeight: '100vh'
   }
+   const categoryEdit = (text)=>{
+    return  text.charAt(0).toUpperCase() + text.slice(1)
+  }
   return (
     <>
 
@@ -216,15 +230,32 @@ const AddProduct = () => {
           </div>
 
           <div className={styles.inputs}>
-              <label>Price</label>
+            <label>Price</label>
             <input type="text" onKeyDown={handleKeyDown} value={price} onChange={handlePriceChange} name="text" placeholder='UZS' required />
+          </div>
+          <div className={styles.inputs}>
+            <label>Benifit</label>
+            <input type="text" onKeyDown={handleKeyDown} value={benefit} onChange={handleBenefitChange} name="text" placeholder='UZS' required />
           </div>
 
           <div className={styles.select_photo}>
             <div className={styles.categories}>
-              <motion.button whileHover={{scale:1.1}} onClick={()=>navigate('/dashboard/categories')}><FaPlus size={25}/></motion.button>
-              <Select handleFilter={handleFilter} category={category} />
-
+              <motion.button whileHover={{ scale: 1.1 }} onClick={() => navigate('/dashboard/categories')}><FaPlus size={25} /></motion.button>
+              <select
+                name="languages"
+                id="language-select"
+                value={category}
+                onChange={handleFilter}
+                className={styles.category_select}>
+                <option value=""> --Category-- </option>
+                {
+                 categories && categories?.map((category) => (
+                    <option key={category.id} value={category.category}>
+                     {categoryEdit(category.category)}
+                    </option>
+                  ))
+                }
+              </select>
 
               <Modal
                 keepMounted
@@ -243,11 +274,11 @@ const AddProduct = () => {
 
 
 
-                    <Box sx={{ display: 'flex' }}>
-                      ghhghg
-                    </Box>
+                  <Box sx={{ display: 'flex' }}>
+                    ghhghg
+                  </Box>
 
-                      
+
                 </Box>
 
               </Modal>
@@ -274,7 +305,7 @@ const AddProduct = () => {
 
           <div className={styles.add_product_btn}>
 
-            <motion.button whileHover={{scale:1.05}} onClick={addProduct}>Add Product</motion.button>
+            <motion.button whileHover={{ scale: 1.05 }} onClick={addProduct}>Add Product</motion.button>
           </div>
         </form>
       </div>

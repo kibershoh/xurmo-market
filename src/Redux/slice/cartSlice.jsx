@@ -7,6 +7,7 @@ const initialState = {
     cartItems: [],
     totalAmout: 0,
     totalQuantity: 0,
+    benefit:0,
     shippingPrice:10,
 };
 
@@ -25,16 +26,13 @@ const cartSlice = createSlice({
                     name: newItem.name,
                     images: newItem.images,
                     price: newItem.price,
+                    benefit:newItem.benefit,
                     quantity: 1,
                     totalPrice: newItem.price,
-                    added: false,
-                });
+                 });
                 state.totalQuantity++;
                 state.totalAmout += Number(newItem.price);
-                state.cartItems.map((item)=>{
-                    item.added = !newItem.action
-                    
-                })
+                 
 
                 playSuccessSound();
                 toast.success("Product added successfully");

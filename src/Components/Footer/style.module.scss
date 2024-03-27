@@ -151,10 +151,11 @@
     }
 
    .card_images{
-    width: 40%;
+    width: fit-content;
     margin-left: auto;
     text-align: end;
     .card_logos {
+        margin: 10px 25px;
           display: grid;
           grid-template-columns: auto auto auto auto;
           align-items: center;

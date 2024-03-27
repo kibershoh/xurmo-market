@@ -10,7 +10,7 @@ const Select = ({handleFilter,category,value,click,categories}) => {
         name="languages"
       id="language-select"
       value={value}
-       onClick={click}
+      onClick={click}
       onChange={handleFilter}
         className={styles.category_select}>
           <option value=""> --Category-- </option>

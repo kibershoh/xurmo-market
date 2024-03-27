@@ -7,11 +7,17 @@ tr {
     border: 1px dotted #494747;
 
     td {
+        .price_benefit{
+        display: flex;
+        flex-direction: column;
+        
+       }
         text-align: left;
       padding: 25px 50px;
       .img_admin{
         width: 200px;
       }
+      
         &:nth-child(1) {
             padding: 10px;
             text-align: center;

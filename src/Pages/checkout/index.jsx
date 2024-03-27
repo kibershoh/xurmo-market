@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // ~~~~~~~~~Hooks~~~~~~~~//
 // ~~~~~~~~~Components~~~~~~~~//
 import styles from './styles.module.scss'
@@ -50,6 +50,14 @@ const Checkout = () => {
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
   const [cardCvv, setCardCvv] = useState('')
+  const [questions, setQuestions] = useState('')
+  const [benefit, setBenefit] = useState(0)
+  console.log(productItems?.benefit);
+  useEffect(()=>{
+    productItems.map((item)=>{
+      setBenefit
+    })
+  },[])
   const id = uuidv4()
   const cardNumberToNumber = parseInt(cardNumber.split(' ').join(''))
   const data = {
@@ -67,7 +75,8 @@ const Checkout = () => {
     phone,
     postalCode: parseInt(postalCode),
     country,
-    region,
+    region,  
+    sent:false,
     creditCard: {
       cardNumber: cardNumberToNumber,
       fullName,
@@ -75,7 +84,8 @@ const Checkout = () => {
       year: parseInt(year),
       cardCvv: parseInt(cardCvv),
     },
-    productItems
+    productItems,
+    questions,
   }
   const docRef = collection(db, 'orders');
 
@@ -346,7 +356,12 @@ const Checkout = () => {
             <span>{formatCurrency(totalAmout + shippingPrice)}</span>
 
           </div>
-          <div className={styles.back_btn}>
+         
+          <div className={styles.questions}>
+            <label htmlFor="">Abour order questions</label>
+              <textarea value={questions} onChange={(e)=>setQuestions(e.target.value)} name="" id="" cols="30" rows="10"></textarea>
+          </div>
+           <div className={styles.back_btn}>
             <Link to='/cart'> <BsArrowLeft size={20} className={styles.back_icon} /> Back to Cart </Link>
           </div>
         </div>

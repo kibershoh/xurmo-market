@@ -100,24 +100,7 @@ const NavbarAdmin = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   })
-
-  // // Scrolled
-  // useEffect(() => {
-  //   const handleScroll = () => {
-
-  //     const scrollTop = window.scrollY;
-  //     if (scrollTop > 200) {
-  //       setScrolled(true);
-  //     }
-  //     else {
-  //       setScrolled(false)
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
+ 
 
   // // -------------------FIREBASE---------------------------Logout------------//
 
@@ -224,13 +207,13 @@ const NavbarAdmin = () => {
           <IoSearchOutline className={styles.search_icon} />
         </div>
         {
-          inputText !== '' && searchedProducts.length !== 0 &&
+          inputText !== '' && searchedProducts?.length !== 0 &&
           <div className={styles.searched_products}>
 
             <div className={styles.names}>
               {
-                inputText && searchedProducts?.map((item, index) => (
-                  <Link to={/shop/ + item.ID}><BiSearchAlt2 size={20} /> <span>{item.name}</span></Link>
+                inputText !=='' && searchedProducts?.map((item, index) => (
+                  <Link key={index} to={/shop/ + item.ID}><BiSearchAlt2 size={20} /> <span>{item.name}</span></Link>
                 ))
               }
             </div>
@@ -353,7 +336,7 @@ const NavbarAdmin = () => {
         <ul>
           {
             data?.map(({ id, name, icon, path }, inx) => (
-              <li key={id}>
+              <li key={inx}>
                 <NavLink to={path} className={clsx(
                   activeLink === name ? styles.active : '',
                 )}

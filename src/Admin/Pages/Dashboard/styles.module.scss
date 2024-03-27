@@ -1,7 +1,5 @@
 .dashboard {
     width: 100%;
-    // max-height: 100vh;
-
     padding: 0 15px;
     padding-left: 19%;
 margin-top: 60px;
@@ -14,7 +12,7 @@ margin-top: 60px;
     .service {
         display: grid;
         grid-template-columns: auto auto auto auto;
-        gap: 10px;
+        gap: 25px;
         width: 100%;
         padding-bottom: 4px;
 
@@ -38,7 +36,7 @@ margin-top: 60px;
             display: flex;
             align-items: center;
             border-radius: 5px;
-            padding: 5px;
+            padding: 15px;
             
             .icon {
                 display: flex;
@@ -47,8 +45,8 @@ margin-top: 60px;
                 background-color: rgba(217, 174, 248, 0.5);
                 border-radius: 3px;
                 margin-right: 20px;
-                width: 30px;
-                height: 30px;
+                width: 35px;
+                height: 35px;
                 padding: 4px;
 
             }
@@ -76,10 +74,7 @@ margin-top: 60px;
 
     }
    .charts{
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 20px;
-     
+    width: 100px;
    }
 }
 

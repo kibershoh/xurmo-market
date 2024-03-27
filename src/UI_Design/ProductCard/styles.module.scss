@@ -380,3 +380,38 @@ font-weight: 600;
         }
     }
 }
+.register_modal{
+    width: 100%;
+    .title{
+    width: 100%;
+    padding: 10px;
+p{
+
+    font-family: "Noto Sans";
+}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div{
+        display: flex;
+        gap: 10px;
+    }
+}    
+.login_btn {
+    width: 100%;
+    padding: 10px;
+    button{
+        width: 100%;
+        font-size: 20px;
+  background-color: indigo;
+  color: #fff;
+  border-radius: 4px;
+  padding: 5px;
+  border: none;
+}
+p{
+    font-family: "Noto Sans";
+    margin-top: 15px;
+}
+}
+}

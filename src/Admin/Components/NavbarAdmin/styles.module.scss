@@ -222,19 +222,20 @@
         position: relative;
         width: 50%;
         @media (max-width: '800px') {
-           width: 90%;
+           width: 100%;
         }
         input{
             font-size: 16px;
         outline: none;
-        width: 50%;
+        width: 90%;
+        margin: auto;
         padding: 7px 5px;
         border-radius: 4px;
         border: 1px solid rgb(180, 103, 234);
         }
         .search_icon{
             position: absolute;
-            left: 46%;
+            right: 15%;
             top: 8px;
             color: #a7a6a6;
             background-color:#fff;

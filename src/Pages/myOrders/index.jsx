@@ -18,6 +18,7 @@ import UseAuth from '../../Custom Hooks/UseAuth';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../Firebase/config';
 import { MdDelete } from 'react-icons/md';
+import { AiOutlineDelete } from 'react-icons/ai';
 const MyOrders = () => {
     const { currentUser } = UseAuth()
     const navigate = useNavigate()
@@ -25,11 +26,7 @@ const MyOrders = () => {
     const [data, setData] = useState([])
     const [tab, setTab] = useState('last')
 
-    //   console.log(productsData);
-    //   const newData = productsData.filter((item)=>{
-    //     item?.user.email === currentUser.email
-    // })
-    const newData = productsData.filter(item => item?.user.email === currentUser.email).sort((a, b) => a.date - b.date);
+    const newData = productsData.filter(item => item?.user.email === currentUser?.email).sort((a, b) => a.date - b.date);
     useEffect(() => {
         setData(newData)
     }, [productsData])
@@ -39,7 +36,10 @@ const MyOrders = () => {
     console.log(data);
 
     const deleteProduct = async (id) => {
-        await deleteDoc(doc(db, "orders", id))
+        if(window.confirm("Do you want to cancel the order?")){
+
+            await deleteDoc(doc(db, "orders", id))
+        }
 
     }
     const date = (time) => {
@@ -47,7 +47,7 @@ const MyOrders = () => {
         return times;
 
     }
-   
+
     useEffect(() => {
         new Date()
         console.log(new Date());
@@ -72,67 +72,73 @@ const MyOrders = () => {
         }
         else return num
     }
-    console.log(String(23).length);
     return (
         <>
-            <div className={styles.my_orders}>
+            {
+                currentUser ? <div className={styles.my_orders}>
 
-               {
-                data &&  <div className={styles.tab_btn}>
-                    <button onClick={() => setTab('last')} className={tab === 'last' ? styles.active_tab : styles.noActive_tab}>Last Order </button>
-                    <button onClick={() => setTab('all')} className={tab === 'all' ? styles.active_tab : styles.noActive_tab}>All Order</button>
+                    {
+                        data && <div className={styles.tab_btn}>
+                            <button onClick={() => setTab('last')} className={tab === 'last' ? styles.active_tab : styles.noActive_tab}>Last Order </button>
+                            <button onClick={() => setTab('all')} className={tab === 'all' ? styles.active_tab : styles.noActive_tab}>All Order</button>
 
-                </div>
-               }
-                {
-                    
-                    tab === 'last' ?
-                        <>
-                            {
-                                data && data.length > 0 && (
-                                    <div>
-                                        <div className={styles.date_price}>
-                                            <div>
-                                                <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(data.length)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
-                                                <span>accepted</span><MdDelete onClick={()=>deleteProduct(data[data.length - 1]?.id)} className={styles.delete_order}/>
+                        </div>
+                    }
+                    {
+
+                        tab === 'last' ?
+                        // Last Order
+                            <>
+                                {
+                                    data && data.length > 0 && (
+                                        <div>
+                                            <div className={styles.date_price}>
+                                                <div>
+                                                    <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(data.length)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
+                                                    <span>{data[data.length - 1]?.sent ? 'accepted' : 'sent'}</span><AiOutlineDelete size={22} onClick={() => deleteProduct(data[data.length - 1]?.id)} className={styles.delete_order} />
+                                                </div>
+                                                <span className={styles.total_price}>Total Price: {formatCurrency(data[data.length - 1]?.orderPrice)}</span>
                                             </div>
-                                            <span className={styles.total_price}>Total Price: {formatCurrency(data[data.length - 1]?.orderPrice)}</span>
-                                        </div>
-                                        <div className={styles.product_items}>
-                                            <MyOrdersItem item={data[data.length - 1]} />
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        </> :
-                        <>
-                            {
-                                data?.map((item, index) => (
-
-                                    <div>
-                                        <div className={styles.date_price}>
-<div>
-                                                <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(data.length)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
-                                                <span>accepted</span><MdDelete onClick={()=>deleteProduct(item.id)} className={styles.delete_order}/>
+                                            <div className={styles.product_items}>
+                                                <MyOrdersItem item={data[data.length - 1]} />
                                             </div>
-                                            
-                                                                                        <span className={styles.total_price}>Total Price: {formatCurrency(item?.orderPrice)}</span>
                                         </div>
-                                        <div className={styles.product_items}>
-                                            <MyOrdersItem item={item} />
+                                    )
+                                }
+                            </> :
+                            // All Orders
+                            <>
+                                {
+                                    data?.map((item, index) => (
+
+                                        <div>
+                                            <div className={styles.date_price}>
+                                                <div>
+                                                    <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(index+1)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
+                                                    <span>{data[data.length - 1]?.sent ? 'accepted' : 'sent'}</span><AiOutlineDelete size={22} onClick={() => deleteProduct(item.id)} className={styles.delete_order} />
+                                                </div>
+
+                                                <span className={styles.total_price}>Total Price: {formatCurrency(item?.orderPrice)}</span>
+                                            </div>
+                                            <div className={styles.product_items}>
+                                                <MyOrdersItem item={item} />
+                                            </div>
+
                                         </div>
 
-                                    </div>
+                                    ))
+                                }
 
-                                ))
-                            }
-
-                        </>
-                }
+                            </>
+                    }
 
 
 
-            </div>
+                </div> :
+                    <div className={styles.empty_orders}>
+                        <h1>You have not given any orders</h1>
+                    </div>
+            }
         </>
     )
 }

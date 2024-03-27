@@ -20,7 +20,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import clsx from 'clsx'
 const CartItemAdmin = ({ item, number }) => {
 
-  const { id, name, category, price, images, reviews, shortDesc, description, user, date } = item
+  const { ID,id, name, category, price,benefit,bodyPrice, images, reviews, shortDesc, description, user, date } = item
   const navigate = useNavigate()
   const [isAction, setIsAction] = useState(false)
 
@@ -222,7 +222,13 @@ const CartItemAdmin = ({ item, number }) => {
               {label === "Image:" ? <img onClick={handleOpen} src={images[0]} alt="" /> : null}
               {label === "Name:" ? name : null}
               {label === "Category:" ? category : null}
-              {label === "Price:" ? formatCurrency(price) : null}
+              {label === "Price:" ? <div className={styles.price_benefit}>
+              <span>
+                {formatCurrency(bodyPrice)}</span>
+                +
+              <span>
+                {formatCurrency(benefit)}</span>
+              </div> : null}
               {label === "Date:" ? time(date) : null}
               {label === "Action:" ? (
                 <div className={styles.threeDote}>
@@ -244,7 +250,7 @@ const CartItemAdmin = ({ item, number }) => {
                         <TbListDetails size={18} />
                       </span>
                     </button>
-                    <button onClick={() => navigate(`/dashboard/edit/${id}`)} type="button" className={styles.delete_btn}>
+                    <button onClick={() => navigate(`/dashboard/edit/${ID}`)} type="button" className={styles.delete_btn}>
                       <span className={styles.btn_text}>Edit</span>
                       <span className={styles.btn_icon}>
                         <BiEditAlt size={18} />

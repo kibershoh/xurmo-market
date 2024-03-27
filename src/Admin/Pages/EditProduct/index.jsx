@@ -18,7 +18,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from '../Add_Product/styles.module.scss';
 
 // ~~~~~~ Components ~~~~~~~~~~//
-import Select from '../../../UI_Design/SelectOption';
+// import Select from '../../../UI_Design/SelectOption';
 import UseAuth from '../../../Custom Hooks/UseAuth';
 import { Loader } from '../../../Components';
 
@@ -222,7 +222,7 @@ const handlePriceChange = (event) => {
 
           <div className={styles.select_photo}>
             <div className={styles.categories}>
-              <Select handleFilter={handleFilter} category={category} />
+              {/* <Select handleFilter={handleFilter} category={category} /> */}
             </div>
             <div className={styles.photoDown}>
               <div className={styles.file_input}>
