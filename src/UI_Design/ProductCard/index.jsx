@@ -215,7 +215,7 @@ const ProductCard = ({ item, index }) => {
               </div>
 
               <div className={styles.name_price}>
-                <h3>{name} <br />{benefit}</h3>
+                <h3>{name}</h3>
               </div>
               <div className={styles.category}>
                 <span>{category}</span>
