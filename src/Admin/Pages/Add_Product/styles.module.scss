@@ -308,7 +308,20 @@ textarea{
       width: 80%;
       margin: auto;
       text-align: right;
-
+      button{
+color: #fff;
+font-size: 18px;
+font-family: "Noto Sans";
+padding: 5px;
+border-radius: 4px;
+border: none;
+&:hover{
+  transition: all .3s;
+  transform: scale(1.1);
+  
+}
+background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
+      }
       @media (max-width: '610px') {
         width: 100%;
 

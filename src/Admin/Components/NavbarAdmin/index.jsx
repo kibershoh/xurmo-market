@@ -27,7 +27,7 @@ import { auth } from "../../../Firebase/config";
 // ~~~~~~~~~~~ React Icons~~~~~~~~~~~ //
 import { MdFormatListBulleted, MdLibraryAdd, MdOutlineSettings } from "react-icons/md";
 import { FaBars, FaCalendarDay, FaRegBell, FaStaylinked, FaUsers } from "react-icons/fa6";
-import { IoNotificationsOutline, IoSearchOutline } from "react-icons/io5";
+import { IoCloseOutline, IoNotificationsOutline, IoSearchOutline } from "react-icons/io5";
 import { LuWarehouse } from "react-icons/lu";
 import { BsFillAirplaneFill } from "react-icons/bs";
 import { FaUserAlt, FaUserFriends } from "react-icons/fa";
@@ -35,6 +35,7 @@ import { useScroll } from "../../../Components/Navbar/useScroll";
 import HideLink, { ShowOnLogout } from "../../../Components/HideLink";
 import useGetData from "../../../Custom Hooks/UseGetData";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { Box, Modal } from "@mui/material";
 
 
 // ~~~~~~~~~~~ Components~~~~~~~~~~~ //
@@ -47,8 +48,13 @@ const NavbarAdmin = () => {
   const location = useLocation()
   // ~~~~~~Protected Route and firebase auth~~~~~//
   const { currentUser } = UseAuth()
-
-
+  
+  const {data:orders} = useGetData('orders')
+const [newOrder,setNewOrder] = useState([])
+  useEffect(()=>{
+    const newOrders = orders.filter((item)=>!item.sent)
+    setNewOrder(newOrders)
+  },[orders])
 
   // All States
   const [active, setActive] = useState(false)
@@ -170,7 +176,7 @@ const NavbarAdmin = () => {
       id: 4,
       icon: <MdFormatListBulleted size={17} className={styles.icons} />,
       name: "Order List",
-      path: "/dashboard/add-products",
+      path: "/dashboard/order-lists",
     },
     {
       id: 5,
@@ -192,8 +198,69 @@ const NavbarAdmin = () => {
     setInputText(searchTerm)
 
   }
+  
+
+  // ~~~~~~~~~~~Modal~~~~~~~~~~~~~
+   // ~~~~~~~~~~~~~~~~Modal Items ~~~~~~~~~~~~~//
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+  const styleBox = {
+    position: 'absolute',
+    right:'2%',
+     
+    // transform: {
+    //   xs: 'translate(100%, 100%)',
+    //   sm: 'translate(100%, 100%)'
+    // },
+    marginLeft:'auto',
+    width: {
+      xs: '90%',
+      sm: '30%',
+    },
+    maxHeight: '90vh',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    borderRadius: '5px',
+    pb: 1,
+    border: '1px solid white',
+    outline: 'none',
+    
+    
+  };
+  const styleModal = {
+    zIndex:'10001',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    maxHeight: '100vh',
+    padding:'20px'
+  }
   return (
     <>
+<Modal
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        sx={styleModal}
+      >
+        <Box sx={styleBox}>
+          <div className={styles.note_modal}>
+           <div className={styles.close_icon}>
+          
+          <IoCloseOutline size={21}/>
+
+           </div>
+             
+             <hr />
+             
+          </div>
+             
+        </Box>
+
+      </Modal>
+
+
       <div ref={ProfileRef} className={clsx(
         styles.navbar,
         scrollDirection === "down" || scrollDirection === undefined || scrollY === undefined ? styles.showNav : (scrollY > 0 ? styles.hiddenNav : ' '),
@@ -225,13 +292,10 @@ const NavbarAdmin = () => {
           <div className={styles.cart}>
             <a href="#cart">
               <IoMdNotificationsOutline size={25} className={styles.notifacation_icon}
-                onClick={() => {
-                  navigate('/dashboard')
-                  document.title = 'Cart';
-                }}
+                onClick={handleOpen}
               />
               <span>
-                8
+                {newOrder.length}
               </span>
             </a>
           </div>

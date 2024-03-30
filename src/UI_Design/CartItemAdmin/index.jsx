@@ -18,9 +18,12 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { motion } from 'framer-motion'
 import { BiEditAlt } from 'react-icons/bi'
 import clsx from 'clsx'
+import Edit from '../../Admin/Pages/EditProduct'
+import { GoPlus } from 'react-icons/go'
+import { time } from '../../Constants/function'
 const CartItemAdmin = ({ item, number }) => {
 
-  const { ID,id, name, category, price,benefit,bodyPrice, images, reviews, shortDesc, description, user, date } = item
+  const {id, name, category, price,benefit,bodyPrice, images, reviews, shortDesc, description, user, date } = item
   const navigate = useNavigate()
   const [isAction, setIsAction] = useState(false)
 
@@ -39,6 +42,12 @@ const CartItemAdmin = ({ item, number }) => {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [idParams, setidParams] = useState('');
+  const handleEditClose = () => setOpenEdit(false);
+  const handleEditOpen = () => {
+    setOpenEdit(true)
+  }
   const styleBox = {
     position: 'absolute',
     top:'50%',
@@ -106,13 +115,7 @@ const CartItemAdmin = ({ item, number }) => {
     };
   })
 
-   const formatDate = (n) => {
-        return n < 10 ? '0' + n : n
-    }
-    const time = (date) => {
-        const day = `${formatDate(date.toDate().getDate())}.${formatDate(date.toDate().getMonth() + 1)}.${formatDate(date.toDate().getFullYear())}, ${formatDate(date.toDate().getHours())} : ${formatDate(date.toDate().getMinutes())}`
-        return day
-    }
+    
     const Count = (num) => {
         if (String(num).length === 1) {
             return `000${num}`
@@ -215,6 +218,7 @@ const CartItemAdmin = ({ item, number }) => {
               </Box>
 
             </Modal>
+             
           </>
           {title.map((label, index) => (
             <td key={index} scope="row" data-label={label}>
@@ -225,7 +229,7 @@ const CartItemAdmin = ({ item, number }) => {
               {label === "Price:" ? <div className={styles.price_benefit}>
               <span>
                 {formatCurrency(bodyPrice)}</span>
-                +
+                <GoPlus size={22} className={styles.goPlus}/> 
               <span>
                 {formatCurrency(benefit)}</span>
               </div> : null}
@@ -250,7 +254,7 @@ const CartItemAdmin = ({ item, number }) => {
                         <TbListDetails size={18} />
                       </span>
                     </button>
-                    <button onClick={() => navigate(`/dashboard/edit/${id}`)} type="button" className={styles.delete_btn}>
+                    <button onClick={()=>navigate(`/dashboard/edit/${id}`)} type="button" className={styles.delete_btn}>
                       <span className={styles.btn_text}>Edit</span>
                       <span className={styles.btn_icon}>
                         <BiEditAlt size={18} />

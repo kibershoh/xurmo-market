@@ -10,6 +10,15 @@ tr {
         .price_benefit{
         display: flex;
         flex-direction: column;
+        align-items: start;
+        .goPlus{
+            margin: auto;
+        }
+        span{
+            font-weight: 600;
+            font-family: "Noto Sans";
+            font-size: 14px;
+        }
         
        }
         text-align: left;

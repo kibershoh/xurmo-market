@@ -21,7 +21,7 @@ export const data = [
     {
       id:3,
       icon: <LuWarehouse size={17} className={styles.icons} />,
-      name: "Orders",
+      name: "Ordersnnnnnn",
       path: "/dashboard/orders",
     },
    

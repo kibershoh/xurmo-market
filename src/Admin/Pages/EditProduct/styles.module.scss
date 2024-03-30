@@ -1,0 +1,340 @@
+.edit_product {
+  
+margin-top: 50px;
+  padding: 20px;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+padding-left: 20%;
+ @media (max-width: '1000px') {
+      padding-left: 20px;
+    }
+    form {
+        width: 100%;
+        margin: auto;
+
+        @media (max-width: '1200px') {
+            width: 100%;
+        }
+
+        .back {
+            background: transparent;
+            border: none;
+
+            &:hover {
+                transform: translateX(-10px);
+                transition: all .3s;
+            }
+        }
+
+        .inputs {
+            margin: 20px 0;
+            position: relative;
+
+
+            label {
+                position: absolute;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                top: -9px;
+                left: 15px;
+                background-color: #fff;
+                padding: 0 5px;
+                padding-bottom: 0;
+                font-size: 14px;
+                color: #000;
+            }
+
+            input,
+            textarea {
+                &:user-invalid {
+                    border: 2px solid #dc1515;
+                }
+
+                width: 90%;
+                height: 40px;
+                margin: auto;
+                border-radius: 3px;
+                outline: none;
+                border: 2px #dedada solid;
+                padding: 5px 15px;
+                background-color: #fff;
+                font-size: 17px;
+                font-weight: 500;
+
+                @media (max-width: '1200px') {
+                    width: 100%;
+                }
+
+                &::user-invalid {
+                    border: 2px #dc1515 solid;
+                }
+
+                &::placeholder {
+                    font-size: 13px;
+                    font-weight: 500;
+                    letter-spacing: 1px;
+                }
+
+                &:focus {
+                    border: 2px solid blueviolet;
+                    color: indigo;
+
+                }
+            }
+
+            textarea {
+                height: 80px;
+                padding-top: 8px;
+                font-size: 18px;
+
+            }
+        }
+
+        .select_photo {
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+
+            @media (max-width: '800px') {
+                width: 100%;
+
+            }
+
+            .categories {
+                width: 50%;
+                display: flex;
+                // flex-direction: column;
+                align-items: center;
+
+                label {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+
+                select {
+                    background-color: white;
+                    border: thin solid indigo;
+                    border-radius: 4px;
+                    display: inline-block;
+                    font: inherit;
+                    padding: 8px 45px 8px 10px;
+                    margin-right: 5px;
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    box-sizing: border-box;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+
+                    @media (max-width: '450px') {
+                        font-size: 13px;
+                        font: small;
+                        height: 33px;
+
+
+                    }
+
+
+                }
+
+                .category_select {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    margin-right: 20px;
+                    background-image: linear-gradient(45deg, transparent 50%, #fff 50%),
+                        linear-gradient(135deg, #fff 50%, transparent 50%),
+                        linear-gradient(to right, indigo, indigo);
+                    background-position: calc(100% - 20px) calc(1em + 2px),
+                        calc(100% - 15px) calc(1em + 2px),
+                        100% 0;
+                    background-size: 5px 5px,
+                        5px 5px,
+                        2.5em 2.5em;
+                    background-repeat: no-repeat;
+
+                    &:focus {
+                        background-image:
+                            linear-gradient(45deg, white 50%, transparent 50%),
+                            linear-gradient(135deg, transparent 50%, white 50%),
+                            linear-gradient(to right, indigo, indigo);
+                        background-position:
+                            calc(100% - 15px) 1em,
+                            calc(100% - 20px) 1em,
+                            100% 0;
+                        background-size:
+                            5px 5px,
+                            5px 5px,
+                            2.5em 2.5em;
+                        background-repeat: no-repeat;
+                        border-color: indigo;
+                        outline: 0;
+
+                        option {
+                            color: #000;
+                        }
+                    }
+
+                    option {
+                        font-family: 'Montserrat';
+                    }
+                }
+
+                button {
+                    background: transparent;
+                    border: 1px solid indigo;
+                    padding: 2px;
+                    border-radius: 5px;
+                    margin-right: 5px;
+
+                    @media (max-width: '800px') {
+                        padding: 0;
+                        border: none;
+                    }
+                }
+
+            }
+
+            .photoDown .file_input {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                @media (max-width: '510px') {
+                    flex-direction: column;
+                    align-items: start;
+                }
+
+                input {
+                    border-radius: 5px;
+                    padding-left: 30px;
+                    width: 60%;
+                    border: none;
+                    color: #000;
+
+                    @media (max-width: '510px') {
+
+                        display: none;
+                    }
+                }
+
+                .choose_file {
+                    // width: 180px;
+                    height: 36px;
+                    border-radius: 5px;
+                    border: 1px solid indigo;
+                    color: #000;
+                    margin: 0;
+                    padding: 0 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background-color: transparent;
+
+
+                    @media (max-width: '510px') {
+                        height: 32px;
+
+                    }
+
+                    @media (max-width: '355px') {
+                        width: 100%;
+                        height: 33px;
+                        padding: 0 4px;
+                        // margin: auto;
+
+                    }
+
+                    span {
+                        font-size: 14px;
+
+                        @media (max-width: '355px') {
+                            font-size: 13px;
+
+                        }
+                    }
+
+                    .camera {
+                        width: 25px;
+                        height: 25px;
+                        margin-right: 5px;
+
+                        @media (max-width: '355px') {
+                            width: 18px;
+                            height: 18px;
+                            margin-right: 5px;
+
+                        }
+
+                    }
+
+
+
+                    &:hover {
+                        transition: all .4s;
+                        transform: scale(1.1);
+
+                        .camera {
+                            transition: all .4s;
+
+                            transform: scale3d(1.1);
+
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+
+        .myProgress {
+            width: 90%;
+            background-color: #ddd;
+            margin-top: 15px;
+            border-radius: 2px;
+
+            @media (max-width: '900px') {
+                width: 100%;
+            }
+
+            .myBar {
+                font-size: 10px;
+                height: 12px;
+                background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
+                text-align: center;
+                color: white;
+                border-radius: 2px;
+
+            }
+        }
+
+        .edit_product_btn {
+            width: 80%;
+            margin: auto;
+            text-align: right;
+
+            button {
+                padding: 10px;
+                border-radius: 4px;
+                border: none;
+                color: #fff;
+                font-size: 17px;
+                background-image: linear-gradient(to right, indigo 0%, #9966ec 51%, rgb(44, 11, 68) 100%);
+              &:hover{
+                transition: all .4s;
+                transform: scale(1.1);
+              }
+            }
+
+            @media (max-width: '610px') {
+                width: 100%;
+
+            }
+
+
+        }
+
+    }
+}

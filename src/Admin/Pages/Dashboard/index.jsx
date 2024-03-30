@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import AddProduct from '../Add_Product'
 import styles from './styles.module.scss'
 import clsx from 'clsx'
@@ -25,15 +25,17 @@ const Dashboard = () => {
     const [countProducts, setCountProducts] = useState(0)
     const [countUsers, setCountUsers] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0)
+    const [totalOrderPrice, settotalOrderPrice] = useState(0)
     const [totalSales, setTotalSales] = useState(0)
     const [countActiveUsers, setCountActiveUsers] = useState([])
+    const [productItems, setproductItems] = useState([])
     const [countOrders, setCountOrders] = useState(0)
     const [todayOrders, setTodayOrders] = useState(0)
     const filteredEmail = (array, email) => {
         return array.filter((newEmail) => newEmail !== email)
     }
-    const time = (date) => {
-      const day = date.toDate().getDay()
+    const Today = (date) => {
+      const day = date?.toDate().getDay()
         return day
     }
     const today =  new Date()
@@ -44,6 +46,10 @@ const Dashboard = () => {
         // ~~~~~~~~~~~~~~~~~~
         setCountUsers(users?.length)
 
+
+        // ~~~~~~~~~~~~~~~~~~
+        setCountOrders(orders?.length)
+
         // ~~~~~~~~~~~~~~
         let activeUsers = []
         orders?.map((order) => {
@@ -53,26 +59,43 @@ const Dashboard = () => {
         setCountActiveUsers(filteredArray.length)
 
         // ~~~~~~~~~~~~~ 
-        const sum = productsData.reduce((accumulator, currentValue) => accumulator + currentValue.price, 0);
+        const sum = productsData.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue?.price), 0);
         setTotalPrice(sum)
 
         // ~~~~~~~~~~~~~ 
-        const orderSum = orders.reduce((accumulator, currentValue) => accumulator + currentValue.orderPrice, 0);
-        setTotalSales(orderSum)
-
+         let summa = []
+        orders?.map((item)=>{
+            summa.push(...item?.productItems)  
+        })
+        setproductItems(summa)
+       
         // ~~~~~~~~~~~~~~~~
-        setCountOrders(orders.length)
-
+       
         // ~~~~~~~~~~~~~~~~
-        const TodayOrders = orders.filter((order)=>time(order.date) ===today.getDay() )
+        const TodayOrders = orders.filter((order)=>Today(order?.date) === today.getDay() )
         setTodayOrders(TodayOrders.length)
-        // ~~~~~~~~~~~~~~~~
-        // ~~~~~~~~~~~~~~~~
-        // ~~~~~~~~~~~~~~~~
 
+
+        // ~~~~~~~~~~~~~~~~
+    const TotalOrderPrice =0
+//   orders.map((order)=>{
+//     console.log(order.orderPrice);
+//   })       
+
+        // ~~~~~~~~~~~~~~~~
+        // ~~~~~~~~~~~~~~~~
+         
     }, [productsData,users,orders])
   
+ const sumBenefit = useMemo(() => {
+    return productItems?.reduce((acc, item) => acc + item?.benefit, 0);
+  }, [productItems]);
+ const sumTotalOrderPrice = useMemo(() => {
+    return orders?.reduce((acc, item) => acc + item?.orderPrice, 0);
+  }, [orders]);
 
+
+  
 
     return (
         <div className={styles.dashboard}>
@@ -125,7 +148,7 @@ const Dashboard = () => {
 
                     <div className={styles.name_price}>
                         <p>Total Sales </p>
-                        <h3>{formatCurrency(totalSales)}</h3>
+                        <h3>{formatCurrency(sumBenefit)}</h3>
                     </div>
 
 
@@ -166,7 +189,7 @@ const Dashboard = () => {
 
                     <div className={styles.name_price}>
                         <p>Total Order Price</p>
-                        <h3>250</h3>
+                        <h3>{formatCurrency(sumTotalOrderPrice)}</h3>
 
                     </div>
 
@@ -180,7 +203,7 @@ const Dashboard = () => {
 
                     <div className={styles.name_price}>
                         <p>Stock </p>
-                        <h3>250</h3>
+                        <h3>Empty</h3>
 
                     </div>
 
@@ -190,6 +213,17 @@ const Dashboard = () => {
 
 
             <div className={styles.charts}>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
                 <CategoriesPie />
             </div>
         </div>

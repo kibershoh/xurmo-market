@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Admin, Cart, Contact, Home, OrderHistory, Login, Register, Reset, Shop, Checkout, ProductDetails, MyOrders,LikedProducts, NotFound,UserProfile } from '../../Pages';
+import { Admin, Cart, Contact, Home, Login, Register, Reset, Shop, Checkout, ProductDetails, MyOrders,LikedProducts,UserProfile } from '../../Pages';
 import ProtectedRoute from '../ProtectedRoute';
-import { AddProduct, AllProducts, Categories, Dashboard, Edit, Users } from '../../Admin/Pages';
+import { AddProduct, AllProducts, Categories, Dashboard, Edit, OrderLists, Users } from '../../Admin/Pages';
 import ProtectedAdminRoute from '../ProtectedAdminRoute';
 import UseAuth from '../../Custom Hooks/UseAuth';
 
@@ -27,7 +27,8 @@ const Routers = () => {
         <Route path='dashboard/all-products' element={<AllProducts/>}/>
         <Route path='dashboard/add-products' element={<AddProduct/>}/>
         <Route path='dashboard/users' element={<Users/>}/>
-        <Route path='dashboard/orders' element={<Users/>}/>
+        <Route path='dashboard/order-lists' element={<OrderLists/>}/>
+        <Route path='dashboard/edit/:id' element={<Edit/>}/>
         <Route path='dashboard/categories' element={<Categories/>}/>
         </Route>
 
