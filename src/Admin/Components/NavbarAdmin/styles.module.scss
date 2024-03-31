@@ -329,6 +329,37 @@
              }
          }
      }
+     .user_page{
+        bottom: 20px;
+        position: absolute;
+        a{
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 16px;
+            font-family: "Noto Sans";
+            span:nth-child(1){
+                font-size: 25px;
+                margin-right: 10px;
+
+            }
+            span:nth-child(2){
+                font-size: 25px;
+                margin-left: 10px;
+
+            }
+            &:hover{
+                transition: all .7s;
+                // transform: translateX(5px);
+                span:nth-child(2){
+                                    transition: all .7s;
+
+                                    transform: translateX(20px);
+
+                }
+            }
+        }
+     }
 
      @media (max-width: 1024px) {
          width: 300px;

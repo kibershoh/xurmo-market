@@ -41,14 +41,14 @@ const CategoriesPie = () => {
 
 
   return (
-    <div style={{ width: '100%', maxWidth: '400px',height:'200px' }}>
+    <div style={{ width: '100%' , maxWidth: '400px',height:'200px' }}>
       <PieChart
         series={[
           {
             data: allCategories && allCategories,
           },
         ]}
-   sx={{fontSize:'100px'}}
+        sx={{display:'flex',flexDirection:'column'}}
       />
     </div>
   );

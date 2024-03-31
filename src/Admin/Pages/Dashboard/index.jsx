@@ -213,17 +213,7 @@ const Dashboard = () => {
 
 
             <div className={styles.charts}>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                 
                 <CategoriesPie />
             </div>
         </div>

@@ -1,4 +1,6 @@
 .order_lists{
     padding-left: 18%;
-    
+     @media (max-width: '800px') {
+padding-left: 0;        }
+
 }

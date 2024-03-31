@@ -95,33 +95,12 @@ const Categories = () => {
   }
   return (
     <div className={styles.categories}>
-      {/* <motion.button className={styles.add_category_btn} whileHover={{ scale: 1.05 }} onClick={handleOpen}>Add Category <GoPlus/></motion.button> */}
  <form onSubmit={handleSubmit} className={styles.input_and_btn}>
              <input placeholder='add category...' type="text" onChange={(e) => setCategory(e.target.value)} />
           <button className={styles.add_category} type='submit'>Add Category</button>
 
            </form>
-      {/* <Modal
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        sx={styleModal}
-      >
-        <Box sx={styleBox}>
-          <div  className={styles.close_modal}>
-
-            <motion.button whileHover={{ scale: 1.1 }} onClick={handleClose}><CgClose className={styles.close_icon} size={20} /></motion.button>
-
-          </div>
-
-
-
-
-          
-
-        </Box>
-
-      </Modal> */}
+      
 
       <div className={styles.category}>
         {

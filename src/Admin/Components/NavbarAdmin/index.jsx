@@ -8,7 +8,8 @@ import clsx from "clsx";
 import { HiMenuAlt1, HiViewGrid } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { BiSearchAlt2 } from "react-icons/bi";
+import { BiSearchAlt2, BiUserVoice } from "react-icons/bi";
+import { HiArrowLongRight } from "react-icons/hi2";
 
 //----------------Files---------------- //
 
@@ -30,12 +31,13 @@ import { FaBars, FaCalendarDay, FaRegBell, FaStaylinked, FaUsers } from "react-i
 import { IoCloseOutline, IoNotificationsOutline, IoSearchOutline } from "react-icons/io5";
 import { LuWarehouse } from "react-icons/lu";
 import { BsFillAirplaneFill } from "react-icons/bs";
-import { FaUserAlt, FaUserFriends } from "react-icons/fa";
+import { FaUser, FaUserAlt, FaUserFriends } from "react-icons/fa";
 import { useScroll } from "../../../Components/Navbar/useScroll";
 import HideLink, { ShowOnLogout } from "../../../Components/HideLink";
 import useGetData from "../../../Custom Hooks/UseGetData";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Box, Modal } from "@mui/material";
+import { TbCategoryPlus } from "react-icons/tb";
 
 
 // ~~~~~~~~~~~ Components~~~~~~~~~~~ //
@@ -180,7 +182,7 @@ const [newOrder,setNewOrder] = useState([])
     },
     {
       id: 5,
-      icon: <MdFormatListBulleted size={17} className={styles.icons} />,
+      icon: <TbCategoryPlus  size={17} className={styles.icons} />,
       name: "Categories",
       path: "/dashboard/categories",
     },
@@ -395,7 +397,7 @@ const [newOrder,setNewOrder] = useState([])
             <span>Xurmo</span>
           </Link>
           <img src={logotip} width={30} alt="" />
-          <CgClose size={30} className={styles.faTimes} onClick={showSidebar} />
+          <CgClose size={22} className={styles.faTimes} onClick={showSidebar} />
         </div>
         <ul>
           {
@@ -418,6 +420,9 @@ const [newOrder,setNewOrder] = useState([])
 
 
         </ul>
+        <div className={styles.user_page}>
+            <Link to={'/shop'}> <span><BiUserVoice size={22}/> </span>User Page <span><HiArrowLongRight size={22}/> </span></Link>
+        </div>
       </nav>
     </>
   )
