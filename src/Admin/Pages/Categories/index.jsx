@@ -97,7 +97,7 @@ const Categories = () => {
     <div className={styles.categories}>
  <form onSubmit={handleSubmit} className={styles.input_and_btn}>
              <input placeholder='add category...' type="text" onChange={(e) => setCategory(e.target.value)} />
-          <button className={styles.add_category} type='submit'>Add Category</button>
+          <button className={styles.add_category} type='submit'><FaPlus/></button>
 
            </form>
       

@@ -39,6 +39,18 @@ export const deleteProduct = async (id) => {
 export const formatDate = (n) => {
     return n < 10 ? '0' + n : n
 }
+export const Count = (num) => {
+        if (String(num).length === 1) {
+            return `000${num}`
+        }
+        if (String(num).length === 2) {
+            return `00${num}`
+        }
+        if (String(num).length === 3) {
+            return `0${num}`
+        }
+        else return num
+    }
 export const toSent = async (todo) => {
     await updateDoc(doc(db, "orders", todo.id), {
       sent: !todo.sent,

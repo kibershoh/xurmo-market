@@ -1,7 +1,7 @@
 
 
 // ~~~~~~~~~~~~~ React Hooks~~~~~~~~~~~~~//
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 // ~~~~~~~~~~~~~ Styles~~~~~~~~~~~~~//
@@ -21,8 +21,11 @@ import useGetData from '../../../Custom Hooks/UseGetData'
 const AllProducts = () => {
 
   const { data: productsData, loading } = useGetData("products")
- 
-  console.log(productsData);
+  const [newData,setNewData] = useState([])
+ useEffect(()=>{
+  const filteredData = productsData?.sort((a, b) => b.date - a.date)
+  setNewData(filteredData)
+ },[productsData])
   return (
     <>
 
@@ -32,12 +35,12 @@ const AllProducts = () => {
 
         </div>
         {
-          productsData.length === 0 ? <h1 className={styles.dont_add}>{!window.navigator.onLine ? <LoaderTable /> : <span>{!loading ? "Don't added product" : <LoaderTable />}</span>}</h1> :
+          newData.length === 0 ? <h1 className={styles.dont_add}>{!window.navigator.onLine ? <LoaderTable /> : <span>{!loading ? "Don't added product" : <LoaderTable />}</span>}</h1> :
 
             <>
 
               <div className={styles.overflow_table}>
-                <p>Total products: {productsData.length}</p>
+                <p>Total products: {newData.length}</p>
                 <table>
 
                   <thead>
@@ -56,7 +59,7 @@ const AllProducts = () => {
                     {
 
 
-                      productsData?.map((item, index) => (
+                      newData?.map((item, index) => (
                         <CartItemAdmin item={item} key={index} number={index} />
                       ))
 

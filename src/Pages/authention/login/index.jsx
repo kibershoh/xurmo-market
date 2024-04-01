@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-// Image
 import { FcGoogle } from "react-icons/fc";
 
 // Styles library
@@ -10,9 +9,10 @@ import { toast } from 'react-toastify'
 import styles from './style.module.scss'
 
 // Firebase library
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../../Firebase/config'
 import { Loader } from '../../../Components'
+import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
 
 const Login = () => {
@@ -20,24 +20,26 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+
     const navigate = useNavigate();
 
     //  ------------------ Functions ------------------ //
-   
+
     const loginUser = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-
+        setShowPassword(false)
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             const user = userCredential.user
             console.log(user);
             setIsLoading(false)
             toast.success("Successfully logged in ")
-            if(user.displayName === "Oybek"){
+            if (user.displayName === "Admin") {
                 navigate('/dashboard')
             }
-            else{
+            else {
                 navigate('/')
             }
         } catch (error) {
@@ -46,8 +48,11 @@ const Login = () => {
         }
 
     }
+     const showHide = () => {
+        setShowPassword(!showPassword)
+    }
     // -------------------- Login With Google-------------//
-     
+   
     return (
         <>
             {isLoading && <Loader />}
@@ -73,9 +78,21 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
 
-                            type='password' placeholder='Password'
+                            type={
+                                showPassword ? 'text' : 'password'
+                            }
+                            placeholder='Password'
                         />
                         <label>Password</label>
+                        <button onClick={showHide} className={styles.eye_show_hide}>
+                            {
+                                !showPassword ?
+                                    <IoEyeOffOutline size={20} className={styles.eye_icon} />
+                                    :
+                                    <IoEyeOutline size={20} className={styles.eye_icon} />
+
+                            }
+                        </button>
                     </div>
 
                     <button type="submit" className={styles.login_btn}>

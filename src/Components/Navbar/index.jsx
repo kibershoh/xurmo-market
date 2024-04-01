@@ -8,28 +8,24 @@ import clsx from "clsx";
 import { HiMenuAlt1 } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { AiOutlineDashboard } from "react-icons/ai";
 
 //----------------Files---------------- //
 
 import navLinks from "../../Constants/NavbarItems";
 import userImg from '../../assets/loginn.png'
 import logout from '../../assets/logoutt.png'
-import dashboard from '../../assets/dashboard.png'
 
 import styles from './style.module.scss'
 import MotionText from "../../Constants/Framer-Motions/ForNavbar/logo";
 
 // ----------- Firebase ------------------//
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import {  signOut } from 'firebase/auth'
 import { auth } from '../../Firebase/config'
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import HideLink, { ShowOnLogout } from "../HideLink";
 import UseAuth from "../../Custom Hooks/UseAuth";
 import { useScroll } from "./useScroll";
-import ProgressScrollY from "../../UI_Design/progressScrollY";
-import { animate, useMotionValue, useTransform, motion } from 'framer-motion';
 import SearchInput from "../SearchInput";
 
 // Components
@@ -47,13 +43,11 @@ const Navbar = () => {
 
     // All States
     const [active, setActive] = useState(false)
-    const [scrolled, setScrolled] = useState(false);
     const [show, setShow] = useState(false)
     const [activeLink, setActiveLink] = useState('')
     const [authLinks, setAuthLinks] = useState('')
     const [displayName, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
-    const [photoURL, setPhotoUrl] = useState(null)
     const navigate = useNavigate()
     // Functions//
 
@@ -77,7 +71,6 @@ const Navbar = () => {
 
     // Refs
     const ProfileRef = useRef(null);
-    const navbarRef = useRef(null)
 
     //-----------useEffects()--------------//
 
@@ -185,7 +178,7 @@ const Navbar = () => {
                                 ))
                             }
                             {
-                                currentUser?.email === 'oybek@gmail.com' &&
+                                currentUser?.email === 'admin@gmail.com' &&
                                 <li>
                                     <Link className={clsx(
                                         activeLink === 'Admin' ? styles.activeLink : '', styles.unActiveLink
@@ -328,7 +321,7 @@ const Navbar = () => {
                             ))
                         }
                         {
-                            currentUser?.email === 'oybek@gmail.com' &&
+                            currentUser?.email === 'admin@gmail.com' &&
                             <li>
                                     <Link
                                         to={'/dashboard'}

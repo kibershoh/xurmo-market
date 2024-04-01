@@ -29,7 +29,7 @@ const Edit = () => {
   const { data: products, loading } = useGetData("products")
   const { data: categories } = useGetData("categories")
   const { id } = useParams()
-
+  const uuid = uuidv4()
   // ~~~~~~~~~States~~~~~~~~~~~//
   const [name, setName] = useState("");
   const [shortDesc, setShortDesc] = useState('');
@@ -144,7 +144,7 @@ toast.error("Bila")
         const docRef = doc(db, 'products', productId);
 
         const uploadTasks = files.map((file) => {
-          const storageRef = ref(storage, `productImages/${file.name}`);
+          const storageRef = ref(storage, `productImages/${uuid+file.name}`);
           const uploadTask = uploadBytesResumable(storageRef, file)
           uploadTask.on('state_changed', (snapshot) => {
             const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);

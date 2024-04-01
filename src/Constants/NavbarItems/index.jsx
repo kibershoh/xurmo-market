@@ -18,6 +18,11 @@ export const navLinks = [
     title: "My Orders",
     path: '/my_orders',
   },
+  {
+    id: 3,
+    title: "Liked",
+    path: '/liked',
+  },
   
    
   

@@ -30,7 +30,7 @@ const MyOrdersUi = (props) => {
                   data && data.length > 0 && (
                     <div>
                       <div className={styles.date_price}>
-                        <div>
+                        <div className={styles.order_header}>
                           <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(data.length)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
                           <span className={styles.first_span}>{data[data.length - 1]?.sent ? <span className={styles.accepted}>accepted</span> : <span className={styles.sent}>sent</span>}</span><AiOutlineDelete size={22} onClick={() => deleteOrder(data[data.length - 1]?.id)} className={styles.delete_order} />
                         </div>
@@ -50,7 +50,7 @@ const MyOrdersUi = (props) => {
 
                     <div>
                       <div className={styles.date_price}>
-                        <div>
+                        <div className={styles.order_header}>
                           <p>Order <p className={styles.count_order}> <TbNumber size={25} /> {number(index + 1)} </p> at  <h5>{time(data[data.length - 1]?.date)}</h5> </p>
                           <span className={styles.first_span}>{item.sent ?<span className={styles.accepted}>accepted</span> : <span className={styles.sent}>sent</span>}</span><AiOutlineDelete size={22} onClick={() => deleteOrder(item.id)} className={styles.delete_order} />
                         </div>

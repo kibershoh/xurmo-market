@@ -15,7 +15,7 @@ import { auth, db, storage } from '../../../Firebase/config';
 import { Loader } from '../../../Components';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
-import DownloadPhoto from '../../../UI_Design/DownloadPhoto';
+import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
 
 
@@ -26,6 +26,7 @@ const Register = () => {
   const [password, setPassword] = useState("")
   const [username, setUsername] = useState("")
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [fileUrl, setFileUrl] = useState(null)
   const navigate = useNavigate()
 
@@ -38,6 +39,7 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault()
     setLoading(true)
+    setShowPassword(false)
 
     // ~~~~~~~~~~with try catch ~~~~~~~~~~~~~//
 
@@ -97,7 +99,9 @@ const Register = () => {
   const actives = () => {
     fileInputRef.current.click();
   };
-
+  const showHide = () => {
+    setShowPassword(!showPassword)
+  }
   return (
     <>
       {loading && <Loader />}
@@ -134,10 +138,21 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              type='password'
+              type={
+                showPassword ? 'text' : 'password'
+              }
               placeholder='Password'
             />
             <label>Password</label>
+            <button onClick={showHide} className={styles.eye_show_hide}>
+              {
+                !showPassword ?
+                  <IoEyeOffOutline size={20} className={styles.eye_icon} />
+                  :
+                  <IoEyeOutline size={20} className={styles.eye_icon} />
+
+              }
+            </button>
           </div>
 
           <div className={styles.file_input}>

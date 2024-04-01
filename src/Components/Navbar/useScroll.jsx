@@ -16,15 +16,12 @@ import { useState, useEffect } from "react";
      setScrollDirection(lastScrollTop > -bodyOffset.top  ? "down" : "up");
      setLastScrollTop(-bodyOffset.top);
    };
-console.log(lastScrollTop);
    useEffect(() => {
      window.addEventListener("scroll", listener);
      return () => {
        window.removeEventListener("scroll", listener);
      };
    },[bodyOffset]);
-console.log(scrollY,"Y");
-console.log(scrollDirection,"dd");
    return {
      scrollY,
      scrollX,

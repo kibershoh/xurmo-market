@@ -1,13 +1,8 @@
-import React, { useState } from 'react'
-import { GoPlus } from 'react-icons/go'
-import { HiMinus } from 'react-icons/hi'
-import { MdOutlineDelete } from 'react-icons/md'
+import React  from 'react'
 import styles from '../CartItemsStyles/styles.module.scss'
-import { useDispatch } from 'react-redux'
 import { RiDeleteBin5Line } from 'react-icons/ri'
-import { cartActions } from '../../Redux/slice/cartSlice'
 import { deleteDoc, doc } from 'firebase/firestore'
-import { auth, db, storage } from '../../Firebase/config'
+import { db } from '../../Firebase/config'
 const CartItemAdminUsers = ({ user, number }) => {
        
  const deleteUsers =  (id)=>{
@@ -27,7 +22,7 @@ const CartItemAdminUsers = ({ user, number }) => {
             <td>{user.displayName}</td>
             <td>{user.email}</td>
             <td>
-                <div onClick={()=>{deleteUsers(user.uid)}} className={styles.delete}>
+                <div onClick={()=>{deleteUsers(user.uid)}} className={styles.delete_product}>
                     <button type="button" className={styles.delete_btn}>
                         <span className={styles.btn_text}>Delete</span>
                         <span className={styles.btn_icon}>

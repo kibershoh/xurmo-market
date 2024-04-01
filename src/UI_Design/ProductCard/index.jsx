@@ -1,42 +1,43 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
-
+import React, {useState } from 'react'
 import styles from './styles.module.scss'
 
-import { FiHeart } from "react-icons/fi";
-import { BsEyeFill, BsPlusLg } from "react-icons/bs";
-import { BsCartPlus } from "react-icons/bs";
-import { TfiCommentAlt } from "react-icons/tfi";
-import { IoCloseOutline } from "react-icons/io5";
 
-import { formatCurrency } from '../../Constants/utils/moneyCurrent'
-import { useDispatch, useSelector } from 'react-redux';
-
-// ------------ React Icons-------------//
-import { LuPlus } from "react-icons/lu";
+// ------------ React Icons ~~~~~~ Images-------------//
 import thumb from '../../assets/thumb.png'
 import fillThumb from '../../assets/fillThumb.png'
 import google from '../../assets/google.png'
-// Redux
-import { cartActions } from '../../Redux/slice/cartSlice';
+import { BsEyeFill } from "react-icons/bs";
+import { BsCartPlus } from "react-icons/bs";
+import { IoCloseOutline } from "react-icons/io5";
+
+
+// ~~~~~~~~~Firebase~~~~~~~~~//
+import {  db } from '../../Firebase/config';
+import {   doc, updateDoc,getDoc, } from 'firebase/firestore';
+
+
+// ~~~~~~~~~Libraries~~~~~~~~~//
+import { motion } from 'framer-motion'
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Box,   Modal } from '@mui/material';
+
+
+// ~~~~~~~~~Components~~~~~~~~~//
+import { formatCurrency } from '../../Constants/utils/moneyCurrent'
 import useGetData from '../../Custom Hooks/UseGetData';
 import CardLoader from '../../Constants/LoaderCard';
-import { auth, db } from '../../Firebase/config';
-import { Timestamp, addDoc, collection, doc, onSnapshot, arrayUnion, setDoc, updateDoc, FieldValue, query, getDocs, orderBy, getDoc, deleteDoc } from 'firebase/firestore';
-import { FaHeart } from 'react-icons/fa';
-// import    from '@mui/material/Modal';
-import { Box, Typography, Modal, TextField } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import Button from '@mui/material/Button';
-
 import UseAuth from '../../Custom Hooks/UseAuth';
+
+
+// ~~~~~~~~~Redux~~~~~~~~~//
+import { cartActions } from '../../Redux/slice/cartSlice';
+
+
 const ProductCard = ({ item, index }) => {
   const { currentUser } = UseAuth()
-  const { idParams } = useParams()
-  const { ID, id, name, price,benefit, images, category, reviews, likeCount, timestamp, viewCount } = item
-  const productItems = useSelector(state => state.cart.cartItems)
+  const { ID, id, name, price,benefit, images, category,  likeCount, viewCount } = item
   const { data: products, loading } = useGetData("products")
   const dispatch = useDispatch()
   const navigate = useNavigate()

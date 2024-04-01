@@ -4,7 +4,7 @@ import UseAuth from '../../Custom Hooks/UseAuth'
 
 const ProtectedAdminRoute = () => {
     const {currentUser} = UseAuth()
-    return (currentUser && currentUser?.displayName === "Oybek" && currentUser?.email === "oybek@gmail.com") ? <Outlet/> : <Navigate to={'/dashboard'}/>
+    return (currentUser && currentUser?.displayName === "Admin" && currentUser?.email === "admin@gmail.com") ? <Outlet/> : <Navigate to={'/dashboard'}/>
   
 }
 

@@ -1,13 +1,11 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Admin, Cart, Contact, Home, Login, Register, Reset, Shop, Checkout, ProductDetails, MyOrders,LikedProducts,UserProfile } from '../../Pages';
-import ProtectedRoute from '../ProtectedRoute';
-import { AddProduct, AllProducts, Categories, Dashboard, Edit, OrderLists, Users } from '../../Admin/Pages';
+import {  Cart, Contact, Home, Login, Register, Reset, Shop, Checkout, ProductDetails, MyOrders,LikedProducts,UserProfile } from '../../Pages';
+import { AddProduct, AllProducts, Categories, Dashboard, Edit, OrderDetails, OrderLists, Users } from '../../Admin/Pages';
 import ProtectedAdminRoute from '../ProtectedAdminRoute';
-import UseAuth from '../../Custom Hooks/UseAuth';
+import ProtectedRoute from '../ProtectedRoute';
 
 const Routers = () => {
-  const {currentUser} = UseAuth()
   return (
     <Routes>
       <Route path='/' element={<Home/>}/>
@@ -28,6 +26,7 @@ const Routers = () => {
         <Route path='dashboard/add-products' element={<AddProduct/>}/>
         <Route path='dashboard/users' element={<Users/>}/>
         <Route path='dashboard/order-lists' element={<OrderLists/>}/>
+        <Route path='dashboard/order_details/:id' element={<OrderDetails/>}/>
         <Route path='dashboard/edit/:id' element={<Edit/>}/>
         <Route path='dashboard/categories' element={<Categories/>}/>
         </Route>
@@ -35,7 +34,6 @@ const Routers = () => {
       </Route>
 
 
-      <Route path='/admin' element={<Admin />} />
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='/reset' element={<Reset />} />

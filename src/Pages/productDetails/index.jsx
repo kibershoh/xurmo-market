@@ -18,7 +18,6 @@ import styles from './styles.module.scss'
 import ProductList from '../../UI_Design/ProductList';
 
 // -------------Data-------------//
-// import Products from '../../Constants/data/products'
 
 // -----------Redux----------//
 import { cartActions } from '../../Redux/slice/cartSlice';
@@ -28,8 +27,6 @@ import { FiPlus } from 'react-icons/fi';
 import { GoPlus } from 'react-icons/go';
 import { HiMinus } from 'react-icons/hi';
 import { BsEyeFill } from 'react-icons/bs';
-import { doc } from 'firebase/firestore';
-import { db } from '../../Firebase/config';
 
 
 
@@ -44,85 +41,22 @@ const ProductDetails = () => {
       setproduct(foundProduct);
     }
   }, [id, products]);
-  console.log(product);
 
   const { ID, price, description, images, name, category, shortDesc, reviews, dateExample, likeCount,viewCount } = product
 
   // ----------States -----------//
-  const [namee, setNamee] = useState('')
-  const [message, setMessage] = useState('')
   const [tab, setTab] = useState('reviews')
-  // console.log(product);
 
 
   const categoryData = products.filter((item) => {
     return item.category === product.category && item.ID !== product.ID;
   })
-
-  const labels = {
-    0.5: 'Uselkjm',
-    1: 'Useless+',
-    1.5: 'Poor',
-    2: 'Poor+',
-    2.5: 'Ok',
-    3: 'Ok+',
-    3.5: 'Good',
-    4: 'Good+',
-    4.5: 'Excellent',
-    5: 'Excellent+',
-  };
-
-  // ----------Stars-----------//
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(-1);
-  let text = ''
-
-  // -------Rewiews----------//
-  const rewiewUser = useRef('')
-  const reviewMsg = useRef('')
+ 
   const dispatch = useDispatch()
 
 
   // -------------Functions---------//
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-
-  //   const reviewUserName = rewiewUser.current.value;
-  //   const reviewUserMsg = reviewMsg.current.value;
-
-  //   switch (rating) {
-  //     case 0.5: text = labels['0.5']
-  //       break;
-  //     case 1: text = labels[1]
-  //       break;
-  //     case 1.5: text = labels['1.5']
-  //       break;
-  //     case 2: text = labels['2']
-  //       break;
-  //     case 2.5: text = labels['2.5']
-  //       break;
-  //     case 3: text = labels['3']
-  //       break;
-  //     case 3.5: text = labels['3.5']
-  //       break;
-  //     case 4: text = labels['4']
-  //       break;
-  //     case 4.5: text = labels['4.5']
-  //       break;
-  //     case 5: text = labels['5']
-  //       break;
-  //     default: text = ' '
-
-  //   }
-
-  //   const rewiewArr = {
-  //     userName: reviewUserName,
-  //     text: reviewUserMsg,
-  //     rating: rating,
-  //     text: text,
-  //   }
-  //   toast.success('Reviews send!')
-  // }
+  
   const addToCart = () => {
     dispatch(cartActions.addProduct({
       id: product.ID,
@@ -136,6 +70,7 @@ const ProductDetails = () => {
 
   // ~~~~~~~~~~ Description Tab~~~~~~~~~~~~~//
   const [value, setValue] = useState(0);
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -152,7 +87,6 @@ const ProductDetails = () => {
   const productItem = productItems.filter((item)=>{
     return item.id === ID
   })
-  console.log(productItem);
 
   return (
     <>

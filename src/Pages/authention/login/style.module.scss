@@ -50,7 +50,7 @@
                 margin: 10px 0;
             }
 
-
+             
             input {
                 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
                 width: 100%;
@@ -109,6 +109,16 @@
                 color: #b7b0b0;
                 pointer-events: none;
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+            .eye_show_hide{
+                position: absolute;
+                background: transparent;
+                border: none;
+                color: #fff;
+                right: 15px;
+                .eye_icon{
+
+                }
             }
 
 

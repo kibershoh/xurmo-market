@@ -1,8 +1,10 @@
 import React from 'react'
+
+
 // ~~~~~~~~~~~Hooks~~~~~~~~~~~//
 import { Link, useNavigate } from 'react-router-dom';
+
 // ~~~~~~~~~~~ React icons ~~~~~~~~~~~//
-import { TbNumber } from "react-icons/tb";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 // ~~~~~~~~~~~Redux~~~~~~~~~~~//
@@ -12,8 +14,10 @@ import { useSelector } from 'react-redux';
 import CartItem from '../../UI_Design/CartItem';
 import styles from './styles.module.scss'
 import { formatCurrency } from '../../Constants/utils/moneyCurrent';
+
 const Cart = () => {
    const navigate = useNavigate()
+
   // ~~~~~~ Redux datas ~~~~~~~~~~//
   const productItems = useSelector(state => state.cart.cartItems)
   const totalAmout = useSelector(state => state.cart.totalAmout)
@@ -29,7 +33,6 @@ const Cart = () => {
                   <table>
                     <thead>
                       <tr>
-                        {/* <th scope="col"><TbNumber size={19} /> </th> */}
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>

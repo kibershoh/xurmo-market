@@ -1,0 +1,16 @@
+.liked_products{
+    margin-top: 70px;
+    .not_liked{
+        width: 100%;
+        height: 30vh;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           h1{
+            font-family: "Noto Sans";
+            @media (max-width: '800px') {
+                  font-size: 16px;
+              }
+           }
+    }
+}

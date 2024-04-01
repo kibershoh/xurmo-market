@@ -5,25 +5,7 @@ const NotFound = () => {
     <div  className={styles.not_found}>
 
         <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
-        <h1>Not Found</h1>
+        
     </div>
   )
 }

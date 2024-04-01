@@ -20,19 +20,19 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './styles.module.scss';
 
 // ~~~~~~ Components ~~~~~~~~~~//
-// import Select from '../../../UI_Design/SelectOption';
 import UseAuth from '../../../Custom Hooks/UseAuth';
-import { Loader } from '../../../Components';
 
 // ~~~~~~ Datas ~~~~~~~~~~//
-import { Time } from '../../../Constants/date';
 import { CgClose } from 'react-icons/cg';
 import { FaPlus } from 'react-icons/fa6';
 import useGetData from '../../../Custom Hooks/UseGetData';
+import { useEffect } from 'react';
 
 
 const AddProduct = () => {
   const { data: categories } = useGetData('categories')
+  const { data: productsData } = useGetData('products')
+  console.log(productsData.length);
   console.log(categories);
   // ~~~~~~~~~States~~~~~~~~~~~//
   const [name, setName] = useState('');
@@ -43,7 +43,14 @@ const AddProduct = () => {
   const [benefit, setBenefit] = useState('');
   const [progressBar, setProgressBar] = useState(0);
   const [viewCount, setviewCount] = useState(0);
+  const [countProducts, setCountProducts] = useState(0);
   const [files, setFiles] = useState([]);
+
+  // ~~~~~~~~~useEffects()~~~~~~~~~~~//
+useEffect(()=>{
+setCountProducts(productsData?.length)
+},[productsData])
+
 
   // ~~~~~~~~~Libraries~~~~~~~~~~~//
   const { currentUser } = UseAuth()
@@ -74,7 +81,7 @@ const AddProduct = () => {
         const docRef = collection(db, 'products');
 
         const uploadTasks = files.map((file) => {
-          const storageRef = ref(storage, `productImages/${file.name}`);
+          const storageRef = ref(storage, `productImages/${id+file.name}`);
           const uploadTask = uploadBytesResumable(storageRef, file)
           uploadTask.on('state_changed', (snapshot) => {
             const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -95,6 +102,7 @@ const AddProduct = () => {
             price: priceValue + benefitValue,
             benefit: benefitValue,
             bodyPrice:priceValue,
+            countProducts:countProducts,
             date: new Date(),
             viewCount: viewCount,
             user: {
@@ -117,13 +125,11 @@ const AddProduct = () => {
           };
 
           await addDoc(docRef, data);
-
           setName('');
           setCategory('');
           setPrice('');
           setShortDesc('');
           setDescription('');
-          // setFiles([]);
           toast.success('Product successfully added!');
           navigate('/dashboard/all-products');
         });

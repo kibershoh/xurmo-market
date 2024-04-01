@@ -38,6 +38,7 @@ import useGetData from "../../../Custom Hooks/UseGetData";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Box, Modal } from "@mui/material";
 import { TbCategoryPlus } from "react-icons/tb";
+import { time } from "../../../Constants/function";
 
 
 // ~~~~~~~~~~~ Components~~~~~~~~~~~ //
@@ -50,13 +51,13 @@ const NavbarAdmin = () => {
   const location = useLocation()
   // ~~~~~~Protected Route and firebase auth~~~~~//
   const { currentUser } = UseAuth()
-  
-  const {data:orders} = useGetData('orders')
-const [newOrder,setNewOrder] = useState([])
-  useEffect(()=>{
-    const newOrders = orders.filter((item)=>!item.sent)
+
+  const { data: orders } = useGetData('orders')
+  const [newOrder, setNewOrder] = useState([])
+  useEffect(() => {
+    const newOrders = orders.filter((item) => !item.sent)
     setNewOrder(newOrders)
-  },[orders])
+  }, [orders])
 
   // All States
   const [active, setActive] = useState(false)
@@ -108,7 +109,7 @@ const [newOrder,setNewOrder] = useState([])
       document.removeEventListener("mousedown", handleClickOutside);
     };
   })
- 
+
 
   // // -------------------FIREBASE---------------------------Logout------------//
 
@@ -182,7 +183,7 @@ const [newOrder,setNewOrder] = useState([])
     },
     {
       id: 5,
-      icon: <TbCategoryPlus  size={17} className={styles.icons} />,
+      icon: <TbCategoryPlus size={17} className={styles.icons} />,
       name: "Categories",
       path: "/dashboard/categories",
     },
@@ -190,9 +191,10 @@ const [newOrder,setNewOrder] = useState([])
 
   ];
   const { data: productsData, loading } = useGetData("products")
+  const { data: ordersData } = useGetData("orders")
   const [searchedProducts, setSearchedProducts] = useState([])
   const [inputText, setInputText] = useState('')
-
+  const [acceptanceData, setAcceptanceData] = useState([])
   const handleSearch = (e) => {
     const searchTerm = e.target.value;
     const searchedProducts = productsData.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -200,25 +202,32 @@ const [newOrder,setNewOrder] = useState([])
     setInputText(searchTerm)
 
   }
-  
 
-  // ~~~~~~~~~~~Modal~~~~~~~~~~~~~
-   // ~~~~~~~~~~~~~~~~Modal Items ~~~~~~~~~~~~~//
+
+  // ~~~~~~~~~~~useEffects()~~~~~~~~~~~~~
+
+  useEffect(() => {
+    const AcceptanceData = ordersData.filter((item) => !item.sent)
+    setAcceptanceData(AcceptanceData)
+
+  }, [ordersData])
+
+  // ~~~~~~~~~~~~~~~~Modal Items ~~~~~~~~~~~~~//
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const styleBox = {
     position: 'absolute',
-    right:'2%',
-     
+    right: '2%',
+
     // transform: {
     //   xs: 'translate(100%, 100%)',
     //   sm: 'translate(100%, 100%)'
     // },
-    marginLeft:'auto',
+    marginLeft: 'auto',
     width: {
       xs: '90%',
-      sm: '30%',
+      sm: '40%',
     },
     maxHeight: '90vh',
     bgcolor: 'background.paper',
@@ -227,20 +236,24 @@ const [newOrder,setNewOrder] = useState([])
     pb: 1,
     border: '1px solid white',
     outline: 'none',
-    
-    
+
+
   };
   const styleModal = {
-    zIndex:'10001',
+    zIndex: '10001',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     maxHeight: '100vh',
-    padding:'20px'
+    padding: '20px'
+  }
+  const toOrderLists = ()=>{
+    handleClose()
+    navigate('/dashboard/order-lists')
   }
   return (
     <>
-<Modal
+      <Modal
         keepMounted
         open={open}
         onClose={handleClose}
@@ -248,16 +261,41 @@ const [newOrder,setNewOrder] = useState([])
       >
         <Box sx={styleBox}>
           <div className={styles.note_modal}>
-           <div className={styles.close_icon}>
-          
-          <IoCloseOutline size={21}/>
+            <div className={styles.close_icon}>
+              <p>New Order</p>
+              <IoCloseOutline size={21} />
 
+            </div>
+
+
+            <hr />
+
+           <div className={styles.newOrders}>
+             {
+             acceptanceData?.map((order)=>(
+              <div onClick={toOrderLists} className={styles.customer_note}>
+                <div className={styles.user}>
+                  <img src={order.user.photoURL}  alt="" />
+
+               <span>
+                  {order.user.displayName}
+                  </span>
+                </div>
+                  
+                  <div className={styles.adress}>
+                    <p>
+                    {order.adress}
+                  </p>
+                  <span>{time(order.date)}</span>
+                  </div>
+              </div>
+             ))
+            
+            }
            </div>
-             
-             <hr />
-             
+
           </div>
-             
+
         </Box>
 
       </Modal>
@@ -281,7 +319,7 @@ const [newOrder,setNewOrder] = useState([])
 
             <div className={styles.names}>
               {
-                inputText !=='' && searchedProducts?.map((item, index) => (
+                inputText !== '' && searchedProducts?.map((item, index) => (
                   <Link key={index} to={/shop/ + item.ID}><BiSearchAlt2 size={20} /> <span>{item.name}</span></Link>
                 ))
               }
@@ -421,7 +459,7 @@ const [newOrder,setNewOrder] = useState([])
 
         </ul>
         <div className={styles.user_page}>
-            <Link to={'/shop'}> <span><BiUserVoice size={22}/> </span>User Page <span><HiArrowLongRight size={22}/> </span></Link>
+          <Link to={'/shop'}> <span><BiUserVoice size={22} /> </span>User Page <span><HiArrowLongRight size={22} /> </span></Link>
         </div>
       </nav>
     </>

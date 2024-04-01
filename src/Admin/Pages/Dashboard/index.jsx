@@ -88,10 +88,10 @@ const Dashboard = () => {
     }, [productsData,users,orders])
   
  const sumBenefit = useMemo(() => {
-    return productItems?.reduce((acc, item) => acc + item?.benefit, 0);
+    return productItems?.reduce((acc, item) => acc + parseInt(item?.benefit), 0);
   }, [productItems]);
  const sumTotalOrderPrice = useMemo(() => {
-    return orders?.reduce((acc, item) => acc + item?.orderPrice, 0);
+    return orders?.reduce((acc, item) => acc + parseInt(item?.orderPrice), 0);
   }, [orders]);
 
 

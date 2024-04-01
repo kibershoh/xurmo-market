@@ -43,7 +43,7 @@ const {currentUser} = UseAuth()
      <ProgressScrollY/>
 
      {
-      location.pathname.startsWith("/dashboard") && currentUser?.displayName==='Oybek' && currentUser ? <NavbarAdmin/> 
+      location.pathname.startsWith("/dashboard") && currentUser?.displayName==='Admin' && currentUser ? <NavbarAdmin/> 
       :
        <>
       <Navbar/>
@@ -54,7 +54,7 @@ const {currentUser} = UseAuth()
       <Routers/>
     </div>
    {
-      location.pathname.startsWith("/dashboard") && currentUser?.displayName==='Oybek' && currentUser ? ''
+      location.pathname.startsWith("/dashboard") && currentUser?.displayName==='Admin' && currentUser ? ''
 
       :
        (

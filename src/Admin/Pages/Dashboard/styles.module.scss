@@ -37,6 +37,13 @@
 
 
         }
+        @media (max-width: '400px') {
+            grid-template-columns:auto;
+            gap: 10px;
+            padding: 10px;
+
+
+        }
 
         .service_about {
             border: 1px solid rgb(223, 192, 244);

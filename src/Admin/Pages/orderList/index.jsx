@@ -11,7 +11,7 @@ const OrderLists = () => {
     const { data: productsData, loading } = useGetData("orders")
     const [data, setData] = useState([])
 
-    const newData = productsData.filter(item => item?.user.email === currentUser?.email).sort((a, b) => a.date - b.date);
+    const newData = productsData.sort((a, b) => a.date - b.date)
     useEffect(() => {
         setData(newData)
     }, [productsData]) 

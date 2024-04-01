@@ -29,7 +29,7 @@
              align-items: center;
 
              a {
-                                 
+
                  margin: auto;
 
                  .notifacation_icon {
@@ -72,9 +72,10 @@
                  color: rgba(43, 9, 67, 0.8);
                  margin-right: 10px;
                  font-family: "Noto Sans";
-                  @media (max-width: '800px') {
-                         display: none;
-                     }
+
+                 @media (max-width: '800px') {
+                     display: none;
+                 }
 
                  span {
                      @media (max-width: '250px') {
@@ -218,69 +219,76 @@
              }
          }
      }
-       .search_admin{
-        position: relative;
-        width: 50%;
-        @media (max-width: '800px') {
-           width: 100%;
-        }
-        input{
-            font-size: 16px;
-        outline: none;
-        width: 90%;
-        margin: auto;
-        padding: 7px 5px;
-        border-radius: 4px;
-        border: 1px solid rgb(180, 103, 234);
-        }
-        .search_icon{
-            position: absolute;
-            right: 15%;
-            top: 8px;
-            color: #a7a6a6;
-            background-color:#fff;
 
-        }
-       } 
-         .searched_products {
-            position: absolute;
-            width: 50%;
-            height: auto;
-            background-color: rgb(245, 242, 247);
-            border-radius: 5px;
-            padding: 20px;
-            top: 60px;
-            left: 25%;
- @media (max-width: '1060px') {
-           width: 90%;
-           left: 5%;
-        }
-            .names {
-                display: flex;
-                flex-direction: column;
-                align-items: start;
+     .search_admin {
+         position: relative;
+         width: 50%;
 
-                a {
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 15px;
-                    color: #807d7d;
-                    font-family: "Noto Sans";
+         @media (max-width: '800px') {
+             width: 100%;
+         }
 
-                    span {
-                        margin-left: 20px;
-                        font-size: 15px;
-                        font-weight: 600;
+         input {
+             font-size: 16px;
+             outline: none;
+             width: 90%;
+             margin: auto;
+             padding: 7px 5px;
+             border-radius: 4px;
+             border: 1px solid rgb(180, 103, 234);
+         }
 
-                    }
+         .search_icon {
+             position: absolute;
+             right: 15%;
+             top: 8px;
+             color: #a7a6a6;
+             background-color: #fff;
 
-                    &:hover {
-                        color: indigo;
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
+         }
+     }
+
+     .searched_products {
+         position: absolute;
+         width: 50%;
+         height: auto;
+         background-color: rgb(245, 242, 247);
+         border-radius: 5px;
+         padding: 20px;
+         top: 60px;
+         left: 25%;
+
+         @media (max-width: '1060px') {
+             width: 90%;
+             left: 5%;
+         }
+
+         .names {
+             display: flex;
+             flex-direction: column;
+             align-items: start;
+
+             a {
+                 display: flex;
+                 align-items: center;
+                 margin-bottom: 15px;
+                 color: #807d7d;
+                 font-family: "Noto Sans";
+
+                 span {
+                     margin-left: 20px;
+                     font-size: 15px;
+                     font-weight: 600;
+
+                 }
+
+                 &:hover {
+                     color: indigo;
+                     font-weight: 600;
+                 }
+             }
+         }
+     }
  }
 
  .navLeft {
@@ -329,36 +337,42 @@
              }
          }
      }
-     .user_page{
-        bottom: 20px;
-        position: absolute;
-        a{
-            display: flex;
-            align-items: center;
-            color: #fff;
-            font-size: 16px;
-            font-family: "Noto Sans";
-            span:nth-child(1){
-                font-size: 25px;
-                margin-right: 10px;
 
-            }
-            span:nth-child(2){
-                font-size: 25px;
-                margin-left: 10px;
+     .user_page {
+         bottom: 20px;
+         position: absolute;
 
-            }
-            &:hover{
-                transition: all .7s;
-                // transform: translateX(5px);
-                span:nth-child(2){
-                                    transition: all .7s;
+         a {
+             display: flex;
+             align-items: center;
+             color: #fff;
+             font-size: 16px;
+             font-family: "Noto Sans";
 
-                                    transform: translateX(20px);
+             span:nth-child(1) {
+                 font-size: 25px;
+                 margin-right: 10px;
 
-                }
-            }
-        }
+             }
+
+             span:nth-child(2) {
+                 font-size: 25px;
+                 margin-left: 10px;
+
+             }
+
+             &:hover {
+                 transition: all .7s;
+
+                 // transform: translateX(5px);
+                 span:nth-child(2) {
+                     transition: all .7s;
+
+                     transform: translateX(20px);
+
+                 }
+             }
+         }
      }
 
      @media (max-width: 1024px) {
@@ -470,7 +484,76 @@
      transform: translateY(-100%);
 
  }
- .note_modal{
-    text-align: right;
-    padding: 0 5px;
+
+ .note_modal {
+     text-align: right;
+     padding: 0 5px;
+.close_icon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    p{
+        font-family: "Noto Sans";
+        font-weight: 500;
+    }
+}
+     .newOrders {
+         display: flex;
+         flex-direction: column;
+         align-items: start;
+         overflow-y: scroll;
+         max-height: 80vh;
+
+         .customer_note {
+             width: 100%;
+             display: flex;
+             justify-content: space-between;
+             padding: 15px 0;
+             padding-right: 10px;
+             //  padding-bottom: 10px;
+             border-bottom: 1px solid #c6c2c2;
+
+             &:hover {
+                 background-color: #f0f0f0;
+             }
+
+             .user {
+                 display: flex;
+                 align-items: start;
+
+                 img {
+                     width: 35px;
+                     height: 35px;
+                     border-radius: 50%;
+                 }
+
+                 span {
+                     font-weight: 600;
+                     font-family: "Noto Sans";
+                     font-size: 12px;
+                 }
+             }
+
+             .adress {
+                 display: flex;
+                 flex-direction: column;
+
+                 p {
+                     color: #4d4c4c;
+                     font-family: "Noto Sans";
+                 }
+
+                 span {
+                     color: #a7a6a6;
+                     font-family: "Noto Sans";
+                     font-size: 14px;
+                     margin-top: 5px;
+                 }
+             }
+
+
+
+         }
+     }
  }

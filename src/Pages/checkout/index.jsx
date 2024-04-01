@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react'
 // ~~~~~~~~~Hooks~~~~~~~~//
 // ~~~~~~~~~Components~~~~~~~~//
 import styles from './styles.module.scss'
-import { useSelector } from 'react-redux'
 import { formatCurrency } from '../../Constants/utils/moneyCurrent'
-import { IoIosArrowDown } from 'react-icons/io'
-import { PhoneInput } from 'react-international-phone'
-import 'react-international-phone/style.css';
+import { playErrorSound, playSuccessSound } from '../../Constants/sounds'
+import UseAuth from '../../Custom Hooks/UseAuth'
+import useGetData from '../../Custom Hooks/UseGetData'
+
 
 // ~~~~~~~~~Images~~~~~~~~//
 import visa from '../../assets/creditCardLogos/visa.png'
@@ -15,17 +15,21 @@ import uzcard from '../../assets/creditCardLogos/uzcard.png'
 import humo from '../../assets/creditCardLogos/humo.png'
 import paypal from '../../assets/creditCardLogos/paypal.png'
 
+
 // ~~~~~~~~~React Icons~~~~~~~~//
 import { BsArrowLeft } from "react-icons/bs";
 import { Link } from 'react-router-dom'
 
+
 // ~~~~~~~~~Libraries~~~~~~~~//
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from 'react-redux'
 import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../../Firebase/config'
 import { toast } from 'react-toastify'
-import { playErrorSound, playSuccessSound } from '../../Constants/sounds'
-import UseAuth from '../../Custom Hooks/UseAuth'
+import { PhoneInput } from 'react-international-phone'
+import 'react-international-phone/style.css';
+
 
 const Checkout = () => {
   const totalQty = useSelector(state => state.cart.totalQuantity)
@@ -33,7 +37,9 @@ const Checkout = () => {
   const shippingPrice = useSelector(state => state.cart.shippingPrice)
   const productItems = useSelector(state => state.cart.cartItems)
   const { currentUser } = UseAuth()
-  console.log(currentUser);
+  const {data:orders,loading} = useGetData('orders')
+
+
   // ~~~~~~~~~ States ~~~~~~~~~~~//
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -43,8 +49,9 @@ const Checkout = () => {
   const [postalCode, setPostalCode] = useState('')
   const [country, setCountry] = useState('')
   const [region, setRegion] = useState('')
-  // ~~~~~~ Credit Card information ~~~~~~//
 
+
+  // ~~~~~~ Credit Card information ~~~~~~//
   const [cardNumber, setCardNumber] = useState('')
   const [fullName, setFullName] = useState('')
   const [month, setMonth] = useState('')
@@ -52,7 +59,8 @@ const Checkout = () => {
   const [cardCvv, setCardCvv] = useState('')
   const [questions, setQuestions] = useState('')
   const [benefit, setBenefit] = useState(0)
-  console.log(productItems?.benefit);
+
+  
   useEffect(()=>{
     productItems.map((item)=>{
       setBenefit
@@ -65,6 +73,7 @@ const Checkout = () => {
     user: {
       displayName: currentUser?.displayName,
       email: currentUser?.email,
+      photoURL:currentUser?.photoURL,
     },
     orderPrice: (totalAmout + shippingPrice),
     date: new Date(),
@@ -75,7 +84,8 @@ const Checkout = () => {
     phone,
     postalCode: parseInt(postalCode),
     country,
-    region,  
+    region, 
+    countOrders:orders?.length, 
     sent:false,
     creditCard: {
       cardNumber: cardNumberToNumber,
@@ -87,12 +97,11 @@ const Checkout = () => {
     productItems,
     questions,
   }
+
   const docRef = collection(db, 'orders');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(phone);
     switch (true) {
       case firstName === '': {
         toast.error("Please Enter your First Name!")
@@ -300,23 +309,23 @@ const Checkout = () => {
           <p>Expiration</p>
           <div className={styles.credit_month_year}>
             <div className={styles.inputs}>
-              <input type="text"
+              <input type="number"
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
                 placeholder="MM"
                 maxLength={2}
                 name="number" />
-              <input type="text"
+              <input type="number"
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
                 placeholder="YY"
                 maxLength={2}
                 name="number" />
-              <input type="text"
+              <input type="number"
                 value={cardCvv}
                 onChange={(e) => setCardCvv(e.target.value)}
                 placeholder="CVV"
-                maxLength={2}
+                maxLength={3}
                 name="number" />
             </div>
             <div className={styles.card_logos}>

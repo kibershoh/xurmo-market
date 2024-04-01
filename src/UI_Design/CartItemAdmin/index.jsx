@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { MdOutlineDelete } from 'react-icons/md'
 import styles from '../CartItemsStyles/styles.module.scss'
-import { useDispatch } from 'react-redux'
 import { RiDeleteBin5Line } from 'react-icons/ri'
-import { cartActions } from '../../Redux/slice/cartSlice'
-import { Timestamp, deleteDoc, doc } from 'firebase/firestore'
+import {  deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../../Firebase/config'
-import { TbListDetails, TbNumber, TbNumber0 } from 'react-icons/tb'
+import { TbListDetails} from 'react-icons/tb'
 import { IoIosClose } from "react-icons/io";
 
 import { Box, Modal, Rating, Tab } from '@mui/material'
@@ -18,7 +15,6 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { motion } from 'framer-motion'
 import { BiEditAlt } from 'react-icons/bi'
 import clsx from 'clsx'
-import Edit from '../../Admin/Pages/EditProduct'
 import { GoPlus } from 'react-icons/go'
 import { time } from '../../Constants/function'
 const CartItemAdmin = ({ item, number }) => {
@@ -42,12 +38,7 @@ const CartItemAdmin = ({ item, number }) => {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
-  const [openEdit, setOpenEdit] = useState(false);
-  const [idParams, setidParams] = useState('');
-  const handleEditClose = () => setOpenEdit(false);
-  const handleEditOpen = () => {
-    setOpenEdit(true)
-  }
+  
   const styleBox = {
     position: 'absolute',
     top:'50%',
@@ -116,18 +107,7 @@ const CartItemAdmin = ({ item, number }) => {
   })
 
     
-    const Count = (num) => {
-        if (String(num).length === 1) {
-            return `000${num}`
-        }
-        if (String(num).length === 2) {
-            return `00${num}`
-        }
-        if (String(num).length === 3) {
-            return `0${num}`
-        }
-        else return num
-    }
+    
   return (
     <tr ref={IsActionRef}>
          {
