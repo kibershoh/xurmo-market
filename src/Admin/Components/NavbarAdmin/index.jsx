@@ -301,7 +301,8 @@ const NavbarAdmin = () => {
       </Modal>
 
 
-      <div ref={ProfileRef} className={clsx(
+     <div ref={ProfileRef}>
+       <div className={clsx(
         styles.navbar,
         scrollDirection === "down" || scrollDirection === undefined || scrollY === undefined ? styles.showNav : (scrollY > 0 ? styles.hiddenNav : ' '),
 
@@ -462,6 +463,7 @@ const NavbarAdmin = () => {
           <Link to={'/shop'}> <span><BiUserVoice size={22} /> </span>User Page <span><HiArrowLongRight size={22} /> </span></Link>
         </div>
       </nav>
+     </div>
     </>
   )
 }
