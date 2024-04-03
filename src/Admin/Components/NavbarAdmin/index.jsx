@@ -263,7 +263,7 @@ const NavbarAdmin = () => {
           <div className={styles.note_modal}>
             <div className={styles.close_icon}>
               <p>New Order</p>
-              <IoCloseOutline size={21} />
+              <IoCloseOutline onClick={handleClose} size={21} />
 
             </div>
 

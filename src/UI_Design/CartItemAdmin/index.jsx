@@ -121,12 +121,15 @@ const CartItemAdmin = ({ item, number }) => {
               sx={styleModal}
             >
               <Box sx={styleBox}>
-                <div div className={styles.close_modal}>
-                  <h2>Product Details</h2>
+                <div  className={styles.close_modal}>
+                  <span className={styles.title}>Product Details</span>
                   <div><span> added by</span> <p><img src={user.userImg} /><span>{user.userName}</span></p>  </div>
                   <motion.button whileHover={{ scale: 1.1 }} onClick={handleClose}><CgClose className={styles.close_icon} size={20} /></motion.button>
 
+              <p className={styles.date}>{time(date)}</p>
                 </div>
+                <hr />
+
 
                 <div className={styles.detailAdmin}>
 
@@ -157,10 +160,12 @@ const CartItemAdmin = ({ item, number }) => {
                   </Box>
 
                   <div className={styles.about_product}>
-                    <h4>Created: {time(date)}</h4>
+                    
                     <h2>{name}</h2>
+                   <div className={styles.category}>
+                     <h3>{formatCurrency(price)}</h3>
                     <p>{category}</p>
-                    <h3>{formatCurrency(price)}</h3>
+                   </div>
                     <div className={styles.desc}>
                       <h4>{shortDesc}</h4>
                     </div>

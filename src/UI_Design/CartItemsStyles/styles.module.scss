@@ -7,39 +7,44 @@ tr {
     border: 1px dotted #494747;
 
     td {
-        .price_benefit{
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        .goPlus{
-            margin: auto;
+        .price_benefit {
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+
+            // align-items: start;
+            @media (max-width: '800px') {
+                margin-left: auto;
+            }
+
+            .goPlus {
+                margin: auto;
+            }
+
+            span {
+                font-weight: 600;
+                font-family: "Noto Sans";
+                font-size: 14px;
+            }
+
         }
-        span{
-            font-weight: 600;
-            font-family: "Noto Sans";
-            font-size: 14px;
-        }
-        
-       }
+
         text-align: left;
-      padding: 25px 50px;
-      .img_admin{
-        width: 200px;
-      }
-      
+        padding: 25px 50px;
+
+        .img_admin {
+            width: 200px;
+        }
+
         &:nth-child(1) {
             padding: 10px;
             text-align: center;
-            // width: 200px;
-            // margin-right: auto;
-
+                border-radius: 10px;
             img {
                 width: 70%;
                 border-radius: 5px;
                 mix-blend-mode: multiply;
                 height: 100px;
-                // margin-left: auto;
-                // margin-right: auto;
 
                 @media (max-width: '1100px') {
                     mix-blend-mode: multiply;
@@ -51,6 +56,8 @@ tr {
                     mix-blend-mode: multiply;
                     width: 70%;
                     margin: auto;
+                    height: 200px;
+                    border-radius: 10px;
                 }
 
             }
@@ -64,7 +71,7 @@ tr {
         }
 
 
-        
+
 
         .next_prev_icons {
             .arrow {
@@ -158,8 +165,8 @@ tr {
             }
 
             button {
-            border-radius: 4px;
-           background: transparent;
+                border-radius: 4px;
+                background: transparent;
                 outline: none;
                 width: 30px;
                 border: none;
@@ -180,11 +187,11 @@ tr {
             }
         }
 
-        .count{
+        .count {
             font-size: 20px;
         }
 
-// ~~~~~~~Admin Page uchun ~~~~~~~~~~//
+        // ~~~~~~~Admin Page uchun ~~~~~~~~~~//
         .threeDote {
             text-align: center;
             position: relative;
@@ -330,19 +337,20 @@ tr {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid indigo;
+    // border-bottom: 1px solid indigo;
     padding-bottom: 5px;
+    position: relative;
 
     div {
         display: flex;
         align-items: center;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
-p {
+        p {
             font-weight: 700;
             font-size: 15px;
             display: flex;
-            align-items: center;
+            align-items: start;
             gap: 15px;
             margin-right: 5px;
 
@@ -365,6 +373,8 @@ p {
             display: flex;
             flex-direction: column;
             align-items: start;
+            font-size: 14px;
+            font-family: 'Noto Sans';
         }
 
         :first-child {
@@ -378,8 +388,8 @@ p {
 
     }
 
-    h2 {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .title {
+        font-family: 'Noto Sans';
         font-weight: 600;
         padding-left: 10px;
 
@@ -398,6 +408,14 @@ p {
             color: rgba(9, 8, 8, 0.5);
         }
 
+    }
+
+    .date {
+        position: absolute;
+        color: #aca9a9;
+        font-size: 14px;
+        right: 10px;
+        bottom: 0;
     }
 }
 
@@ -448,17 +466,19 @@ p {
 
     .about_product {
         padding-top: 10px;
-        padding-left: 15px;
 
         h4 {
             text-align: right;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Noto Sans";
+            font-weight: 500;
             color: indigo;
         }
 
         h2 {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 20px;
+            font-family: "Noto Sans";
+            font-weight: 550;
+            font-size: 18px;
+            margin-bottom: 15px;
 
         }
 
@@ -467,21 +487,29 @@ p {
             color: #777;
         }
 
-        h3 {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .category {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+           h3{
+             font-family: "Noto Sans";
+            font-weight: 500;
+            font-size: 17px;
+           }
         }
 
         .desc {
-            margin-top: 20px;
+            margin-top: 10px;
 
             h4 {
                 text-align: start;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-family: "Noto Sans";
+                font-weight: 500;
             }
         }
 
         .descriptions {
-            margin-top: 15px;
+            margin-top: 5px;
             // padding: 0 5px;
             display: flex;
             justify-content: space-between;
@@ -547,6 +575,7 @@ p {
     }
 
     img {
+        
         mix-blend-mode: multiply;
 
     }
