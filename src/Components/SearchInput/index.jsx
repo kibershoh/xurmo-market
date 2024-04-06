@@ -5,6 +5,8 @@ import clsx from 'clsx'
 import useGetData from '../../Custom Hooks/UseGetData'
 import { BiSearchAlt2 } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useRef } from 'react'
 const SearchInput = () => {
     const {data:productsData,loading} = useGetData("products")
 const [data,setData] = useState([])
@@ -17,10 +19,32 @@ const handleSearch = (e)=>{
     setInputText(searchTerm)
     
   } 
-  console.log(data);
+  
+  const ProfileRef = useRef(null);
+
+    //-----------useEffects()--------------//
+
+    // For Navbar and Sidebar
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                ProfileRef.current &&
+                !ProfileRef.current.contains(event.target)
+            ) {
+               setInputText('')
+                
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    })
   return (
     <>
- <div className={clsx(
+ <div ref={ProfileRef} className={clsx(
         styles.search_input,
           
         )}>

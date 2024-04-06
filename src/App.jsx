@@ -18,6 +18,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import clsx from 'clsx'
 import Dropdown from './Components/Dropdown';
+import Tester from './Test';
 function App() {   
  const location = useLocation()
 const [value, setValue] = useState(0);

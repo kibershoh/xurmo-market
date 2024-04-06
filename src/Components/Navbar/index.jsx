@@ -27,6 +27,7 @@ import HideLink, { ShowOnLogout } from "../HideLink";
 import UseAuth from "../../Custom Hooks/UseAuth";
 import { useScroll } from "./useScroll";
 import SearchInput from "../SearchInput";
+import { motion } from "framer-motion";
 
 // Components
 
@@ -83,6 +84,7 @@ const Navbar = () => {
             ) {
                 setActive(false);
                 setShow(false);
+                
             }
         };
 
@@ -144,8 +146,15 @@ const Navbar = () => {
                 )}
             >
                 {/* -----------Desktop Navbar----------- */}
-                <div className={styles.navbar}>
-                    <Link to={'/'} className={styles.logo}>
+                <motion.div className={styles.navbar}
+                initial={{y:-200}}
+                animate = {{y:0}}
+                transition={{delay:0.4}}
+                >
+                    <Link
+                
+                    
+                    to={'/'} className={styles.logo}>
                         <MotionText logo={"Xurmo"} />
                     </Link>
 
@@ -287,7 +296,7 @@ const Navbar = () => {
                         </div>
                     </nav>
 
-                </div>
+                </motion.div>
 
                 {/* -----------Sidebar Responsive------------ */}
 

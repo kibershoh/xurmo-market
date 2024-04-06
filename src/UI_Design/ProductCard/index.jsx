@@ -188,7 +188,28 @@ const ProductCard = ({ item, index }) => {
       {
         (loading && !window.navigator.onLine) ? <CardLoader /> :
           (
-            <div className={styles.product_item}>
+            <motion.div
+            initial={{
+        opacity: 0,
+        
+        // y: index % 2 === 0 && location.pathname === '/' ? 200 : (index % 2 === 1 ? 50 : -50),
+        y:150,
+        // x: index % 2 === 0 && location.pathname === '/' ? 200 :-200,
+        // 0 1 2 3 4
+        // 5 6 7 8 9
+        // 1 2 3 4 5
+        
+         
+      }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+        y:0, // Slide in to its original position
+        transition: {
+          duration: 0.5 // Animation duration
+        }
+      }}
+            className={styles.product_item}>
               <button
                 className={styles.like_btn}>
 
@@ -246,7 +267,7 @@ const ProductCard = ({ item, index }) => {
               </div>
 
 
-            </div>
+            </motion.div>
           )
       }
 

@@ -6,3 +6,5 @@ export {default as Edit} from './EditProduct'
 export {default as Categories} from './Categories'
 export {default as OrderLists} from './orderList'
 export {default as OrderDetails} from './orderDetails'
+
+
