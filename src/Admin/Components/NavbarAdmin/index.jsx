@@ -247,9 +247,9 @@ const NavbarAdmin = () => {
     maxHeight: '100vh',
     padding: '20px'
   }
-  const toOrderLists = ()=>{
+  const toOrderLists = (id)=>{
     handleClose()
-    navigate('/dashboard/order-lists')
+    navigate(`/dashboard/order_details/${id}`)
   }
   return (
     <>
@@ -273,9 +273,9 @@ const NavbarAdmin = () => {
            <div className={styles.newOrders}>
              {
              acceptanceData?.map((order)=>(
-              <div onClick={toOrderLists} className={styles.customer_note}>
+              <div onClick={()=>toOrderLists(order.id)} className={styles.customer_note}>
                 <div className={styles.user}>
-                  <img src={order.user.photoURL}  alt="" />
+                  <img  src={order.user.photoURL}  alt="" />
 
                <span>
                   {order.user.displayName}

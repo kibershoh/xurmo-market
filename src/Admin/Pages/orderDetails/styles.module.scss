@@ -6,7 +6,12 @@
         padding-left: 0;
     }
 
-    .back_btn button {
+   .accept{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 50px;
+    align-items: center;
+     .back_btn button {
         background-color: transparent;
         font-family: "Noto Sans";
         color: indigo;
@@ -31,9 +36,45 @@
 
 
     }
+    .accept_btn{
+                border: none;
+                margin-left: 20px;
+
+                @media (max-width: '500px') {
+                    font-size: 10px;
+                    margin-left: 0;
+                    position: absolute;
+                    right: -10px;
+                    top: -15px;
+                    padding: 2px 5px;
+                }
+
+                .accepted {
+                    background-color: transparent;
+                    border: 2px solid green;
+                    color: indigo;
+                    padding: 0 7px;
+
+                    border-radius: 3px;
+                    font-family: "Noto Sans";
+                }
+
+                .sent {
+                    background-color: green;
+                    border: 1px solid indigo;
+                    padding: 0 7px;
+                    font-family: "Noto Sans";
+                    color: #fff;
+                    border-radius: 3px;
+                }
+            }
 
 
-    .customer {
+  
+
+
+}
+  .customer {
         display: grid;
         grid-template-columns: 50% 50%;
         margin-top: 10px;
@@ -144,7 +185,6 @@
         }
 
     }
-
 
 }
 

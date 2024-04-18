@@ -40,12 +40,7 @@ const handleSearch = (e)=>{
 
     return (
     <div className={styles.header}>
-       {/* <div className={styles.waves}>
-        <div className={clsx(styles.wave1, styles.wave)}> </div>
-        <div className={clsx(styles.wave2, styles.wave)}> </div>
-        <div className={clsx(styles.wave3, styles.wave)}> </div>
-        <div className={clsx(styles.wave4, styles.wave)}> </div>
-      </div> */}
+      
 
     </div>
   )

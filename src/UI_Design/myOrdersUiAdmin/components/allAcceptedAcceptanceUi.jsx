@@ -19,7 +19,8 @@ console.log(data);
                             <div className={styles.date_price}>
                                 <div className={styles.order_header}>
                                     <p>Order <p className={styles.count_order}> #{number(item?.countOrders)} </p> at  <h5>{time(item?.date)}</h5> </p>
-                                    <button onClick={() => toSent(item)}>{item.sent ? <span className={styles.accepted}>accepted</span> : <span className={styles.sent}>acceptance</span>}</button>
+                                    <button onClick={() => toSent(item)}>
+                                        {item.sent ? <span className={styles.accepted}>accepted</span> : <span className={styles.sent}>acceptance</span>}</button>
                                 </div>
 
                                 <div className={styles.more_information}>
