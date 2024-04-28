@@ -23,6 +23,11 @@ export const navLinks = [
     title: "Liked",
     path: '/liked',
   },
+  {
+    id: 3,
+    title: "News",
+    path: '/news',
+  },
   
    
   

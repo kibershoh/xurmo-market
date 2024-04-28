@@ -4,6 +4,7 @@ import {  Cart, Contact, Home, Login, Register, Reset, Shop, Checkout, ProductDe
 import { AddProduct, AllProducts, Categories, Dashboard, Edit, OrderDetails, OrderLists, Users } from '../../Admin/Pages';
 import ProtectedAdminRoute from '../ProtectedAdminRoute';
 import ProtectedRoute from '../ProtectedRoute';
+import News from '../../Pages/news';
 
 const Routers = () => {
   return (
@@ -11,6 +12,7 @@ const Routers = () => {
       <Route path='/' element={<Home/>}/>
       <Route path='/cart' element={<Cart/>}/>
       <Route path='/shop' element={<Shop/>}/>
+      <Route path='/news' element={<News/>}/>
       <Route path='/shop/:id' element={<ProductDetails/>}/>
       <Route path='/contact' element={<Contact/>}/>
       <Route path='/liked' element={<LikedProducts/>}/>

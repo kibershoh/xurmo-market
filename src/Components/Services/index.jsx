@@ -14,14 +14,14 @@ const Services = () => {
        
          initial={{
         opacity: 0,
-        y: 250,
+        y: -250,
       }}
       whileInView={{
         opacity: 1,
         x: 0,
         y:0, // Slide in to its original position
         transition: {
-          duration: 0.5 // Animation duration
+          duration: 1 // Animation duration
         }
       }}
       // viewport={{ once: true }}
