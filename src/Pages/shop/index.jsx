@@ -51,7 +51,7 @@ const Shop = () => {
   }
    return (
    <>
-      <TotalSection title={"Products"} />
+      <TotalSection />
     <div className={styles.shop}>
       <div className={styles.shop_header}>
         <div className={styles.search_product}>

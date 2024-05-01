@@ -1,11 +1,10 @@
 import React from 'react'
 import styles from './styles.module.scss'
-const TotalSection = ({title}) => {
+const TotalSection = () => {
   return (
     <div className={styles.total_section}>
 
         <h1>
-            {/* {title} */}
         </h1>
     </div>
   )

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import noimage from '../../assets/notimage.jpg'
 import CardLoader from '../../Constants/LoaderCard';
 const News = () => {
-  const url = 'https://newsapi.org/v2/top-headlines?country=us&category=general&apiKey=40ff1f7d7bb34dccbc9d2bd3cae48f1a';
+  const url = 'https://newsapi.org/v2/everything?q=bitcoin&apiKey=40ff1f7d7bb34dccbc9d2bd3cae48f1a';
 
 
   const [articles, setArticles] = useState([]);
